@@ -19,28 +19,28 @@ const Skills = () => {
   const renderIcon = (iconName) => {
     switch (iconName) {
       case 'code':
-        return <Code className="w-6 h-6 text-[#00ff9d]" />;
+        return <Code className="w-6 h-6 text-[#00ff9d] shrink-0" />;
       case 'cpu':
-        return <Cpu className="w-6 h-6 text-rose-400" />;
+        return <Cpu className="w-6 h-6 text-rose-400 shrink-0" />;
       case 'layers':
-        return <Layers className="w-6 h-6 text-[#00e5ff]" />;
+        return <Layers className="w-6 h-6 text-[#00e5ff] shrink-0" />;
       case 'database':
-        return <Database className="w-6 h-6 text-amber-400" />;
+        return <Database className="w-6 h-6 text-amber-400 shrink-0" />;
       case 'cloud':
-        return <Cloud className="w-6 h-6 text-blue-400" />;
+        return <Cloud className="w-6 h-6 text-blue-400 shrink-0" />;
       case 'network':
-        return <Share2 className="w-6 h-6 text-fuchsia-400" />;
+        return <Share2 className="w-6 h-6 text-fuchsia-400 shrink-0" />;
       case 'server':
-        return <Server className="w-6 h-6 text-orange-400" />;
+        return <Server className="w-6 h-6 text-orange-400 shrink-0" />;
       case 'book':
-        return <BookOpen className="w-6 h-6 text-teal-400" />;
+        return <BookOpen className="w-6 h-6 text-teal-400 shrink-0" />;
       default:
-        return <Code className="w-6 h-6 text-[#00ff9d]" />;
+        return <Code className="w-6 h-6 text-[#00ff9d] shrink-0" />;
     }
   };
 
   return (
-    <section id="skills" className="py-16 sm:py-24 px-4 max-w-6xl mx-auto relative z-10">
+    <section id="skills" className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
       <SectionHeader command={headingCommand} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
@@ -54,7 +54,7 @@ const Skills = () => {
           return (
             <div
               key={idx}
-              className={`bg-[#0c1618] rounded-xl p-6 font-mono flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${
+              className={`h-full bg-[#0c1618] rounded-xl p-6 font-mono flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${
                 isHighlighted
                   ? 'border border-[#00ff9d] shadow-[0_0_22px_rgba(0,255,157,0.22)] bg-[#0e1a1d]'
                   : 'border border-[#00ff9d]/15 hover:border-[#00ff9d]/40 hover:shadow-[0_0_15px_rgba(0,255,157,0.1)]'
@@ -62,11 +62,13 @@ const Skills = () => {
             >
               <div>
                 {/* Header dots & filename */}
-                <div className="flex items-center gap-2 pb-3 mb-4 border-b border-slate-800/70 text-xs sm:text-sm text-slate-400">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] inline-block"></span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] inline-block"></span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f] inline-block"></span>
-                  <span className="ml-1 text-slate-300 font-medium">{cat.fileName}</span>
+                <div className="flex items-center gap-2 pb-3 mb-4 border-b border-slate-800/70 text-xs text-slate-400 overflow-hidden">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] inline-block shrink-0"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] inline-block shrink-0"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f] inline-block shrink-0"></span>
+                  <span className="ml-1 text-slate-300 font-medium text-xs tracking-tight truncate">
+                    {cat.fileName}
+                  </span>
                 </div>
 
                 {/* Category Icon & Title */}

@@ -82,32 +82,34 @@ const DistributedSystemCard = ({ cat }) => {
   };
 
   // =========================================================================
-  // STATE 1: Existing Skill Card
+  // STATE 1: Existing Skill Card (Matches all other cards exactly)
   // =========================================================================
   if (!isInspecting) {
     return (
       <div
         onClick={() => setIsInspecting(true)}
-        className="bg-[#0e1a1d] rounded-xl p-6 font-mono flex flex-col justify-between transition-all duration-300 border border-[#00ff9d] shadow-[0_0_22px_rgba(0,255,157,0.22)] hover:-translate-y-1 cursor-pointer group select-none"
+        className="h-full bg-[#0c1618] rounded-xl p-6 font-mono flex flex-col justify-between transition-all duration-300 border border-[#00ff9d]/15 hover:border-[#00ff9d]/40 hover:shadow-[0_0_15px_rgba(0,255,157,0.1)] hover:-translate-y-1 cursor-pointer group select-none relative"
       >
+        {/* Inspect System Pop-Up Badge (Floats top-right ONLY on hover) */}
+        <span className="absolute top-4 right-4 z-20 text-[11px] text-[#00ff9d] bg-[#081518] px-2.5 py-1 rounded border border-[#00ff9d] font-semibold flex items-center gap-1.5 opacity-0 group-hover:opacity-100 group-hover:bg-[#00ff9d] group-hover:text-black transition-all duration-200 shadow-[0_0_12px_rgba(0,255,157,0.3)] pointer-events-none">
+          <RefreshCw className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} />
+          <span>INSPECT SYSTEM</span>
+        </span>
+
         <div>
-          {/* Header dots & filename & inspect pill */}
-          <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-800/70 text-xs sm:text-sm text-slate-400">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] inline-block"></span>
-              <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] inline-block"></span>
-              <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f] inline-block"></span>
-              <span className="ml-1 text-slate-300 font-medium">{cat.fileName}</span>
-            </div>
-            <span className="text-[11px] text-[#00ff9d] bg-[#00ff9d]/10 px-2 py-0.5 rounded border border-[#00ff9d]/30 font-semibold flex items-center gap-1 group-hover:bg-[#00ff9d] group-hover:text-black transition-all">
-              <RefreshCw className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} />
-              <span>INSPECT SYSTEM</span>
+          {/* Header dots & filename (Identical HTML to all other cards) */}
+          <div className="flex items-center gap-2 pb-3 mb-4 border-b border-slate-800/70 text-xs text-slate-400 overflow-hidden">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] inline-block shrink-0"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] inline-block shrink-0"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f] inline-block shrink-0"></span>
+            <span className="ml-1 text-slate-300 font-medium text-xs tracking-tight truncate">
+              {cat.fileName}
             </span>
           </div>
 
           {/* Category Icon & Title */}
           <div className="flex items-center gap-3 mb-3">
-            <Share2 className="w-6 h-6 text-fuchsia-400" />
+            <Share2 className="w-6 h-6 text-fuchsia-400 shrink-0" />
             <h3 className="text-base sm:text-lg font-bold text-slate-100 tracking-tight">
               {cat.title}
             </h3>
@@ -119,12 +121,9 @@ const DistributedSystemCard = ({ cat }) => {
           </p>
         </div>
 
-        {/* Status footer pill */}
+        {/* Status footer pill (Matches standard card footer) */}
         <div className="pt-3 mt-4 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-400 font-mono">
-          <span className="text-[#00ff9d] font-semibold flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-[#00ff9d] animate-pulse"></span>
-            [INTERACTIVE DEMO]
-          </span>
+          <span>[READY]</span>
           <span className="text-[#00ff9d] font-semibold">v1.0</span>
         </div>
       </div>
@@ -158,13 +157,12 @@ const DistributedSystemCard = ({ cat }) => {
 
         {/* System Status Banner */}
         <div
-          className={`p-2.5 rounded-lg border text-xs font-mono mb-3 flex items-center justify-between gap-2 transition-colors ${
-            !nodeStates.node1 && !nodeStates.node2 && !nodeStates.node3
+          className={`p-2.5 rounded-lg border text-xs font-mono mb-3 flex items-center justify-between gap-2 transition-colors ${!nodeStates.node1 && !nodeStates.node2 && !nodeStates.node3
               ? 'bg-[#180a0c] border-rose-500/50 text-rose-300'
               : !nodeStates.node1 || !nodeStates.node2 || !nodeStates.node3
-              ? 'bg-[#161208] border-amber-500/40 text-amber-300'
-              : 'bg-[#081518] border-[#00ff9d]/30 text-[#00ff9d]'
-          }`}
+                ? 'bg-[#161208] border-amber-500/40 text-amber-300'
+                : 'bg-[#081518] border-[#00ff9d]/30 text-[#00ff9d]'
+            }`}
         >
           <div className="flex items-center gap-2 truncate">
             {!nodeStates.node1 && !nodeStates.node2 && !nodeStates.node3 ? (
@@ -287,23 +285,20 @@ const DistributedSystemCard = ({ cat }) => {
             {/* NODE 01 */}
             <div
               onClick={() => toggleNode('node1')}
-              className={`p-2 rounded-lg border text-center cursor-pointer transition-all duration-200 ${
-                nodeStates.node1
+              className={`p-2 rounded-lg border text-center cursor-pointer transition-all duration-200 ${nodeStates.node1
                   ? 'bg-[#081518] border-[#00ff9d]/50 hover:border-[#00ff9d] text-slate-100 shadow-[0_0_10px_rgba(0,255,157,0.1)]'
                   : 'bg-[#180a0c] border-rose-500/60 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.2)] opacity-80'
-              }`}
+                }`}
             >
               <div className="font-bold text-[11px] sm:text-xs">NODE 01</div>
               <div className="flex items-center justify-center gap-1.5 mt-0.5">
                 <span
-                  className={`w-2 h-2 rounded-full ${
-                    nodeStates.node1 ? 'bg-[#00ff9d] animate-pulse' : 'bg-rose-500'
-                  }`}
+                  className={`w-2 h-2 rounded-full ${nodeStates.node1 ? 'bg-[#00ff9d] animate-pulse' : 'bg-rose-500'
+                    }`}
                 ></span>
                 <span
-                  className={`text-[10px] font-semibold ${
-                    nodeStates.node1 ? 'text-[#00ff9d]' : 'text-rose-400'
-                  }`}
+                  className={`text-[10px] font-semibold ${nodeStates.node1 ? 'text-[#00ff9d]' : 'text-rose-400'
+                    }`}
                 >
                   {nodeStates.node1 ? 'HEALTHY' : 'FAILED'}
                 </span>
@@ -313,23 +308,20 @@ const DistributedSystemCard = ({ cat }) => {
             {/* NODE 02 */}
             <div
               onClick={() => toggleNode('node2')}
-              className={`p-2 rounded-lg border text-center cursor-pointer transition-all duration-200 ${
-                nodeStates.node2
+              className={`p-2 rounded-lg border text-center cursor-pointer transition-all duration-200 ${nodeStates.node2
                   ? 'bg-[#081518] border-[#00ff9d]/50 hover:border-[#00ff9d] text-slate-100 shadow-[0_0_10px_rgba(0,255,157,0.1)]'
                   : 'bg-[#180a0c] border-rose-500/60 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.2)] opacity-80'
-              }`}
+                }`}
             >
               <div className="font-bold text-[11px] sm:text-xs">NODE 02</div>
               <div className="flex items-center justify-center gap-1.5 mt-0.5">
                 <span
-                  className={`w-2 h-2 rounded-full ${
-                    nodeStates.node2 ? 'bg-[#00ff9d] animate-pulse' : 'bg-rose-500'
-                  }`}
+                  className={`w-2 h-2 rounded-full ${nodeStates.node2 ? 'bg-[#00ff9d] animate-pulse' : 'bg-rose-500'
+                    }`}
                 ></span>
                 <span
-                  className={`text-[10px] font-semibold ${
-                    nodeStates.node2 ? 'text-[#00ff9d]' : 'text-rose-400'
-                  }`}
+                  className={`text-[10px] font-semibold ${nodeStates.node2 ? 'text-[#00ff9d]' : 'text-rose-400'
+                    }`}
                 >
                   {nodeStates.node2 ? 'HEALTHY' : 'FAILED'}
                 </span>
@@ -339,23 +331,20 @@ const DistributedSystemCard = ({ cat }) => {
             {/* NODE 03 */}
             <div
               onClick={() => toggleNode('node3')}
-              className={`p-2 rounded-lg border text-center cursor-pointer transition-all duration-200 ${
-                nodeStates.node3
+              className={`p-2 rounded-lg border text-center cursor-pointer transition-all duration-200 ${nodeStates.node3
                   ? 'bg-[#081518] border-[#00ff9d]/50 hover:border-[#00ff9d] text-slate-100 shadow-[0_0_10px_rgba(0,255,157,0.1)]'
                   : 'bg-[#180a0c] border-rose-500/60 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.2)] opacity-80'
-              }`}
+                }`}
             >
               <div className="font-bold text-[11px] sm:text-xs">NODE 03</div>
               <div className="flex items-center justify-center gap-1.5 mt-0.5">
                 <span
-                  className={`w-2 h-2 rounded-full ${
-                    nodeStates.node3 ? 'bg-[#00ff9d] animate-pulse' : 'bg-rose-500'
-                  }`}
+                  className={`w-2 h-2 rounded-full ${nodeStates.node3 ? 'bg-[#00ff9d] animate-pulse' : 'bg-rose-500'
+                    }`}
                 ></span>
                 <span
-                  className={`text-[10px] font-semibold ${
-                    nodeStates.node3 ? 'text-[#00ff9d]' : 'text-rose-400'
-                  }`}
+                  className={`text-[10px] font-semibold ${nodeStates.node3 ? 'text-[#00ff9d]' : 'text-rose-400'
+                    }`}
                 >
                   {nodeStates.node3 ? 'HEALTHY' : 'FAILED'}
                 </span>
