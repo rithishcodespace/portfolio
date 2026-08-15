@@ -330,6 +330,7 @@ export const portfolioData = {
         techStack:
           'React, Node.js, Express.js, Python, Mapbox, Tailwind CSS, Machine Learning',
 
+        image: '/plantera.png',
         repoUrl: 'https://github.com/The-Plantera/Plantera-Web',
         isHighlighted: false,
       },
