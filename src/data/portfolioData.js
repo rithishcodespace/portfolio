@@ -433,7 +433,8 @@ export const portfolioData = {
         category: 'NATIONAL HACKATHON CHAMPION',
         badge: 'RECOGNIZED',
         color: 'amber',
-        details: 'Built a high-performance full-stack application under tight competition constraints, recognized by IEEE judges.',
+        details: 'Awarded 1st place with ₹10,000 cash prize in the National Level Hackathon organized by IEEE.',
+        image: '/ieee_devspark.png',
       },
 
       {
