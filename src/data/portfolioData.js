@@ -376,6 +376,7 @@ export const portfolioData = {
         techStack:
           'React, Node.js, Express.js, MongoDB, JWT, REST APIs, Tailwind CSS',
 
+        image: '/devtinder.png',
         repoUrl: '#',
         isHighlighted: false,
       },
