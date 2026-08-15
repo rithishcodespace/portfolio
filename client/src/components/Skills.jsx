@@ -19,8 +19,6 @@ const Skills = () => {
   const { headingCommand, categories } = portfolioData.skills;
   const [activeSkill, setActiveSkill] = useState(null);
 
-  const firstRowFileNames = ['languages.sh', 'backend.service', 'frontend.ui', 'databases.sql'];
-
   const renderIcon = (iconName) => {
     switch (iconName) {
       case 'code':
@@ -50,33 +48,34 @@ const Skills = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
         {categories.map((cat, idx) => {
-          // If this is the Distributed Systems card prototype, render the interactive card
+          // If this is the Distributed Systems card prototype, render the card shell with onClick handler
           if (cat.fileName === 'distributed.proto' || cat.title === 'Distributed Systems') {
-            return <DistributedSystemCard key={idx} cat={cat} />;
+            return (
+              <DistributedSystemCard
+                key={idx}
+                cat={cat}
+                onClick={() => setActiveSkill(cat)}
+              />
+            );
           }
 
-          const isFirstRow = firstRowFileNames.includes(cat.fileName);
           const isHighlighted = cat.isHighlighted;
 
           return (
             <div
               key={idx}
-              onClick={() => isFirstRow && setActiveSkill(cat)}
-              className={`h-full bg-[#0c1618] rounded-xl p-6 font-mono flex flex-col justify-between transition-all duration-300 relative ${
-                isFirstRow ? 'cursor-pointer group hover:-translate-y-1' : ''
-              } ${
+              onClick={() => setActiveSkill(cat)}
+              className={`h-full bg-[#0c1618] rounded-xl p-6 font-mono flex flex-col justify-between transition-all duration-300 relative cursor-pointer group hover:-translate-y-1 ${
                 isHighlighted
                   ? 'border border-[#00ff9d] shadow-[0_0_22px_rgba(0,255,157,0.22)] bg-[#0e1a1d]'
                   : 'border border-[#00ff9d]/15 hover:border-[#00ff9d]/40 hover:shadow-[0_0_15px_rgba(0,255,157,0.1)]'
               }`}
             >
-              {/* Hover Pop-up Badge for First Row Cards */}
-              {isFirstRow && (
-                <span className="absolute top-4 right-4 z-20 text-[11px] text-[#00ff9d] bg-[#081518] px-2.5 py-1 rounded border border-[#00ff9d] font-semibold flex items-center gap-1.5 opacity-0 group-hover:opacity-100 group-hover:bg-[#00ff9d] group-hover:text-black transition-all duration-200 shadow-[0_0_12px_rgba(0,255,157,0.3)] pointer-events-none">
-                  <RefreshCw className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} />
-                  <span>INSPECT</span>
-                </span>
-              )}
+              {/* Hover Pop-up Badge */}
+              <span className="absolute top-4 right-4 z-20 text-[11px] text-[#00ff9d] bg-[#081518] px-2.5 py-1 rounded border border-[#00ff9d] font-semibold flex items-center gap-1.5 opacity-0 group-hover:opacity-100 group-hover:bg-[#00ff9d] group-hover:text-black transition-all duration-200 shadow-[0_0_12px_rgba(0,255,157,0.3)] pointer-events-none">
+                <RefreshCw className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} />
+                <span>INSPECT</span>
+              </span>
 
               <div>
                 {/* Header dots & filename */}
@@ -113,7 +112,7 @@ const Skills = () => {
         })}
       </div>
 
-      {/* Interactive Centered Modal Popup for First Row Cards */}
+      {/* Interactive Centered Modal Popup */}
       <SkillInspectionModal
         activeSkill={activeSkill}
         onClose={() => setActiveSkill(null)}

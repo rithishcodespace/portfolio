@@ -10,24 +10,41 @@ import {
   ArrowRight,
   RefreshCw,
   Cpu,
+  Cloud,
+  Wrench,
+  BookOpen,
+  RotateCcw,
+  GitBranch,
+  ShieldCheck,
+  Activity,
+  Bug,
   Terminal,
 } from 'lucide-react';
+import { DistributedInspectorContent } from './DistributedSystemCard';
 
 const SkillInspectionModal = ({ activeSkill, onClose }) => {
-  // Lock body scroll while modal is open
+  // Lock body scroll ONLY while modal is active
   useEffect(() => {
+    if (!activeSkill) {
+      document.body.style.overflow = '';
+      return;
+    }
+
     document.body.style.overflow = 'hidden';
+
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         onClose();
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
+
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onClose]);
+  }, [activeSkill, onClose]);
 
   if (!activeSkill) return null;
 
@@ -69,6 +86,10 @@ const SkillInspectionModal = ({ activeSkill, onClose }) => {
           {activeSkill.fileName === 'backend.service' && <BackendInspector />}
           {activeSkill.fileName === 'frontend.ui' && <FrontendInspector />}
           {activeSkill.fileName === 'databases.sql' && <DatabasesInspector />}
+          {activeSkill.fileName === 'cloud.yml' && <CloudDevOpsInspector />}
+          {activeSkill.fileName === 'distributed.proto' && <DistributedInspectorContent />}
+          {activeSkill.fileName === 'developer.tools' && <DeveloperToolsInspector />}
+          {activeSkill.fileName === 'cs-fundamentals.txt' && <CoreCSInspector />}
         </div>
 
         {/* Modal Footer */}
@@ -95,35 +116,30 @@ const LanguagesInspector = () => {
       role: 'Primary application development',
       usedFor: ['Backend services', 'APIs', 'Full-stack applications'],
       why: 'Strong typing, maintainability and excellent developer tooling.',
-      color: '#00ff9d',
       codeSnippet: `interface User {\n  id: string;\n  role: 'admin' | 'dev';\n}\nconst authenticate = (u: User): boolean => u.role === 'admin';`,
     },
     Python: {
       role: 'AI / scripting / data processing',
       usedFor: ['AI applications', 'Automation', 'Data processing'],
       why: 'Fast prototyping, rich ML/AI ecosystem, expressive syntax.',
-      color: '#38bdf8',
       codeSnippet: `import asyncio\nasync def process_embeddings(docs):\n    return await ai_engine.vectorize(docs)`,
     },
     'C++': {
       role: 'Problem solving / DSA',
       usedFor: ['Competitive programming', 'Algorithms', 'Performance-oriented code'],
       why: 'Uncompromising execution speed, explicit memory control, deep algorithmic foundation.',
-      color: '#f43f5e',
       codeSnippet: `#include <vector>\nusing namespace std;\nint main() { vector<int> dp(100, 0); return 0; }`,
     },
     Java: {
       role: 'Backend / OOP',
       usedFor: ['Enterprise systems', 'Robust OOP design', 'Concurrent services'],
       why: 'Strict type safety, battle-tested JVM runtime, structured enterprise patterns.',
-      color: '#fbbf24',
       codeSnippet: `@RestController\npublic class SystemController {\n  @GetMapping("/health")\n  public Status getStatus() { return Status.UP; }\n}`,
     },
     SQL: {
       role: 'Data persistence and querying',
       usedFor: ['Complex JOINs', 'Query optimization', 'Schema design & indexing'],
       why: 'Declarative data manipulation, ACID guarantees, relational consistency.',
-      color: '#c084fc',
       codeSnippet: `SELECT p.name, COUNT(t.id) as tasks\nFROM projects p\nJOIN tasks t ON p.id = t.project_id\nGROUP BY p.id;`,
     },
   };
@@ -142,7 +158,6 @@ const LanguagesInspector = () => {
         </p>
       </div>
 
-      {/* Language Selector Tabs */}
       <div className="flex flex-wrap gap-2 mb-5">
         {Object.keys(langData).map((lang) => (
           <button
@@ -159,7 +174,6 @@ const LanguagesInspector = () => {
         ))}
       </div>
 
-      {/* Detail Inspector Card */}
       <div className="bg-[#071113] border border-slate-800 rounded-xl p-4 sm:p-5 space-y-4">
         <div>
           <span className="text-[10px] text-slate-500 font-semibold tracking-wider block">ROLE</span>
@@ -188,7 +202,6 @@ const LanguagesInspector = () => {
           <p className="text-xs text-slate-300 leading-relaxed">{current.why}</p>
         </div>
 
-        {/* Code Snippet Box */}
         <div className="bg-[#04090a] border border-slate-800/90 rounded-lg p-3 text-xs font-mono">
           <div className="text-[10px] text-slate-500 mb-1 flex items-center justify-between">
             <span>SAMPLE_SNIPPET.ts</span>
@@ -257,7 +270,6 @@ const BackendInspector = () => {
         </button>
       </div>
 
-      {/* Interactive Pipeline Diagram */}
       <div className="bg-[#071113] border border-slate-800 rounded-xl p-4 mb-4">
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
           {stages.map((stage) => {
@@ -267,7 +279,7 @@ const BackendInspector = () => {
               <button
                 key={stage.id}
                 onClick={() => setActiveStage(stage.id)}
-                className={`p-2 rounded.lg border text-center transition-all cursor-pointer flex flex-col items-center justify-center min-h-[64px] relative ${
+                className={`p-2 rounded-lg border text-center transition-all cursor-pointer flex flex-col items-center justify-center min-h-[64px] relative ${
                   isAnimating
                     ? 'bg-[#00e5ff]/20 border-[#00e5ff] text-[#00e5ff] shadow-[0_0_15px_#00e5ff]'
                     : isSelected
@@ -294,7 +306,6 @@ const BackendInspector = () => {
         </div>
       </div>
 
-      {/* Stage Detail Card */}
       <div className="bg-[#071113] border border-slate-800 rounded-xl p-4 sm:p-5">
         <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-800/80">
           <span className="text-xs font-bold text-[#00e5ff]">{activeObj.name} STAGE</span>
@@ -370,7 +381,6 @@ const FrontendInspector = () => {
         </p>
       </div>
 
-      {/* Pipeline Stages Flow */}
       <div className="flex flex-wrap items-center justify-between gap-1 bg-[#071113] border border-slate-800 p-3 rounded-xl mb-4 text-xs font-mono">
         {['USER', 'UI', 'STATE', 'API', 'RESPONSE'].map((st, i) => (
           <React.Fragment key={st}>
@@ -389,13 +399,11 @@ const FrontendInspector = () => {
         ))}
       </div>
 
-      {/* Selected Stage Explanation */}
       <div className="bg-[#071113] border border-slate-800 p-3 rounded-lg mb-4 text-xs text-slate-300">
         <span className="text-fuchsia-400 font-bold mr-2">[{stage} STAGE]:</span>
         <span>{stagesInfo[stage]}</span>
       </div>
 
-      {/* Interactive Mock UI Container */}
       <div className="bg-[#040a0c] border border-slate-800 rounded-xl p-4 font-mono">
         <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-800/80">
           <div className="flex items-center gap-2">
@@ -425,7 +433,6 @@ const FrontendInspector = () => {
           )}
         </button>
 
-        {/* Dynamic Project Rows */}
         <div className="space-y-2">
           {appState.projects.length === 0 ? (
             <div className="text-center py-4 text-xs text-slate-500 border border-dashed border-slate-800 rounded-lg">
@@ -460,7 +467,6 @@ const DatabasesInspector = () => {
   const [selectedDb, setSelectedDb] = useState('PostgreSQL');
   const [isExecuting, setIsExecuting] = useState(false);
   const [hasExecuted, setHasExecuted] = useState(false);
-  const [activeStage, setActiveStage] = useState('DATABASE');
 
   const dbInfo = {
     PostgreSQL: {
@@ -484,20 +490,10 @@ const DatabasesInspector = () => {
 
   const handleExecuteQuery = () => {
     setIsExecuting(true);
-    setActiveStage('ORM');
-
-    setTimeout(() => {
-      setActiveStage('DATABASE');
-    }, 400);
-
-    setTimeout(() => {
-      setActiveStage('RESULT');
-    }, 800);
-
     setTimeout(() => {
       setIsExecuting(false);
       setHasExecuted(true);
-    }, 1200);
+    }, 1000);
   };
 
   return (
@@ -512,7 +508,6 @@ const DatabasesInspector = () => {
         </p>
       </div>
 
-      {/* Database Selector Tabs */}
       <div className="flex flex-wrap gap-2 mb-4">
         {['PostgreSQL', 'MySQL', 'MongoDB'].map((db) => (
           <button
@@ -532,13 +527,11 @@ const DatabasesInspector = () => {
         ))}
       </div>
 
-      {/* Engine Architecture Note */}
       <div className="bg-[#071113] border border-slate-800 p-3 rounded-lg mb-4 text-xs">
         <span className="text-amber-400 font-bold">{selectedDb}</span>
         <span className="text-slate-400 ml-2">({currentDb.type}) — {currentDb.note}</span>
       </div>
 
-      {/* Query Console Box */}
       <div className="bg-[#04090a] border border-slate-800 rounded-xl p-4 font-mono mb-4">
         <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-800/80">
           <span className="text-[10px] text-slate-500 font-semibold">[QUERY_CONSOLE]</span>
@@ -558,7 +551,6 @@ const DatabasesInspector = () => {
         <pre className="text-amber-300 text-xs font-mono">{currentDb.query}</pre>
       </div>
 
-      {/* Result Table */}
       {hasExecuted ? (
         <div className="bg-[#071113] border border-slate-800 rounded-xl p-3 font-mono text-xs animate-fadeIn">
           <div className="text-[10px] text-slate-500 mb-2 font-bold">[EXECUTION_RESULT — 3 ROWS RETURNED]</div>
@@ -598,6 +590,338 @@ const DatabasesInspector = () => {
           [Click "EXECUTE QUERY" to inspect data flow through the storage layer]
         </div>
       )}
+    </div>
+  );
+};
+
+// =========================================================================
+// 5. CLOUD & DEVOPS INSPECTOR (cloud.yml)
+// =========================================================================
+const CloudDevOpsInspector = () => {
+  const pipelineStages = [
+    { id: 'CODE', label: 'CODE' },
+    { id: 'GIT', label: 'GIT PUSH' },
+    { id: 'CICD', label: 'CI / CD' },
+    { id: 'BUILD', label: 'BUILD' },
+    { id: 'DOCKER', label: 'DOCKER' },
+    { id: 'DEPLOY', label: 'DEPLOYMENT' },
+    { id: 'RUNNING', label: 'RUNNING APP' },
+    { id: 'MONITOR', label: 'MONITORING' },
+  ];
+
+  const [currentStep, setCurrentStep] = useState(7); // default 7 = healthy
+  const [isDeploying, setIsDeploying] = useState(false);
+  const [statusLog, setStatusLog] = useState('ALL SYSTEMS HEALTHY • PRODUCTION v2.4 ACTIVE');
+
+  const handleDeploy = () => {
+    setIsDeploying(true);
+    setCurrentStep(0);
+    setStatusLog('DEPLOYMENT STARTED: INITIATING GIT PUSH...');
+
+    let step = 0;
+    const interval = setInterval(() => {
+      step++;
+      setCurrentStep(step);
+
+      if (step === 1) setStatusLog('GIT PUSH: SYNCING COMMITS TO MAIN...');
+      if (step === 2) setStatusLog('CI/CD PIPELINE: RUNNING INTEGRATION SUITE...');
+      if (step === 3) setStatusLog('BUILD: COMPILING BUNDLES & ASSETS...');
+      if (step === 4) setStatusLog('DOCKER: BUILDING MULTI-STAGE IMAGE...');
+      if (step === 5) setStatusLog('DEPLOYMENT: KUBERNETES ROLLING UPDATE IN PROGRESS...');
+      if (step === 6) setStatusLog('RUNNING APP: HEALTH CHECKS PASSED (200 OK)...');
+      if (step === 7) {
+        setStatusLog('ALL SYSTEMS HEALTHY • PRODUCTION DEPLOYMENT COMPLETE');
+        setIsDeploying(false);
+        clearInterval(interval);
+      }
+    }, 500);
+  };
+
+  const handleRollback = () => {
+    setIsDeploying(false);
+    setCurrentStep(7);
+    setStatusLog('ROLLBACK COMPLETED: REVERTED TO LAST STABLE REVISION (v2.3.9)');
+  };
+
+  return (
+    <div>
+      <div className="mb-4 flex items-center justify-between">
+        <div>
+          <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+            <Cloud className="w-5 h-5 text-blue-400" />
+            <span>CI/CD & DEPLOYMENT PIPELINE</span>
+          </h2>
+          <p className="text-xs text-slate-400 mt-1">
+            Simulate live container build, deployment, and status rollback.
+          </p>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={handleDeploy}
+            disabled={isDeploying}
+            className="bg-blue-500/15 hover:bg-blue-500 text-blue-400 hover:text-black border border-blue-500/40 px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
+          >
+            {isDeploying ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Play className="w-3.5 h-3.5 fill-current" />}
+            <span>DEPLOY</span>
+          </button>
+          <button
+            onClick={handleRollback}
+            disabled={isDeploying}
+            className="bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-black border border-rose-500/40 px-2.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1 transition-all cursor-pointer disabled:opacity-50"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+            <span>ROLLBACK</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Pipeline Status Banner */}
+      <div className="bg-[#071113] border border-blue-500/30 p-2.5 rounded-lg mb-4 text-xs font-mono flex items-center justify-between text-blue-300">
+        <span className="truncate">{statusLog}</span>
+        <span className="text-[10px] text-slate-500 shrink-0 font-semibold">[PIPELINE_STATUS]</span>
+      </div>
+
+      {/* Visual Pipeline Flow */}
+      <div className="bg-[#040a0c] border border-slate-800 rounded-xl p-4 mb-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          {pipelineStages.map((stg, i) => {
+            const isActive = i <= currentStep;
+            const isCurrent = i === currentStep && isDeploying;
+
+            return (
+              <div
+                key={stg.id}
+                className={`p-2.5 rounded-lg border text-center font-mono transition-all relative ${
+                  isCurrent
+                    ? 'bg-blue-500/20 border-blue-400 text-blue-300 shadow-[0_0_12px_rgba(59,130,246,0.3)] animate-pulse'
+                    : isActive
+                    ? 'bg-[#081518] border-[#00ff9d]/40 text-[#00ff9d]'
+                    : 'bg-[#040708] border-slate-800/80 text-slate-500'
+                }`}
+              >
+                <div className="text-[10px] font-bold mb-1">{stg.label}</div>
+                <div className="text-[9px] font-semibold">
+                  {isActive ? (isCurrent ? 'IN PROGRESS' : '[✓] PASSED') : '[PENDING]'}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Pipeline Status Indicators */}
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs font-mono">
+        <div className="bg-[#071113] border border-slate-800 p-2 rounded text-center text-slate-300">
+          <span className="text-[#00ff9d] font-bold">[✓]</span> SOURCE
+        </div>
+        <div className="bg-[#071113] border border-slate-800 p-2 rounded text-center text-slate-300">
+          <span className="text-[#00ff9d] font-bold">[✓]</span> BUILD
+        </div>
+        <div className="bg-[#071113] border border-slate-800 p-2 rounded text-center text-slate-300">
+          <span className="text-[#00ff9d] font-bold">[✓]</span> CONTAINER
+        </div>
+        <div className="bg-[#071113] border border-slate-800 p-2 rounded text-center text-slate-300">
+          <span className="text-[#00ff9d] font-bold">[✓]</span> DEPLOY
+        </div>
+        <div className="bg-[#071113] border border-slate-800 p-2 rounded text-center text-[#00ff9d] font-bold">
+          [●] HEALTHY
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// =========================================================================
+// 7. DEVELOPER TOOLS WORKFLOW INSPECTOR (developer.tools)
+// =========================================================================
+const DeveloperToolsInspector = () => {
+  const [selectedStage, setSelectedStage] = useState('DEBUG');
+
+  const workflowData = {
+    PLAN: {
+      title: 'REQUIREMENTS & SYSTEM ARCHITECTURE',
+      steps: ['01 REQUIREMENTS', '02 ARCHITECTURE', '03 API SPEC', '04 TASK BREAKDOWN'],
+      note: 'Defining clean interfaces, database schemas, and clear milestone tasks before writing code.',
+    },
+    CODE: {
+      title: 'MODULAR & TYPE-SAFE DEVELOPMENT',
+      steps: ['01 CLEAN APIS', '02 MODULAR DESIGN', '03 TYPE-SAFETY', '04 PR REVIEW'],
+      note: 'Writing self-documenting code with TypeScript strict mode, clean abstractions, and peer review.',
+    },
+    TEST: {
+      title: 'AUTOMATED TESTING & QUALITY ASSURANCE',
+      steps: ['01 UNIT TESTS', '02 INTEGRATION', '03 API TESTS', '04 EDGE CASES'],
+      note: 'Comprehensive test suites ensuring reliability across happy paths and boundary edge cases.',
+    },
+    DEBUG: {
+      title: 'ROOT CAUSE ANALYSIS & DIAGNOSTICS',
+      steps: ['01 REPRODUCE', '02 TRACE', '03 ISOLATE', '04 UNDERSTAND', '05 FIX', '06 VERIFY'],
+      note: 'Systematic debugging workflow: reproducing state, analyzing stack traces, isolating variables, and verifying resolution.',
+    },
+    COMMIT: {
+      title: 'VERSION CONTROL & REVISION LOGS',
+      steps: ['01 STAGE CHANGES', '02 PEER REVIEW', '03 COMMIT MSG', '04 PUSH TO MAIN'],
+      note: 'Atomic git commits with clear semantic messages (conventional commits specification).',
+    },
+    BUILD: {
+      title: 'OPTIMIZATION & BUNDLING',
+      steps: ['01 TREE SHAKING', '02 MINIFICATION', '03 CHUNK SPLIT', '04 ASSET OPTIM'],
+      note: 'Building production assets with zero redundant dependencies and optimal load times.',
+    },
+    DEPLOY: {
+      title: 'CONTINUOUS INTEGRATION & RELEASE',
+      steps: ['01 CONTAINERIZE', '02 CI PIPELINE', '03 HEALTH CHECK', '04 RELEASE LIVE'],
+      note: 'Automated container releases monitored via continuous health metrics.',
+    },
+  };
+
+  const current = workflowData[selectedStage];
+
+  return (
+    <div>
+      <div className="mb-4">
+        <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+          <Wrench className="w-5 h-5 text-orange-400" />
+          <span>ENGINEERING WORKFLOW EXPLORER</span>
+        </h2>
+        <p className="text-xs text-slate-400 mt-1">
+          Select a lifecycle stage to inspect my actual engineering workflow & principles.
+        </p>
+      </div>
+
+      {/* Stage Selector Tabs */}
+      <div className="flex flex-wrap gap-1.5 mb-4">
+        {Object.keys(workflowData).map((stg) => (
+          <button
+            key={stg}
+            onClick={() => setSelectedStage(stg)}
+            className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer border ${
+              selectedStage === stg
+                ? 'bg-orange-400/15 border-orange-400 text-orange-400 shadow-[0_0_10px_rgba(251,146,60,0.2)]'
+                : 'bg-[#071113] border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+            }`}
+          >
+            [ {stg} ]
+          </button>
+        ))}
+      </div>
+
+      {/* Stage Detail Visualizer */}
+      <div className="bg-[#071113] border border-slate-800 rounded-xl p-4 sm:p-5">
+        <div className="text-xs font-bold text-orange-400 mb-1">{current.title}</div>
+        <p className="text-xs text-slate-300 leading-relaxed mb-4">{current.note}</p>
+
+        {/* Step Flow Diagram */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          {current.steps.map((step, idx) => (
+            <div
+              key={idx}
+              className="bg-[#040a0c] border border-slate-800 p-2.5 rounded-lg text-xs font-mono flex items-center gap-2 text-slate-200"
+            >
+              <span className="text-orange-400 font-bold">→</span>
+              <span className="truncate">{step}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// =========================================================================
+// 8. CORE CS CONCEPT EXPLORER (cs-fundamentals.txt)
+// =========================================================================
+const CoreCSInspector = () => {
+  const [selectedConcept, setSelectedConcept] = useState('MEMORY');
+
+  const concepts = {
+    MEMORY: {
+      diagram: 'PROGRAM  →  VIRTUAL ADDRESS  →  MMU  →  PHYSICAL ADDRESS  →  RAM',
+      title: 'VIRTUAL MEMORY & PAGED ADDRESS SPACE',
+      explain:
+        'Translates virtual memory addresses into physical RAM pages via the Memory Management Unit (MMU) & page tables, isolating process memory spaces and preventing memory corruption.',
+    },
+    PROCESS: {
+      diagram: 'PROGRAM  →  PROCESS  (PID • MEMORY • FILE DESCRIPTORS • CPU STATE)',
+      title: 'PROCESS ISOLATION & CPU SCHEDULING',
+      explain:
+        'Operating system execution abstraction containing isolated virtual memory, file descriptor tables, context registers, and threads scheduled by the kernel scheduler.',
+    },
+    DATABASE: {
+      diagram: 'APPLICATION  →  QUERY  →  TRANSACTION LOG  →  STORAGE ENGINE  →  RESULT',
+      title: 'ACID TRANSACTIONS & STORAGE ENGINES',
+      explain:
+        'Guarantees Atomicity, Consistency, Isolation, and Durability across write transactions while leveraging B-Trees & WAL (Write-Ahead Logging) for index fast lookup.',
+    },
+    NETWORK: {
+      diagram: 'CLIENT  →  DNS RESOLVER  →  TCP 3-WAY HANDSHAKE  →  TLS / HTTP  →  SERVER',
+      title: 'SOCKET NETWORKING & PROTOCOL STACK',
+      explain:
+        'Resolves domain names via DNS, negotiates SYN-ACK TCP handshakes, establishes TLS socket encryption, and transmits application HTTP layer frames.',
+    },
+    ALGORITHM: {
+      diagram: 'INPUT DATA  →  ALGORITHM (BIG-O EVALUATION)  →  OPTIMIZED OUTPUT',
+      title: 'TIME & SPACE COMPLEXITY OPTIMIZATION',
+      explain:
+        'Step-by-step computational procedures evaluated by asymptotic time complexity O(N log N) and space bounds to guarantee efficient memory & execution scaling.',
+    },
+    SYSTEM: {
+      diagram: 'CLIENT  →  LOAD BALANCER  →  STATELESS SERVICE  →  CACHE  →  DATABASE',
+      title: 'DISTRIBUTED SYSTEM ARCHITECTURE',
+      explain:
+        'Architectural design prioritizing horizontal elasticity, load balancing, caching strategies (Redis), and failover redundancy for 99.99% system availability.',
+    },
+  };
+
+  const current = concepts[selectedConcept];
+
+  return (
+    <div>
+      <div className="mb-4">
+        <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+          <BookOpen className="w-5 h-5 text-teal-400" />
+          <span>CORE CS CONCEPT EXPLORER</span>
+        </h2>
+        <p className="text-xs text-slate-400 mt-1">
+          Select a fundamental computer science concept to inspect its underlying mechanism.
+        </p>
+      </div>
+
+      {/* Concept Selector Tabs */}
+      <div className="flex flex-wrap gap-2 mb-4">
+        {Object.keys(concepts).map((concept) => (
+          <button
+            key={concept}
+            onClick={() => setSelectedConcept(concept)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer border ${
+              selectedConcept === concept
+                ? 'bg-teal-400/15 border-teal-400 text-teal-400 shadow-[0_0_10px_rgba(45,212,191,0.2)]'
+                : 'bg-[#071113] border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+            }`}
+          >
+            [ {concept} ]
+          </button>
+        ))}
+      </div>
+
+      {/* Visual Diagram & Concept Card */}
+      <div className="bg-[#071113] border border-slate-800 rounded-xl p-4 sm:p-5 space-y-4">
+        <div className="text-xs font-bold text-teal-400">{current.title}</div>
+
+        {/* Visual Flow Diagram */}
+        <div className="bg-[#040a0c] border border-teal-500/30 rounded-lg p-3 text-xs font-mono text-teal-300 overflow-x-auto">
+          <span className="text-[10px] text-slate-500 block mb-1 font-semibold">[MECHANISM_FLOW]</span>
+          <pre className="whitespace-pre-wrap leading-relaxed">{current.diagram}</pre>
+        </div>
+
+        {/* Explanation */}
+        <div>
+          <span className="text-[10px] text-slate-500 font-semibold tracking-wider block mb-1">
+            CORE PRINCIPLE
+          </span>
+          <p className="text-xs text-slate-300 leading-relaxed">{current.explain}</p>
+        </div>
+      </div>
     </div>
   );
 };
