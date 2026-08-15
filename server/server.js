@@ -29,6 +29,13 @@ app.use('/api/contact', contactRoute);
 app.use('/api/admin', adminRoute);
 app.use('/api/track', trackingRoute);
 
+// health api
+app.get('/api/health', (req,res) => {
+    return res.status(200).json({
+        message: "backend is healthy!!"
+    })
+});
+
 app.use((error, req, res, next) => {
     console.error('Error:', error);
     res.status(error.status || 500);
@@ -40,6 +47,6 @@ app.use((error, req, res, next) => {
     });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log(`server started sucessfully on port:${PORT}`);
 })
