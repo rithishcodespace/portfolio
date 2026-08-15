@@ -434,15 +434,51 @@ export const portfolioData = {
   },
 
   education: {
-    headingCommand: 'cat /etc/education.conf',
+    headingCommand: 'cat /etc/career_trajectory.conf',
 
-    fileName: 'education.json',
+    school: {
+      step: '01',
+      tag: 'FOUNDATION',
+      name: 'SSM Lakshmi Ammal Matriculation Higher Secondary School',
+      location: 'Komarapalayam, Tamil Nadu, India',
+      metricLabel: '12th Percentage',
+      metricValue: '91%',
+      status: 'COMPLETED',
+    },
 
-    college: 'Bannari Amman Institute of Technology',
-    degree: 'Bachelor of Engineering in Computer Science and Engineering',
-    period: 'Aug 2024 - Present',
-    cgpa: '8.29/10',
-    location: 'Sathyamangalam, Tamil Nadu, India',
+    college: {
+      step: '02',
+      tag: 'CURRENT',
+      name: 'Bannari Amman Institute of Technology',
+      degree: 'B.E. Computer Science and Engineering',
+      period: 'Aug 2024 — Present',
+      metricLabel: 'CGPA',
+      metricValue: '8.29 / 10',
+      location: 'Sathyamangalam, Tamil Nadu, India',
+      status: 'CURRENT',
+    },
+
+    career: {
+      step: '03',
+      tag: 'NEXT',
+      title: 'CAREER / PLACEMENT',
+      target: 'Software Engineering',
+      focus: ['Backend Engineering', 'Full-Stack Development', 'Cloud / DevOps'],
+      status: 'LOOKING FOR THE NEXT CHALLENGE',
+      objective: 'Turn side projects into production problems.',
+      objectiveStatus: 'READY FOR REAL-WORLD BUGS',
+      lookingFor: [
+        'Backend / Full-stack engineering opportunities',
+        'Problems involving scalable systems, APIs, and infrastructure',
+        'High-impact software engineering roles',
+      ],
+      gateSideQuest: {
+        title: 'GATE — CSE',
+        subtitle: 'OPTIONAL SIDE QUEST',
+        topics: ['DSA', 'OS', 'DBMS', 'Networks'],
+        status: 'PREPARING',
+      },
+    },
   },
 
   contact: {
