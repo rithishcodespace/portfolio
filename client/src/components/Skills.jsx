@@ -1,6 +1,7 @@
 import React from 'react';
 import SectionHeader from './SectionHeader';
 import { portfolioData } from '../data/portfolioData';
+import DistributedSystemCard from './DistributedSystemCard';
 import {
   Code,
   Cpu,
@@ -44,6 +45,11 @@ const Skills = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
         {categories.map((cat, idx) => {
+          // If this is the Distributed Systems card prototype, render the interactive card
+          if (cat.fileName === 'distributed.proto' || cat.title === 'Distributed Systems') {
+            return <DistributedSystemCard key={idx} cat={cat} />;
+          }
+
           const isHighlighted = cat.isHighlighted;
           return (
             <div
