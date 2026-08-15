@@ -6,6 +6,9 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
+import Achievements from './components/Achievements';
+import Education from './components/Education';
+import Contact from './components/Contact';
 
 function App() {
   return (
@@ -16,7 +19,7 @@ function App() {
       {/* Navigation Header */}
       <Navbar />
 
-      {/* Main Content Sections strictly adhering to provided screenshots */}
+      {/* Main Content Sections */}
       <main className="relative z-10 space-y-8 sm:space-y-16 pb-24">
         {/* 1. Hero Section: ./init_session.sh */}
         <Hero />
@@ -32,17 +35,31 @@ function App() {
 
         {/* 5. Projects Section: docker ps --filter status=running */}
         <Projects />
+
+        {/* 6. Achievements Section: cat /var/log/achievements.log */}
+        <Achievements />
+
+        {/* 7. Education Section: cat /etc/education.conf */}
+        <Education />
+
+        {/* 8. Contact Section: ssh chetancdhri@contact-server */}
+        <Contact />
       </main>
 
       {/* Terminal Footer */}
-      <footer className="relative z-10 border-t border-[#00ff9d]/15 py-8 text-center text-xs text-slate-400 font-mono">
-        <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="flex items-center gap-2">
-            <span className="text-[#00ff9d] font-bold">&gt;</span>
-            <span>Chetan Chaudhari © {new Date().getFullYear()}</span>
+      <footer className="relative z-10 border-t border-[#00ff9d]/15 py-8 text-center text-xs text-slate-400 font-mono bg-[#070e10]">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col items-center gap-3">
+          <p className="flex items-center gap-2 text-slate-300">
+            <span>© 2025 Chetan Chaudhari</span>
+            <span className="text-[#00ff9d] font-bold">|</span>
+            <span className="text-[#00ff9d]">
+              $ systemctl status portfolio --all-systems-optimal
+            </span>
           </p>
-          <p className="text-slate-400 text-[11px]">
-            System Status: <span className="text-[#00ff9d]">ONLINE [ALL_SERVICES_OPERATIONAL]</span>
+          <p className="text-[11px] text-slate-500 flex flex-wrap justify-center gap-2">
+            <span>Java</span> • <span>Spring Boot</span> • <span>Microservices</span> •{' '}
+            <span>Docker</span> • <span>Kubernetes</span> • <span>AWS</span> •{' '}
+            <span>Kafka</span> • <span>Distributed Systems</span>
           </p>
         </div>
       </footer>

@@ -194,4 +194,45 @@ export const portfolioData = {
       },
     ],
   },
+  achievements: {
+    headingCommand: 'cat /var/log/achievements.log',
+    list: [
+      {
+        fileName: 'achievement-01',
+        icon: 'trophy',
+        value: '200+',
+        label: 'DSA problems solved on LeetCode',
+      },
+      {
+        fileName: 'achievement-02',
+        icon: 'server',
+        value: '3',
+        label: 'Production-grade backend systems with Spring Boot',
+      },
+      {
+        fileName: 'achievement-03',
+        icon: 'network',
+        value: 'Scalable',
+        label: 'Strong distributed architectures knowledge',
+      },
+    ],
+  },
+  education: {
+    headingCommand: 'cat /etc/education.conf',
+    fileName: 'education.json',
+    college: 'Terna Engineering College, Nerul',
+    degree: 'B.E. Information Technology',
+    period: 'Oct 2022 - Present',
+    cgpa: '7.0',
+    location: 'Maharashtra, India',
+  },
+  contact: {
+    headingCommand: 'ssh chetancdhri@contact-server',
+    fileName: 'contact-form.sh',
+    email: 'chetancdhri@gmail.com',
+    phone: '+91 9021997018',
+    location: 'Navi Mumbai, 400706, IN',
+    github: 'github.com/chetancdhri',
+    linkedin: 'linkedin.com/in/chetan-chaudhari',
+  },
 };
