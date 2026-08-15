@@ -1,8 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+// vercel calls portfolio.rithish.site:443 -> render's api-gateway will route to api.rithish.site:renders-port
+const API_BASE_URL = import.meta.env.VITE_API_URL; 
 
-/**
- * Helper to make API requests with CORS and credentials handling
- */
 const request = async (endpoint, options = {}) => {
   const defaultHeaders = {
     'Content-Type': 'application/json',
