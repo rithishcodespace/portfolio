@@ -15,7 +15,7 @@
     background-color: #070e10;
     color: #e2e8f0;
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 }
 
