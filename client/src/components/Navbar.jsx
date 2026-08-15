@@ -43,7 +43,7 @@ const Navbar = () => {
           className="flex items-center gap-1 font-mono font-bold text-sm sm:text-base text-slate-100 hover:text-[#00ff9d] transition-colors"
         >
           <span className="text-[#00ff9d] text-base sm:text-lg">&gt;</span>
-          <span className="text-[#00e5ff]">Chetan.dev</span>
+          <span className="text-[#00e5ff]">{portfolioData.header.logo}</span>
         </a>
 
         {/* Nav Links */}

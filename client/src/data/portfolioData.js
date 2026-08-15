@@ -1,6 +1,6 @@
 export const portfolioData = {
   header: {
-    logo: 'Chetan.dev',
+    logo: 'Rithish.dev',
     navLinks: [
       { id: 'home', label: '~/' },
       { id: 'about', label: 'about' },
@@ -13,15 +13,15 @@ export const portfolioData = {
     ],
   },
   hero: {
-    command: './init_session.sh --user=chetancdhri',
-    name: '<Chetan Chaudhari/>',
+    command: './init_session.sh --user=rithish',
+    name: '<Rithish S/>',
     title: 'Backend Engineer | Distributed Systems Architect | Java Specialist',
     tagline: 'Building production-grade microservices & scalable distributed systems',
     buttons: [
       { label: 'PROJECTS', href: '#projects', type: 'projects', icon: 'zap' },
       { label: 'CONTACT', href: '#contact', type: 'contact', icon: 'terminal' },
       { label: 'RESUME.PDF', href: '/resume.pdf', type: 'resume', icon: 'fileText' },
-      { label: 'GITHUB', href: 'https://github.com/chetancdhri', type: 'github', icon: 'github' },
+      { label: 'GITHUB', href: 'https://github.com/rithishcodespace', type: 'github', icon: 'github' },
     ],
   },
   about: {
@@ -29,14 +29,14 @@ export const portfolioData = {
     profile: {
       fileName: 'avatar.png',
       avatarUrl: '/avatar.png',
-      name: 'Chetan Chaudhari',
+      name: 'Rithish S',
       role: 'Software Developer',
       location: 'Navi Mumbai, 400706, IN',
-      email: 'chetancdhri@gmail.com',
+      email: 'rithishcodespace@gmail.com',
       phone: '+91 9021997018',
       socials: [
-        { label: 'chetancdhri', url: 'https://github.com/chetancdhri', icon: 'github' },
-        { label: 'LinkedIn', url: 'https://linkedin.com/in/chetancdhri', icon: 'linkedin' },
+        { label: 'rithishcodespace', url: 'https://github.com/rithishcodespace', icon: 'github' },
+        { label: 'LinkedIn', url: 'https://linkedin.com/in/rithish-s', icon: 'linkedin' },
         { label: 'Certs', url: '#', icon: 'award' },
       ],
     },
@@ -159,7 +159,7 @@ export const portfolioData = {
           'Achieved 92% test coverage with JUnit 5, Mockito, Testcontainers & CI/CD pipeline reducing deployment time by 85%',
           'Integrated Prometheus/Grafana monitoring & Zipkin tracing reducing MTTR from 45 to 12 minutes',
         ],
-        repoUrl: 'https://github.com/chetancdhri',
+        repoUrl: 'https://github.com/rithishcodespace',
         isHighlighted: false,
       },
       {
@@ -175,7 +175,7 @@ export const portfolioData = {
           'Automated schema initialization via schema.sql eliminating manual DDL errors',
           'Validated system with 97% test coverage using JUnit 5 + H2 in-memory database',
         ],
-        repoUrl: 'https://github.com/chetancdhri',
+        repoUrl: 'https://github.com/rithishcodespace',
         isHighlighted: true,
       },
       {
@@ -189,7 +189,7 @@ export const portfolioData = {
           'Architected 15+ RESTful APIs cutting response latency by 35% through efficient query execution',
           'Automated dataset ingestion and Docker deployment reducing setup time by 60%',
         ],
-        repoUrl: 'https://github.com/chetancdhri',
+        repoUrl: 'https://github.com/rithishcodespace',
         isHighlighted: false,
       },
     ],
@@ -227,12 +227,12 @@ export const portfolioData = {
     location: 'Maharashtra, India',
   },
   contact: {
-    headingCommand: 'ssh chetancdhri@contact-server',
+    headingCommand: 'ssh rithish@contact-server',
     fileName: 'contact-form.sh',
-    email: 'chetancdhri@gmail.com',
+    email: 'rithishcodespace@gmail.com',
     phone: '+91 9021997018',
     location: 'Navi Mumbai, 400706, IN',
-    github: 'github.com/chetancdhri',
-    linkedin: 'linkedin.com/in/chetan-chaudhari',
+    github: 'github.com/rithishcodespace',
+    linkedin: 'linkedin.com/in/rithish-s',
   },
 };

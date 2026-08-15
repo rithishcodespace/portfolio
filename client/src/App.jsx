@@ -50,7 +50,7 @@ function App() {
       <footer className="relative z-10 border-t border-[#00ff9d]/15 py-8 text-center text-xs text-slate-400 font-mono bg-[#070e10]">
         <div className="max-w-6xl mx-auto px-4 flex flex-col items-center gap-3">
           <p className="flex items-center gap-2 text-slate-300">
-            <span>© 2025 Chetan Chaudhari</span>
+            <span>© 2025 Rithish S</span>
             <span className="text-[#00ff9d] font-bold">|</span>
             <span className="text-[#00ff9d]">
               $ systemctl status portfolio --all-systems-optimal

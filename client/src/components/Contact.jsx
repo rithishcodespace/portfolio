@@ -121,7 +121,7 @@ const Contact = () => {
             <textarea
               required
               rows={4}
-              placeholder="$ MESSAGE='Hi Chetan, I would like to discuss...'"
+              placeholder="$ MESSAGE='Hi Rithish, I would like to discuss...'"
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               className="w-full bg-[#070e10] border border-slate-800 focus:border-[#00ff9d] focus:outline-none text-[#00ff9d] text-xs sm:text-sm px-4 py-3 rounded-md placeholder-slate-500 font-mono transition-colors resize-none"
