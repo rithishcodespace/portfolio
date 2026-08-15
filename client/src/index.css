@@ -19,6 +19,8 @@
   }
 }
 
+
+
 /* Custom Utilities for Rithish Portfolio terminal theme */
 .bg-dark-main {
   background-color: #070e10;
@@ -53,7 +55,7 @@
 
 .text-glow-green {
   color: #00ff9d;
-  text-shadow: 0 0 12px rgba(0, 255, 157, 0.5), 0 0 25px rgba(0, 255, 157, 0.25);
+  text-shadow: 0 0 8px rgba(0, 255, 157, 0.25);
 }
 
 .text-neon-cyan {

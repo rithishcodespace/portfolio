@@ -13,6 +13,8 @@ import {
   Server,
   BookOpen,
   RefreshCw,
+  Brain,
+  Network,
 } from 'lucide-react';
 
 const Skills = () => {
@@ -37,6 +39,10 @@ const Skills = () => {
         return <Server className="w-6 h-6 text-orange-400 shrink-0" />;
       case 'book':
         return <BookOpen className="w-6 h-6 text-teal-400 shrink-0" />;
+      case 'system':
+        return <Network className="w-6 h-6 text-[#00ff9d] shrink-0" />;
+      case 'brain':
+        return <Brain className="w-6 h-6 text-rose-400 shrink-0" />;
       default:
         return <Code className="w-6 h-6 text-[#00ff9d] shrink-0" />;
     }
@@ -46,7 +52,7 @@ const Skills = () => {
     <section id="skills" className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
       <SectionHeader command={headingCommand} />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 lg:gap-5 items-stretch">
         {categories.map((cat, idx) => {
           // If this is the Distributed Systems card prototype, render the card shell with onClick handler
           if (cat.fileName === 'distributed.proto' || cat.title === 'Distributed Systems') {
@@ -65,7 +71,7 @@ const Skills = () => {
             <div
               key={idx}
               onClick={() => setActiveSkill(cat)}
-              className={`h-full bg-[#0c1618] rounded-xl p-6 font-mono flex flex-col justify-between transition-all duration-300 relative cursor-pointer group hover:-translate-y-1 ${
+              className={`h-full bg-[#0c1618] rounded-xl p-5 sm:p-6 font-mono flex flex-col justify-between transition-all duration-300 relative cursor-pointer group hover:-translate-y-1 ${
                 isHighlighted
                   ? 'border border-[#00ff9d] shadow-[0_0_22px_rgba(0,255,157,0.22)] bg-[#0e1a1d]'
                   : 'border border-[#00ff9d]/15 hover:border-[#00ff9d]/40 hover:shadow-[0_0_15px_rgba(0,255,157,0.1)]'

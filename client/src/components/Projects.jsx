@@ -288,14 +288,16 @@ const ProjectCardContent = ({ proj, isPeeking, renderProjectIcon, getTitleColor 
           )}
 
           {/* Bullets List */}
-          <ul className="space-y-2.5 mb-4">
-            {proj.bullets.map((bullet, bIdx) => (
-              <li key={bIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                <span className="text-[#00ff9d] text-xs mt-0.5 shrink-0 select-none">▶</span>
-                <span>{bullet}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="overflow-y-auto max-h-[160px] sm:max-h-[190px] pr-2 mb-3">
+            <ul className="space-y-2.5">
+              {proj.bullets.map((bullet, bIdx) => (
+                <li key={bIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  <span className="text-[#00ff9d] text-xs mt-0.5 shrink-0 select-none">▶</span>
+                  <span>{bullet}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         {/* Tech Stack Pills */}

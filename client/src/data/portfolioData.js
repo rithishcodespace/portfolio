@@ -238,6 +238,25 @@ export const portfolioData = {
       },
 
       {
+        fileName: 'system-design.conf',
+        title: 'System Design',
+        icon: 'system',
+        color: 'emerald',
+        items:
+          'HLD, LLD, API Design, Scalability, Caching, Load Balancing, Queues, Database Design, Distributed Systems',
+        isHighlighted: true,
+      },
+
+      {
+        fileName: 'ai-stack.conf',
+        title: 'AI / Machine Learning',
+        icon: 'brain',
+        color: 'rose',
+        items:
+          'Machine Learning, Deep Learning, Generative AI, RAG, Embeddings, Vector Search, LLM Applications, Model APIs',
+      },
+
+      {
         fileName: 'cs-fundamentals.txt',
         title: 'Core CS',
         icon: 'book',

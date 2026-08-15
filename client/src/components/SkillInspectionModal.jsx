@@ -19,6 +19,8 @@ import {
   Activity,
   Bug,
   Terminal,
+  Brain,
+  Network,
 } from 'lucide-react';
 import { DistributedInspectorContent } from './DistributedSystemCard';
 
@@ -55,7 +57,7 @@ const SkillInspectionModal = ({ activeSkill, onClose }) => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-[#0c1618] border border-[#00ff9d]/40 shadow-[0_0_35px_rgba(0,255,157,0.2)] rounded-xl max-w-2xl w-full font-mono text-slate-200 overflow-hidden flex flex-col my-auto relative animate-scaleUp"
+        className="bg-[#0c1618] border border-[#00ff9d]/40 shadow-[0_0_35px_rgba(0,255,157,0.2)] rounded-xl max-w-2xl w-full font-mono text-slate-200 overflow-hidden flex flex-col my-auto relative animate-scaleUp max-h-[85vh] overflow-y-auto"
       >
         {/* Modal Window Bar Header */}
         <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-800 bg-[#081113]">
@@ -90,6 +92,8 @@ const SkillInspectionModal = ({ activeSkill, onClose }) => {
           {activeSkill.fileName === 'distributed.proto' && <DistributedInspectorContent />}
           {activeSkill.fileName === 'developer.tools' && <DeveloperToolsInspector />}
           {activeSkill.fileName === 'cs-fundamentals.txt' && <CoreCSInspector />}
+          {activeSkill.fileName === 'system-design.conf' && <SystemDesignInspector />}
+          {activeSkill.fileName === 'ai-stack.conf' && <AIPipelineInspector />}
         </div>
 
         {/* Modal Footer */}
@@ -921,6 +925,415 @@ const CoreCSInspector = () => {
           </span>
           <p className="text-xs text-slate-300 leading-relaxed">{current.explain}</p>
         </div>
+      </div>
+    </div>
+  );
+};
+
+// =========================================================================
+// 9. SYSTEM DESIGN INSPECTOR (system-design.conf)
+// =========================================================================
+const SystemDesignInspector = () => {
+  const [viewMode, setViewMode] = useState('HLD');
+  const [selectedNode, setSelectedNode] = useState('CACHE');
+  const [selectedLldConcept, setSelectedLldConcept] = useState('SOLID');
+
+  const hldNodes = {
+    CLIENT: {
+      title: 'CLIENT LAYER',
+      explain: 'Web browsers, mobile apps, or external API consumers initiating request payloads.',
+    },
+    LOAD_BALANCER: {
+      title: 'LOAD BALANCER',
+      explain: 'Distributes incoming network traffic across multiple backend instances for high availability and fault tolerance.',
+    },
+    SERVICES: {
+      title: 'STATELESS SERVICES',
+      explain: 'Stateless backend microservices processing business logic independently.',
+    },
+    CACHE: {
+      title: 'MEMORY CACHE (REDIS)',
+      explain: 'Reduce repeated database reads for frequently accessed data.',
+    },
+    DATABASE: {
+      title: 'PERSISTENT DATABASE',
+      explain: 'Persistent application state and transactional records.',
+    },
+    QUEUE: {
+      title: 'MESSAGE QUEUE (BULLMQ)',
+      explain: 'Decouple asynchronous work from request processing.',
+    },
+  };
+
+  const lldConcepts = {
+    INTERFACES: {
+      title: 'INTERFACES & CONTRACTS',
+      desc: 'Decouple contracts from implementations for testability, flexibility, and easy dependency injection.',
+    },
+    CLASSES: {
+      title: 'CLASSES & ENCAPSULATION',
+      desc: 'Encapsulate state and behavior within clear single-responsibility boundaries.',
+    },
+    SOLID: {
+      title: 'SOLID PRINCIPLES',
+      desc: 'Single responsibility, Open-closed, Liskov substitution, Interface segregation, and Dependency inversion.',
+    },
+    PATTERNS: {
+      title: 'DESIGN PATTERNS',
+      desc: 'Factory, Singleton, Repository, Strategy, and Observer patterns for structured code architecture.',
+    },
+    CONCERNS: {
+      title: 'SEPARATION OF CONCERNS',
+      desc: 'Keep routing, business logic, data access, and storage completely decoupled into clean layers.',
+    },
+  };
+
+  return (
+    <div>
+      <div className="mb-4">
+        <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+          <Network className="w-5 h-5 text-[#00ff9d]" />
+          <span>SYSTEM DESIGN & ARCHITECTURE</span>
+        </h2>
+        <p className="text-xs text-slate-400 mt-1">
+          Explore High-Level System Architecture (HLD) vs Low-Level Component Design (LLD).
+        </p>
+      </div>
+
+      {/* HLD / LLD Selector Tabs */}
+      <div className="flex gap-2 mb-4">
+        <button
+          onClick={() => setViewMode('HLD')}
+          className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer border ${
+            viewMode === 'HLD'
+              ? 'bg-[#00ff9d]/15 border-[#00ff9d] text-[#00ff9d] shadow-[0_0_10px_rgba(0,255,157,0.2)]'
+              : 'bg-[#071113] border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+          }`}
+        >
+          [ HLD — HIGH LEVEL ]
+        </button>
+        <button
+          onClick={() => setViewMode('LLD')}
+          className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer border ${
+            viewMode === 'LLD'
+              ? 'bg-[#00ff9d]/15 border-[#00ff9d] text-[#00ff9d] shadow-[0_0_10px_rgba(0,255,157,0.2)]'
+              : 'bg-[#071113] border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+          }`}
+        >
+          [ LLD — LOW LEVEL ]
+        </button>
+      </div>
+
+      {viewMode === 'HLD' ? (
+        <div className="space-y-3">
+          {/* HLD Architecture Diagram */}
+          <div className="bg-[#040a0c] border border-slate-800 rounded-xl p-3.5 font-mono text-xs">
+            <div className="text-[10px] text-slate-500 font-bold mb-2 flex items-center justify-between">
+              <span>HIGH-LEVEL DISTRIBUTED ARCHITECTURE</span>
+              <span className="text-[#00ff9d]">[CLICK COMPONENT]</span>
+            </div>
+
+            <div className="flex flex-col items-center space-y-1.5 text-center">
+              <button
+                onClick={() => setSelectedNode('CLIENT')}
+                className={`px-4 py-1 rounded border text-xs font-bold transition-all cursor-pointer ${
+                  selectedNode === 'CLIENT'
+                    ? 'bg-[#00ff9d]/20 border-[#00ff9d] text-[#00ff9d] shadow-[0_0_10px_rgba(0,255,157,0.3)]'
+                    : 'bg-[#071113] border-slate-800 text-slate-300 hover:border-slate-700'
+                }`}
+              >
+                CLIENT
+              </button>
+              <div className="text-slate-600 text-[10px]">↓</div>
+              <button
+                onClick={() => setSelectedNode('LOAD_BALANCER')}
+                className={`px-4 py-1 rounded border text-xs font-bold transition-all cursor-pointer ${
+                  selectedNode === 'LOAD_BALANCER'
+                    ? 'bg-[#00ff9d]/20 border-[#00ff9d] text-[#00ff9d] shadow-[0_0_10px_rgba(0,255,157,0.3)]'
+                    : 'bg-[#071113] border-slate-800 text-slate-300 hover:border-slate-700'
+                }`}
+              >
+                LOAD BALANCER
+              </button>
+              <div className="text-slate-600 text-[10px]">↓</div>
+              <button
+                onClick={() => setSelectedNode('SERVICES')}
+                className={`px-5 py-1 rounded border text-xs font-bold transition-all cursor-pointer ${
+                  selectedNode === 'SERVICES'
+                    ? 'bg-[#00ff9d]/20 border-[#00ff9d] text-[#00ff9d] shadow-[0_0_10px_rgba(0,255,157,0.3)]'
+                    : 'bg-[#071113] border-slate-800 text-slate-300 hover:border-slate-700'
+                }`}
+              >
+                SERVICE A &nbsp;&nbsp;|&nbsp;&nbsp; SERVICE B
+              </button>
+              <div className="text-slate-600 text-[10px]">↓</div>
+              <div className="grid grid-cols-2 gap-2 w-full max-w-xs">
+                <button
+                  onClick={() => setSelectedNode('CACHE')}
+                  className={`py-1 rounded border text-xs font-bold transition-all cursor-pointer ${
+                    selectedNode === 'CACHE'
+                      ? 'bg-[#00ff9d]/20 border-[#00ff9d] text-[#00ff9d] shadow-[0_0_10px_rgba(0,255,157,0.3)]'
+                      : 'bg-[#071113] border-slate-800 text-slate-300 hover:border-slate-700'
+                  }`}
+                >
+                  CACHE
+                </button>
+                <button
+                  onClick={() => setSelectedNode('DATABASE')}
+                  className={`py-1 rounded border text-xs font-bold transition-all cursor-pointer ${
+                    selectedNode === 'DATABASE'
+                      ? 'bg-[#00ff9d]/20 border-[#00ff9d] text-[#00ff9d] shadow-[0_0_10px_rgba(0,255,157,0.3)]'
+                      : 'bg-[#071113] border-slate-800 text-slate-300 hover:border-slate-700'
+                  }`}
+                >
+                  DATABASE
+                </button>
+              </div>
+              <div className="text-slate-600 text-[10px]">↓</div>
+              <button
+                onClick={() => setSelectedNode('QUEUE')}
+                className={`px-6 py-1 rounded border text-xs font-bold transition-all cursor-pointer ${
+                  selectedNode === 'QUEUE'
+                    ? 'bg-[#00ff9d]/20 border-[#00ff9d] text-[#00ff9d] shadow-[0_0_10px_rgba(0,255,157,0.3)]'
+                    : 'bg-[#071113] border-slate-800 text-slate-300 hover:border-slate-700'
+                }`}
+              >
+                QUEUE
+              </button>
+            </div>
+          </div>
+
+          {/* Node Explanation Box */}
+          <div className="bg-[#071113] border border-slate-800 rounded-xl p-3.5">
+            <div className="text-xs font-bold text-[#00ff9d] mb-1">
+              {hldNodes[selectedNode].title}
+            </div>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              "{hldNodes[selectedNode].explain}"
+            </p>
+          </div>
+        </div>
+      ) : (
+        /* LLD View */
+        <div className="space-y-3">
+          <div className="bg-[#040a0c] border border-slate-800 rounded-xl p-3.5 font-mono text-xs">
+            <div className="text-[10px] text-slate-500 font-bold mb-2.5 flex items-center justify-between">
+              <span>COMPONENT LAYERING & FLOW</span>
+              <span className="text-[#00ff9d]">[OBJECT ARCHITECTURE]</span>
+            </div>
+
+            {/* Compact Horizontal Component Chain */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-center text-xs">
+              <span className="bg-[#071113] border border-slate-700 px-2.5 py-1 rounded text-slate-200 font-bold">
+                Controller
+              </span>
+              <span className="text-slate-600 font-bold">→</span>
+              <span className="bg-[#071113] border border-slate-700 px-2.5 py-1 rounded text-slate-200 font-bold">
+                Service
+              </span>
+              <span className="text-slate-600 font-bold">→</span>
+              <span className="bg-[#071113] border border-slate-700 px-2.5 py-1 rounded text-slate-200 font-bold">
+                Repository
+              </span>
+              <span className="text-slate-600 font-bold">→</span>
+              <span className="bg-[#071113] border border-slate-700 px-2.5 py-1 rounded text-slate-200 font-bold">
+                Database
+              </span>
+            </div>
+          </div>
+
+          <div className="bg-[#071113] border border-slate-800 rounded-xl p-3.5 space-y-3">
+            <div className="text-xs font-bold text-[#00ff9d] flex items-center justify-between">
+              <span>[LOW-LEVEL DESIGN CONCEPTS]</span>
+              <span className="text-[10px] text-slate-500 font-normal">[CLICK CONCEPT]</span>
+            </div>
+
+            <div className="flex flex-wrap gap-1.5">
+              {Object.keys(lldConcepts).map((key) => {
+                const isSelected = selectedLldConcept === key;
+                return (
+                  <button
+                    key={key}
+                    onClick={() => setSelectedLldConcept(key)}
+                    className={`px-2.5 py-1 rounded text-xs font-bold transition-all cursor-pointer border ${
+                      isSelected
+                        ? 'bg-[#00ff9d]/20 border-[#00ff9d] text-[#00ff9d] shadow-[0_0_10px_rgba(0,255,157,0.2)]'
+                        : 'bg-[#040a0c] border-slate-800 text-slate-300 hover:border-slate-700'
+                    }`}
+                  >
+                    {key}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="bg-[#040a0c] border border-slate-800 p-3 rounded-lg text-xs">
+              <div className="font-bold text-[#00ff9d] mb-1">
+                {lldConcepts[selectedLldConcept].title}
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                "{lldConcepts[selectedLldConcept].desc}"
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// =========================================================================
+// 10. AI PIPELINE INSPECTOR (ai-stack.conf)
+// =========================================================================
+const AIPipelineInspector = () => {
+  const [selectedNode, setSelectedNode] = useState('RAG');
+
+  const nodeInfo = {
+    USER: {
+      title: 'USER PROMPT',
+      desc: 'User submits a question or context query to the application.',
+    },
+    APP: {
+      title: 'APPLICATION LAYER',
+      desc: 'Orchestrates LLM requests, manages rate limits and token windows.',
+    },
+    LLM: {
+      title: 'LARGE LANGUAGE MODEL (LLM)',
+      desc: 'Process context-augmented prompts and generate structured, natural language output.',
+    },
+    RAG: {
+      title: 'RETRIEVAL-AUGMENTED GENERATION (RAG)',
+      desc: 'Retrieve relevant information first, then provide it as context to the model.',
+    },
+    KNOWLEDGE: {
+      title: 'KNOWLEDGE BASE',
+      desc: 'Store unstructured domain documents and reference text data.',
+    },
+    EMBEDDINGS: {
+      title: 'EMBEDDINGS',
+      desc: 'Represent text as vectors so semantic similarity can be measured.',
+    },
+    VECTOR_SEARCH: {
+      title: 'VECTOR SEARCH',
+      desc: 'Find semantically similar information using embeddings.',
+    },
+  };
+
+  return (
+    <div>
+      <div className="mb-4">
+        <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+          <Brain className="w-5 h-5 text-rose-400" />
+          <span>AI & LLM APPLICATION PIPELINE</span>
+        </h2>
+        <p className="text-xs text-slate-400 mt-1">
+          Interactive workflow showing how modern RAG & Vector Search applications execute.
+        </p>
+      </div>
+
+      <div className="bg-[#040a0c] border border-slate-800 rounded-xl p-4 font-mono text-xs mb-4">
+        <div className="text-[10px] text-slate-500 font-bold mb-3 flex items-center justify-between">
+          <span>AI PIPELINE ARCHITECTURE</span>
+          <span className="text-rose-400">[CLICK PIPELINE STAGE]</span>
+        </div>
+
+        <div className="flex flex-col items-center space-y-2 text-center max-w-sm mx-auto">
+          <div className="flex gap-2 items-center">
+            <button
+              onClick={() => setSelectedNode('USER')}
+              className={`px-3 py-1 rounded border text-xs font-bold transition-all cursor-pointer ${
+                selectedNode === 'USER'
+                  ? 'bg-rose-500/20 border-rose-400 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.3)]'
+                  : 'bg-[#071113] border-slate-800 text-slate-300'
+              }`}
+            >
+              USER
+            </button>
+            <span className="text-slate-600">→</span>
+            <button
+              onClick={() => setSelectedNode('APP')}
+              className={`px-3 py-1 rounded border text-xs font-bold transition-all cursor-pointer ${
+                selectedNode === 'APP'
+                  ? 'bg-rose-500/20 border-rose-400 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.3)]'
+                  : 'bg-[#071113] border-slate-800 text-slate-300'
+              }`}
+            >
+              APPLICATION
+            </button>
+          </div>
+
+          <div className="text-slate-600 text-xs">↓</div>
+
+          <button
+            onClick={() => setSelectedNode('LLM')}
+            className={`px-6 py-1.5 rounded border text-xs font-bold transition-all cursor-pointer ${
+              selectedNode === 'LLM'
+                ? 'bg-rose-500/20 border-rose-400 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.3)]'
+                : 'bg-[#071113] border-slate-800 text-slate-300'
+            }`}
+          >
+            LLM ENGINE
+          </button>
+
+          <div className="text-slate-600 text-xs">↓</div>
+
+          <div className="grid grid-cols-2 gap-2 w-full">
+            <button
+              onClick={() => setSelectedNode('RAG')}
+              className={`py-1.5 rounded border text-xs font-bold transition-all cursor-pointer ${
+                selectedNode === 'RAG'
+                  ? 'bg-rose-500/20 border-rose-400 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.3)]'
+                  : 'bg-[#071113] border-slate-800 text-slate-300'
+              }`}
+            >
+              RAG
+            </button>
+            <button
+              onClick={() => setSelectedNode('KNOWLEDGE')}
+              className={`py-1.5 rounded border text-xs font-bold transition-all cursor-pointer ${
+                selectedNode === 'KNOWLEDGE'
+                  ? 'bg-rose-500/20 border-rose-400 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.3)]'
+                  : 'bg-[#071113] border-slate-800 text-slate-300'
+              }`}
+            >
+              KNOWLEDGE BASE
+            </button>
+          </div>
+
+          <div className="text-slate-600 text-xs">↓</div>
+
+          <div className="grid grid-cols-2 gap-2 w-full">
+            <button
+              onClick={() => setSelectedNode('EMBEDDINGS')}
+              className={`py-1.5 rounded border text-xs font-bold transition-all cursor-pointer ${
+                selectedNode === 'EMBEDDINGS'
+                  ? 'bg-rose-500/20 border-rose-400 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.3)]'
+                  : 'bg-[#071113] border-slate-800 text-slate-300'
+              }`}
+            >
+              EMBEDDINGS
+            </button>
+            <button
+              onClick={() => setSelectedNode('VECTOR_SEARCH')}
+              className={`py-1.5 rounded border text-xs font-bold transition-all cursor-pointer ${
+                selectedNode === 'VECTOR_SEARCH'
+                  ? 'bg-rose-500/20 border-rose-400 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.3)]'
+                  : 'bg-[#071113] border-slate-800 text-slate-300'
+              }`}
+            >
+              VECTOR SEARCH
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-[#071113] border border-slate-800 rounded-xl p-4">
+        <div className="text-xs font-bold text-rose-400 mb-1">
+          {nodeInfo[selectedNode].title}
+        </div>
+        <p className="text-xs text-slate-300 leading-relaxed">
+          "{nodeInfo[selectedNode].desc}"
+        </p>
       </div>
     </div>
   );

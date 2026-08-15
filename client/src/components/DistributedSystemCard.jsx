@@ -317,7 +317,7 @@ const DistributedSystemCard = ({ cat, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="h-full bg-[#0c1618] rounded-xl p-6 font-mono flex flex-col justify-between transition-all duration-300 border border-[#00ff9d] shadow-[0_0_22px_rgba(0,255,157,0.22)] bg-[#0e1a1d] hover:-translate-y-1 cursor-pointer group select-none relative"
+      className="h-full bg-[#0c1618] rounded-xl p-5 sm:p-6 font-mono flex flex-col justify-between transition-all duration-300 border border-[#00ff9d] shadow-[0_0_22px_rgba(0,255,157,0.22)] bg-[#0e1a1d] hover:-translate-y-1 cursor-pointer group select-none relative"
     >
       {/* Inspect System Pop-Up Badge */}
       <span className="absolute top-4 right-4 z-20 text-[11px] text-[#00ff9d] bg-[#081518] px-2.5 py-1 rounded border border-[#00ff9d] font-semibold flex items-center gap-1.5 opacity-0 group-hover:opacity-100 group-hover:bg-[#00ff9d] group-hover:text-black transition-all duration-200 shadow-[0_0_12px_rgba(0,255,157,0.3)] pointer-events-none">
