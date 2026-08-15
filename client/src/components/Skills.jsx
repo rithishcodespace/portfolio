@@ -15,91 +15,73 @@ import {
 const Skills = () => {
   const { headingCommand, categories } = portfolioData.skills;
 
-  const renderIcon = (iconName, colorClass) => {
-    const props = { className: `w-6 h-6 ${colorClass}` };
+  const renderIcon = (iconName) => {
     switch (iconName) {
       case 'code':
-        return <Code {...props} />;
+        return <Code className="w-6 h-6 text-[#00ff9d]" />;
       case 'cpu':
-        return <Cpu {...props} />;
+        return <Cpu className="w-6 h-6 text-rose-400" />;
       case 'layers':
-        return <Layers {...props} />;
+        return <Layers className="w-6 h-6 text-[#00e5ff]" />;
       case 'database':
-        return <Database {...props} />;
+        return <Database className="w-6 h-6 text-amber-400" />;
       case 'cloud':
-        return <Cloud {...props} />;
+        return <Cloud className="w-6 h-6 text-blue-400" />;
       case 'network':
-        return <Share2 {...props} />;
+        return <Share2 className="w-6 h-6 text-fuchsia-400" />;
       case 'server':
-        return <Server {...props} />;
+        return <Server className="w-6 h-6 text-orange-400" />;
       case 'book':
-        return <BookOpen {...props} />;
+        return <BookOpen className="w-6 h-6 text-teal-400" />;
       default:
-        return <Code {...props} />;
-    }
-  };
-
-  const getColorClasses = (colorStr, isHighlighted) => {
-    switch (colorStr) {
-      case 'emerald':
-        return { text: 'text-[#00ff9d]', icon: 'text-[#00ff9d]' };
-      case 'rose':
-        return { text: 'text-rose-400', icon: 'text-rose-400' };
-      case 'sky':
-        return { text: 'text-sky-400', icon: 'text-sky-400' };
-      case 'amber':
-        return { text: 'text-amber-400', icon: 'text-amber-400' };
-      case 'blue':
-        return { text: 'text-blue-400', icon: 'text-blue-400' };
-      case 'fuchsia':
-        return { text: 'text-fuchsia-400', icon: 'text-fuchsia-400' };
-      case 'orange':
-        return { text: 'text-orange-400', icon: 'text-orange-400' };
-      case 'teal':
-        return { text: 'text-teal-400', icon: 'text-teal-400' };
-      default:
-        return { text: 'text-[#00ff9d]', icon: 'text-[#00ff9d]' };
+        return <Code className="w-6 h-6 text-[#00ff9d]" />;
     }
   };
 
   return (
-    <section id="skills" className="py-20 px-4 max-w-6xl mx-auto relative z-10">
+    <section id="skills" className="py-16 sm:py-24 px-4 max-w-6xl mx-auto relative z-10">
       <SectionHeader command={headingCommand} />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
         {categories.map((cat, idx) => {
-          const colorClasses = getColorClasses(cat.color, cat.isHighlighted);
           const isHighlighted = cat.isHighlighted;
-
           return (
             <div
               key={idx}
-              className={`bg-[#0c1618] rounded-xl p-5 font-mono transition-all duration-300 hover:-translate-y-1 ${
+              className={`bg-[#0c1618] rounded-xl p-6 font-mono flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${
                 isHighlighted
-                  ? 'border border-[#00ff9d] shadow-[0_0_20px_rgba(0,255,157,0.2)] bg-[#0e1a1d]'
+                  ? 'border border-[#00ff9d] shadow-[0_0_22px_rgba(0,255,157,0.22)] bg-[#0e1a1d]'
                   : 'border border-[#00ff9d]/15 hover:border-[#00ff9d]/40 hover:shadow-[0_0_15px_rgba(0,255,157,0.1)]'
               }`}
             >
-              {/* Header dots & filename */}
-              <div className="flex items-center gap-2 pb-3 mb-4 border-b border-slate-800/60 text-xs text-slate-400">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] inline-block"></span>
-                <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] inline-block"></span>
-                <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f] inline-block"></span>
-                <span className="ml-1 text-slate-400">{cat.fileName}</span>
+              <div>
+                {/* Header dots & filename */}
+                <div className="flex items-center gap-2 pb-3 mb-4 border-b border-slate-800/70 text-xs sm:text-sm text-slate-400">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] inline-block"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] inline-block"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f] inline-block"></span>
+                  <span className="ml-1 text-slate-300 font-medium">{cat.fileName}</span>
+                </div>
+
+                {/* Category Icon & Title */}
+                <div className="flex items-center gap-3 mb-3">
+                  {renderIcon(cat.icon)}
+                  <h3 className="text-base sm:text-lg font-bold text-slate-100 tracking-tight">
+                    {cat.title}
+                  </h3>
+                </div>
+
+                {/* Items List */}
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+                  {cat.items}
+                </p>
               </div>
 
-              {/* Icon & Title */}
-              <div className="mb-3">
-                <div className="mb-2">{renderIcon(cat.icon, colorClasses.icon)}</div>
-                <h3 className={`text-base font-bold ${colorClasses.text}`}>
-                  {cat.title}
-                </h3>
+              {/* Status footer pill */}
+              <div className="pt-3 mt-4 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-400 font-mono">
+                <span>[READY]</span>
+                <span className="text-[#00ff9d] font-semibold">v1.0</span>
               </div>
-
-              {/* Items */}
-              <p className="text-xs text-slate-300 leading-relaxed">
-                {cat.items}
-              </p>
             </div>
           );
         })}

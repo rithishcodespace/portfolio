@@ -47,7 +47,7 @@ function App() {
       </main>
 
       {/* Terminal Footer */}
-      <footer className="relative z-10 border-t border-[#00ff9d]/15 py-8 text-center text-xs text-slate-400 font-mono bg-[#070e10]">
+      <footer className="relative z-10 border-t border-[#00ff9d]/15 py-8 text-center text-sm text-slate-300 font-mono bg-[#070e10]">
         <div className="max-w-6xl mx-auto px-4 flex flex-col items-center gap-3">
           <p className="flex items-center gap-2 text-slate-300">
             <span>© 2025 Rithish S</span>
@@ -56,7 +56,7 @@ function App() {
               $ systemctl status portfolio --all-systems-optimal
             </span>
           </p>
-          <p className="text-[11px] text-slate-500 flex flex-wrap justify-center gap-2">
+          <p className="text-xs text-slate-400 flex flex-wrap justify-center gap-2">
             <span>Java</span> • <span>Spring Boot</span> • <span>Microservices</span> •{' '}
             <span>Docker</span> • <span>Kubernetes</span> • <span>AWS</span> •{' '}
             <span>Kafka</span> • <span>Distributed Systems</span>
