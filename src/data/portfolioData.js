@@ -420,6 +420,7 @@ export const portfolioData = {
         badge: 'VERIFIED METRIC',
         color: 'emerald',
         details: 'Optimized time & space complexities across arrays, trees, graphs, dynamic programming, and system design algorithms.',
+        image: '/leetcode.png',
       },
 
       {
@@ -458,7 +459,8 @@ export const portfolioData = {
         category: 'PRODUCT INNOVATION SHOWCASE',
         badge: 'HONORABLE MENTION',
         color: 'fuchsia',
-        details: 'Presented prior-art research and automated software solutions to industry panelists and evaluators.',
+        details: 'Awarded ₹10,000 cash prize along with official tech goodies for presenting innovative software solutions at the SNS Ideathon.',
+        image: '/sns_ideathon.png',
       },
     ],
   },
