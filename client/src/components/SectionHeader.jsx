@@ -28,12 +28,12 @@ const SectionHeader = ({ command }) => {
 
   return (
     <div className="mb-10 select-none">
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono tracking-tight flex items-center flex-wrap gap-x-3.5 gap-y-1.5">
-        <span className="text-[#00ff9d] text-3xl sm:text-4xl md:text-5xl font-extrabold select-none">
+      <h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold font-mono tracking-tight flex items-center flex-wrap sm:flex-nowrap gap-x-2 sm:gap-x-3 gap-y-1 max-w-full overflow-hidden">
+        <span className="text-[#00ff9d] text-base sm:text-xl md:text-2xl lg:text-3xl font-extrabold select-none shrink-0">
           {promptChar}
         </span>
-        <span className="text-slate-100 font-bold tracking-normal">{cmdName}</span>
-        <span className="text-[#00e5ff] font-bold tracking-normal">{pathArg}</span>
+        <span className="text-slate-100 font-bold tracking-normal shrink-0">{cmdName}</span>
+        <span className="text-[#00e5ff] font-bold tracking-normal truncate">{pathArg}</span>
       </h2>
       <div className="flex items-center gap-3 mt-3.5">
         <div className="section-underline"></div>

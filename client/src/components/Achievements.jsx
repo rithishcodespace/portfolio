@@ -29,7 +29,7 @@ const Achievements = () => {
     offset: ['start start', 'end end'],
   });
 
-  // Calculate percentage shift: 4 slides means total translation from 0% to -300% ( (N - 1) * 100% )
+  // Calculate percentage shift: list.length slides means total translation from 0% to -((N - 1) * 100)%
   const totalShift = `-${(list.length - 1) * 100}%`;
   const x = useTransform(scrollYProgress, [0, 1], ['0%', totalShift]);
 
@@ -53,6 +53,63 @@ const Achievements = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedImage]);
 
+  // Distinct Theme Styling for each achievement card
+  const getColorStyles = (color) => {
+    switch (color) {
+      case 'amber':
+        return {
+          cardBg: 'bg-[#141209]',
+          border: 'border-2 border-amber-400/90',
+          shadow: 'shadow-[0_0_45px_rgba(251,191,36,0.22)]',
+          badgeText: 'text-amber-400',
+          badgeBg: 'bg-amber-400/10 border-amber-400/30',
+          imgBorder: 'border-amber-400/40 group-hover:border-amber-400',
+          metricText: 'text-amber-400',
+        };
+      case 'sky':
+        return {
+          cardBg: 'bg-[#08171d]',
+          border: 'border-2 border-[#00e5ff]/90',
+          shadow: 'shadow-[0_0_45px_rgba(0,229,255,0.22)]',
+          badgeText: 'text-[#00e5ff]',
+          badgeBg: 'bg-[#00e5ff]/10 border-[#00e5ff]/30',
+          imgBorder: 'border-[#00e5ff]/40 group-hover:border-[#00e5ff]',
+          metricText: 'text-[#00e5ff]',
+        };
+      case 'rose':
+        return {
+          cardBg: 'bg-[#1a0b12]',
+          border: 'border-2 border-rose-400/90',
+          shadow: 'shadow-[0_0_45px_rgba(251,113,133,0.22)]',
+          badgeText: 'text-rose-400',
+          badgeBg: 'bg-rose-400/10 border-rose-400/30',
+          imgBorder: 'border-rose-400/40 group-hover:border-rose-400',
+          metricText: 'text-rose-400',
+        };
+      case 'violet':
+        return {
+          cardBg: 'bg-[#130b1c]',
+          border: 'border-2 border-purple-400/90',
+          shadow: 'shadow-[0_0_45px_rgba(192,132,252,0.22)]',
+          badgeText: 'text-purple-400',
+          badgeBg: 'bg-purple-400/10 border-purple-400/30',
+          imgBorder: 'border-purple-400/40 group-hover:border-purple-400',
+          metricText: 'text-purple-400',
+        };
+      case 'emerald':
+      default:
+        return {
+          cardBg: 'bg-[#091b16]',
+          border: 'border-2 border-[#00ff9d]',
+          shadow: 'shadow-[0_0_45px_rgba(0,255,157,0.22)]',
+          badgeText: 'text-[#00ff9d]',
+          badgeBg: 'bg-[#00ff9d]/10 border-[#00ff9d]/30',
+          imgBorder: 'border-[#00ff9d]/40 group-hover:border-[#00ff9d]',
+          metricText: 'text-[#00ff9d]',
+        };
+    }
+  };
+
   // Generate ASCII-style progress bar
   const renderProgressBar = () => {
     const totalBars = 16;
@@ -63,15 +120,8 @@ const Achievements = () => {
   };
 
   const renderIcon = (iconName, color) => {
-    const iconClass = `w-7 h-7 sm:w-9 sm:h-9 ${
-      color === 'amber'
-        ? 'text-amber-400'
-        : color === 'sky'
-        ? 'text-[#00e5ff]'
-        : color === 'fuchsia'
-        ? 'text-purple-400'
-        : 'text-[#00ff9d]'
-    }`;
+    const theme = getColorStyles(color);
+    const iconClass = `w-7 h-7 sm:w-9 sm:h-9 ${theme.metricText}`;
 
     switch (iconName) {
       case 'award':
@@ -87,7 +137,7 @@ const Achievements = () => {
   };
 
   return (
-    <section ref={targetRef} id="achievements" className="relative h-[250vh] sm:h-[300vh] font-mono">
+    <section ref={targetRef} id="achievements" className="relative h-[280vh] sm:h-[320vh] font-mono">
       {/* Sticky Viewport pinned while scrolling vertically */}
       <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-between py-6 sm:py-10 px-4 sm:px-8 max-w-7xl mx-auto z-10 select-none">
         
@@ -144,6 +194,7 @@ const Achievements = () => {
           >
             {list.map((item, idx) => {
               const isActive = activeIndex === idx;
+              const theme = getColorStyles(item.color);
 
               return (
                 <div
@@ -154,13 +205,7 @@ const Achievements = () => {
                   <div
                     className={`w-full max-w-4xl lg:max-w-5xl h-[480px] sm:h-[520px] rounded-2xl p-5 sm:p-8 font-mono flex flex-col justify-between transition-all duration-500 shadow-2xl ${
                       isActive
-                        ? item.color === 'amber'
-                          ? 'bg-[#11170d] border-2 border-amber-400/90 shadow-[0_0_40px_rgba(251,191,36,0.22)] opacity-100 scale-100'
-                          : item.color === 'sky'
-                          ? 'bg-[#0a181c] border-2 border-[#00e5ff]/90 shadow-[0_0_40px_rgba(0,229,255,0.22)] opacity-100 scale-100'
-                          : item.color === 'fuchsia'
-                          ? 'bg-[#170e1c] border-2 border-purple-400/90 shadow-[0_0_40px_rgba(192,132,252,0.22)] opacity-100 scale-100'
-                          : 'bg-[#0e1d20] border-2 border-[#00ff9d] shadow-[0_0_40px_rgba(0,255,157,0.22)] opacity-100 scale-100'
+                        ? `${theme.cardBg} ${theme.border} ${theme.shadow} opacity-100 scale-100`
                         : 'bg-[#081214] border border-slate-800/80 opacity-25 scale-95'
                     }`}
                   >
@@ -176,15 +221,7 @@ const Achievements = () => {
                           </span>
                         </div>
                         <span
-                          className={`text-xs px-3 py-1 rounded border font-semibold tracking-wider flex items-center gap-1.5 ${
-                            item.color === 'amber'
-                              ? 'text-amber-400 bg-amber-400/10 border-amber-400/30'
-                              : item.color === 'sky'
-                              ? 'text-[#00e5ff] bg-[#00e5ff]/10 border-[#00e5ff]/30'
-                              : item.color === 'fuchsia'
-                              ? 'text-purple-400 bg-purple-400/10 border-purple-400/30'
-                              : 'text-[#00ff9d] bg-[#00ff9d]/10 border-[#00ff9d]/30'
-                          }`}
+                          className={`text-xs px-3 py-1 rounded border font-semibold tracking-wider flex items-center gap-1.5 ${theme.badgeText} ${theme.badgeBg}`}
                         >
                           <ShieldCheck className="w-3.5 h-3.5" />
                           <span>[ {item.badge} ]</span>
@@ -204,7 +241,7 @@ const Achievements = () => {
                                 fileName: item.fileName,
                                 badge: item.badge,
                               })}
-                              className="relative rounded-xl overflow-hidden border border-[#00ff9d]/40 shadow-2xl bg-[#040c0e] cursor-pointer group-hover:border-[#00ff9d] transition-all duration-300"
+                              className={`relative rounded-xl overflow-hidden border ${theme.imgBorder} shadow-2xl bg-[#040c0e] cursor-pointer transition-all duration-300`}
                             >
                               <img
                                 src={item.image}
@@ -213,23 +250,23 @@ const Achievements = () => {
                               />
 
                               {/* Evidence Badge Overlay */}
-                              <div className="absolute top-2.5 left-2.5 bg-black/85 backdrop-blur-md px-2.5 py-1 rounded text-[11px] text-[#00ff9d] border border-[#00ff9d]/40 font-mono font-bold flex items-center gap-1.5 shadow-md">
-                                <ShieldCheck className="w-3.5 h-3.5 text-[#00ff9d]" />
+                              <div className="absolute top-2.5 left-2.5 bg-black/85 backdrop-blur-md px-2.5 py-1 rounded text-[11px] border font-mono font-bold flex items-center gap-1.5 shadow-md border-slate-700 text-slate-200">
+                                <ShieldCheck className={`w-3.5 h-3.5 ${theme.badgeText}`} />
                                 <span>VERIFIED EVIDENCE</span>
                               </div>
 
                               {/* Zoom Lightbox Hint Overlay */}
                               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white text-xs font-bold font-mono backdrop-blur-[2px]">
-                                <ZoomIn className="w-5 h-5 text-[#00ff9d]" />
+                                <ZoomIn className={`w-5 h-5 ${theme.badgeText}`} />
                                 <span>CLICK TO FULLSCREEN EVIDENCE</span>
                               </div>
                             </div>
                           ) : (
-                            /* Digital Certificate Artifact for achievements without image upload */
+                            /* Digital Certificate Artifact fallback */
                             <div className="relative rounded-xl border border-slate-700/80 bg-[#050e10] p-6 h-52 sm:h-64 lg:h-72 flex flex-col justify-between shadow-xl">
                               <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 text-xs">
                                 <span className="text-slate-400 font-bold">OFFICIAL_RESULT_ARTIFACT</span>
-                                <span className="text-[#00ff9d] font-mono text-[11px]">[ VERIFIED ]</span>
+                                <span className={`font-mono text-[11px] ${theme.badgeText}`}>[ VERIFIED ]</span>
                               </div>
 
                               <div className="flex items-center gap-4 my-auto">
@@ -248,7 +285,7 @@ const Achievements = () => {
 
                               <div className="flex items-center justify-between text-[11px] text-slate-500 pt-3 border-t border-slate-800/80 font-mono">
                                 <span>ISSUER: {item.category}</span>
-                                <span className="text-[#00ff9d]">AUTHENTICATED</span>
+                                <span className={theme.badgeText}>AUTHENTICATED</span>
                               </div>
                             </div>
                           )}
@@ -256,7 +293,7 @@ const Achievements = () => {
                           {/* Evidence Caption */}
                           <div className="mt-2 flex items-center justify-between text-[11px] text-slate-400 px-1 font-mono">
                             <span>EVIDENCE_REF: {item.fileName}</span>
-                            <span className="text-[#00ff9d] flex items-center gap-1">
+                            <span className={`flex items-center gap-1 ${theme.badgeText}`}>
                               <CheckCircle2 className="w-3 h-3" />
                               <span>CLICK IMAGE TO ZOOM</span>
                             </span>
@@ -271,17 +308,7 @@ const Achievements = () => {
                           </span>
 
                           {/* Giant Value */}
-                          <h3
-                            className={`text-4xl sm:text-5xl font-black mb-2 tracking-tight ${
-                              item.color === 'amber'
-                                ? 'text-amber-400'
-                                : item.color === 'sky'
-                                ? 'text-[#00e5ff]'
-                                : item.color === 'fuchsia'
-                                ? 'text-purple-400'
-                                : 'text-[#00ff9d]'
-                            }`}
-                          >
+                          <h3 className={`text-4xl sm:text-5xl font-black mb-2 tracking-tight ${theme.metricText}`}>
                             {item.value}
                           </h3>
 
@@ -306,7 +333,7 @@ const Achievements = () => {
                       <div className="flex items-center gap-4">
                         <span><strong className="text-slate-300">CATEGORY:</strong> {item.category}</span>
                       </div>
-                      <div className="flex items-center gap-1.5 text-[#00ff9d] font-bold">
+                      <div className={`flex items-center gap-1.5 font-bold ${theme.badgeText}`}>
                         <CheckCircle2 className="w-4 h-4" />
                         <span>VERIFIED</span>
                       </div>
