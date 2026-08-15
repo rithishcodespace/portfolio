@@ -1,238 +1,461 @@
 export const portfolioData = {
   header: {
-    logo: 'Rithish.dev',
+    logo: ' Rithish.dev',
     navLinks: [
       { id: 'home', label: '~/' },
       { id: 'about', label: 'about' },
       { id: 'skills', label: 'skills' },
-      { id: 'exp', label: 'exp' },
+      { id: 'exp', label: 'experience' },
       { id: 'projects', label: 'projects' },
       { id: 'achievements', label: 'achievements' },
-      { id: 'edu', label: 'edu' },
+      { id: 'edu', label: 'education' },
       { id: 'contact', label: 'contact' },
     ],
   },
+
   hero: {
     command: './init_session.sh --user=rithish',
     name: '<Rithish S/>',
-    title: 'Backend Engineer | Distributed Systems Architect | Java Specialist',
-    tagline: 'Building production-grade microservices & scalable distributed systems',
+    title: 'Backend Engineer | Distributed Systems | Cloud & DevOps',
+    tagline:
+      'Building scalable backend systems, distributed services, and production-ready developer tools',
     buttons: [
-      { label: 'PROJECTS', href: '#projects', type: 'projects', icon: 'zap' },
-      { label: 'CONTACT', href: '#contact', type: 'contact', icon: 'terminal' },
-      { label: 'RESUME.PDF', href: '/resume.pdf', type: 'resume', icon: 'fileText' },
-      { label: 'GITHUB', href: 'https://github.com/rithishcodespace', type: 'github', icon: 'github' },
+      {
+        label: 'PROJECTS',
+        href: '#projects',
+        type: 'projects',
+        icon: 'zap',
+      },
+      {
+        label: 'CONTACT',
+        href: '#contact',
+        type: 'contact',
+        icon: 'terminal',
+      },
+      {
+        label: 'RESUME.PDF',
+        href: '/resume.pdf',
+        type: 'resume',
+        icon: 'fileText',
+      },
+      {
+        label: 'GITHUB',
+        href: 'https://github.com/rithishcodespace',
+        type: 'github',
+        icon: 'github',
+      },
     ],
   },
+
   about: {
     headingCommand: 'cat /profile/summary.md',
+
     profile: {
       fileName: 'avatar.png',
       avatarUrl: '/avatar.png',
       name: 'Rithish S',
-      role: 'Software Developer',
-      location: 'Navi Mumbai, 400706, IN',
+      role: 'Computer Science & Engineering Student',
+      location: 'Tamil Nadu, India',
       email: 'rithishcodespace@gmail.com',
-      phone: '+91 9021997018',
+
       socials: [
-        { label: 'rithishcodespace', url: 'https://github.com/rithishcodespace', icon: 'github' },
-        { label: 'LinkedIn', url: 'https://linkedin.com/in/rithish-s', icon: 'linkedin' },
-        { label: 'Certs', url: '#', icon: 'award' },
+        {
+          label: 'rithishcodespace',
+          url: 'https://github.com/rithishcodespace',
+          icon: 'github',
+        },
+        {
+          label: 'LinkedIn',
+          url: 'https://www.linkedin.com/in/rithish-saravanan-32a39431a/',
+          icon: 'linkedin',
+        },
+        {
+          label: 'LeetCode',
+          url: 'https://leetcode.com/rithishcodespace',
+          icon: 'code',
+        },
       ],
+
+      // Back of Image Card: human.txt
+      humanTxt: {
+        fileName: 'human.txt',
+        likes: [
+          'clean APIs',
+          'late-night debugging',
+          'system design',
+          'building weird prototypes',
+          'understanding internals',
+        ],
+        dislikes: [
+          'unnecessary abstractions',
+          'copy-paste engineering',
+          'code that "just works"',
+          'things I don\'t understand',
+        ],
+        defaultMode: ['BUILD', 'BREAK', 'DEBUG', 'LEARN'],
+      },
     },
+
     summary: {
       fileName: 'summary.log',
-      text: '[INFO] Backend-focused Software Engineer specializing in Java, Spring Boot, and distributed systems, with hands-on experience designing scalable RESTful services and ML pipelines. Strong in data structures, system design, database optimization, and cloud deployment, with proven ability to reduce latency, improve throughput, and deploy production-grade AI systems.',
-      highlightKeywords: ['Java, Spring Boot, and distributed systems'],
+
+      text:
+        '[INFO] Backend-focused software engineer and Computer Science student specializing in Node.js, TypeScript, REST APIs, distributed systems, databases, and cloud-native development. Experienced in building production-ready backend services, developer tools, scalable architectures, and full-stack applications using Docker, Kubernetes, Redis, PostgreSQL, AWS, and CI/CD.',
+
+      highlightKeywords: [
+        'Node.js',
+        'TypeScript',
+        'Distributed Systems',
+        'Cloud & DevOps',
+      ],
+
       skills: [
-        'Java',
-        'Spring Boot',
-        'Microservices',
+        'Node.js',
+        'TypeScript',
+        'Express.js',
+        'Python',
+        'FastAPI',
         'REST APIs',
-        'MySQL',
         'PostgreSQL',
+        'MySQL',
         'MongoDB',
         'Redis',
         'Docker',
         'Kubernetes',
         'AWS',
-        'Kafka',
-        'Hibernate',
-        'JPA',
-        'Spring Security',
-        'CI/CD',
         'GitHub Actions',
-        'Terraform',
+        'Prometheus',
+        'Grafana',
+        'Prisma ORM',
+        'System Design',
+        'DSA',
       ],
+
+      // Back of Summary Card: activity.log
+      activityLog: {
+        fileName: 'activity.log',
+        title: 'RECENT ACTIVITY',
+        timeline: [
+          {
+            year: '2024',
+            items: [
+              { label: 'Started programming seriously', sub: 'DSA + problem solving' },
+            ],
+          },
+          {
+            year: '2025',
+            items: [
+              { label: 'Full-stack development' },
+              { label: 'Built real-world applications' },
+              { label: 'Hackathons' },
+              { label: 'Started exploring backend systems' },
+            ],
+          },
+          {
+            year: '2026',
+            items: [
+              { label: 'Backend engineering' },
+              { label: 'Distributed systems' },
+              { label: 'Cloud & DevOps' },
+              { label: 'AI-powered applications' },
+              { label: 'Open-source contributions' },
+            ],
+          },
+        ],
+        currentState: [
+          { label: 'BUILDING', percent: 100, bar: '████████████', color: 'emerald' },
+          { label: 'LEARNING', percent: 83, bar: '██████████░░', color: 'sky' },
+          { label: 'EXPLORING', percent: 67, bar: '████████░░░░', color: 'purple' },
+        ],
+      },
     },
   },
+
+
   skills: {
     headingCommand: 'ls -la /tech_stack/',
+
     categories: [
       {
         fileName: 'languages.sh',
         title: 'Languages',
         icon: 'code',
         color: 'emerald',
-        items: 'Java, Python, C++, SQL',
+        items: 'JavaScript, TypeScript, Python, Java, C, C++, SQL',
       },
-      {
-        fileName: 'core-java.conf',
-        title: 'Core Java',
-        icon: 'cpu',
-        color: 'rose',
-        items: 'Collections, Multithreading, Concurrency, JVM Internals',
-      },
+
       {
         fileName: 'backend.service',
-        title: 'Backend Framework',
+        title: 'Backend',
         icon: 'layers',
         color: 'sky',
-        items: 'Spring Boot, Spring MVC, Hibernate, JPA, Spring Security, REST APIs, Microservices',
+        items:
+          'Node.js, Express.js, FastAPI, REST APIs, Microservices, Authentication, RBAC',
       },
+
+      {
+        fileName: 'frontend.ui',
+        title: 'Frontend',
+        icon: 'layout',
+        color: 'violet',
+        items: 'React, Vite, Tailwind CSS, HTML, CSS',
+      },
+
       {
         fileName: 'databases.sql',
         title: 'Databases',
         icon: 'database',
         color: 'amber',
-        items: 'MySQL, PostgreSQL, MongoDB, Redis',
+        items: 'PostgreSQL, MySQL, MongoDB, SQLite, Redis',
       },
+
       {
         fileName: 'cloud.yml',
         title: 'Cloud & DevOps',
         icon: 'cloud',
         color: 'blue',
-        items: 'AWS (EC2, S3, Lambda), Docker, Kubernetes, Jenkins, GitHub Actions, Terraform',
+        items:
+          'AWS EC2, AWS S3, Docker, Kubernetes, Helm, GitHub Actions, Prometheus, Grafana',
       },
+
       {
         fileName: 'distributed.proto',
         title: 'Distributed Systems',
         icon: 'network',
         color: 'fuchsia',
-        items: 'Kafka, API Gateway, Event-Driven Architecture, Scalability',
+        items:
+          'BullMQ, Redis, Event-Driven Architecture, Queues, Concurrency, Distributed Locks, Resource Limiting, Microservices',
         isHighlighted: true,
       },
+
       {
-        fileName: 'system.config',
-        title: 'Systems',
-        icon: 'server',
+        fileName: 'developer.tools',
+        title: 'Developer Tools',
+        icon: 'terminal',
         color: 'orange',
-        items: 'Linux, Networking, Distributed Systems',
+        items:
+          'Git, GitHub, Linux, Prisma ORM, Postman, VS Code, PM2, Docker Compose',
       },
+
       {
         fileName: 'cs-fundamentals.txt',
         title: 'Core CS',
         icon: 'book',
         color: 'teal',
-        items: 'DSA, OOP, DBMS, OS, CN, System Design',
+        items:
+          'Data Structures & Algorithms, OOP, DBMS, Operating Systems, Computer Networks, System Design',
       },
     ],
   },
+
   experience: {
     headingCommand: 'journalctl --unit=work-experience',
+
     logFile: 'experience.log',
-    role: 'Java Intern',
-    company: 'Future Intern, Mumbai (Remote)',
-    period: 'Aug 2025 - Sep 2025',
+
+    role: 'Web Developer',
+    company: 'Students Special Group',
+    period: 'Feb 2025 - Dec 2025',
+
     bullets: [
-      'Engineered modular backend components using Java, JDBC, and Servlets, improving execution efficiency by 25%',
-      'Designed and implemented RESTful APIs with optimized request/response handling, reducing latency by 30%',
-      'Performed SQL query optimization and indexing, improving database performance by 20% under concurrent load',
-      'Implemented secure authentication module (session-based), strengthening access control mechanisms',
-      'Debugged and resolved 50+ production-level issues, reducing system downtime by 45%',
-      'Developed unit and integration tests (JUnit), increasing code coverage to 88%+',
-      'Collaborated using Git workflows (branching, merging, pull requests) in Agile sprints',
+      'Developed backend services using Node.js and MySQL to support core academic platform functionalities.',
+      'Designed normalized relational database schemas to improve data integrity, scalability, and maintainability.',
+      'Designed and implemented RESTful APIs for user management, authentication, and academic workflows.',
+      'Collaborated with cross-functional teams to translate functional requirements into scalable backend solutions.',
+      'Mentored 50+ students in JavaScript, backend development, and software engineering best practices.',
     ],
   },
+
   projects: {
     headingCommand: 'docker ps --filter status=running',
+
     list: [
       {
-        fileName: 'ecommerce-service',
-        title: 'Ecommerce Platform (Microservices)',
-        period: 'Aug 2025 - Oct 2025',
+        fileName: 'humming-tone',
+        title: 'Humming Tone',
+        period: '2026',
         icon: 'shopping-cart',
         color: 'emerald',
+
         bullets: [
-          'Processed 5K+ daily Stripe payments with idempotency & optimized MongoDB queries achieving 300% performance gain',
-          'Containerized with Docker (65% image size reduction) & deployed on Kubernetes with HPA auto-scaling (3-15 pods)',
-          'Achieved 92% test coverage with JUnit 5, Mockito, Testcontainers & CI/CD pipeline reducing deployment time by 85%',
-          'Integrated Prometheus/Grafana monitoring & Zipkin tracing reducing MTTR from 45 to 12 minutes',
+          'Developed a production-ready e-commerce platform for a freelance client with secure authentication, RBAC, and an admin management dashboard.',
+          'Integrated secure payment processing and automated order management workflows.',
+          'Designed scalable backend architecture using Redis caching, modular services, and optimized database queries.',
+          'Implemented product, inventory, order, coupon, and user management with role-based access control.',
         ],
-        repoUrl: 'https://github.com/rithishcodespace',
-        isHighlighted: false,
-      },
-      {
-        fileName: 'url-shortner-pod',
-        title: 'Distributed URL Shortner',
-        period: 'Aug 2025 - Feb 2026',
-        icon: 'link',
-        color: 'sky',
-        bullets: [
-          'Orchestrated Base10 to Base62 conversion enabling 1.2M unique keys',
-          'Hardened input validation using Apache Commons Validator, blocking 100% malformed URLs',
-          'Containerized full stack with Docker Compose on custom bridge network',
-          'Automated schema initialization via schema.sql eliminating manual DDL errors',
-          'Validated system with 97% test coverage using JUnit 5 + H2 in-memory database',
-        ],
-        repoUrl: 'https://github.com/rithishcodespace',
+
+        techStack:
+          'TypeScript, Node.js, Express.js, PostgreSQL, Redis, Docker, AWS',
+
+        repoUrl: 'https://github.com/GowthamCD6/Humming-Tone',
         isHighlighted: true,
       },
+
       {
-        fileName: 'movie-recommender',
-        title: 'Movie Recommendation System',
-        period: 'Aug 2025 - Sep 2025',
-        icon: 'film',
-        color: 'fuchsia',
+        fileName: 'db-backup-cli',
+        title: 'DB Backup CLI',
+        period: '2026',
+        icon: 'database',
+        color: 'sky',
+
         bullets: [
-          'Engineered scalable recommendation system using Java, Spring Boot, MySQL processing 25M+ ratings for 10K+ movies',
-          'Architected 15+ RESTful APIs cutting response latency by 35% through efficient query execution',
-          'Automated dataset ingestion and Docker deployment reducing setup time by 60%',
+          'Built a cross-platform CLI utility supporting automated backup and restore operations for PostgreSQL, MySQL, MongoDB, and SQLite.',
+          'Implemented automated scheduling, compression, checksum verification, AWS S3 integration, and backup metadata management.',
+          'Designed modular storage providers supporting both local and cloud backup destinations.',
+          'Implemented Redis-backed job queues, worker concurrency, resource limiting, distributed locking, and scheduler execution guards.',
+          'Integrated GitHub Actions, Dependabot, CodeQL, logging, automated testing, and production-oriented development workflows.',
         ],
-        repoUrl: 'https://github.com/rithishcodespace',
+
+        techStack:
+          'TypeScript, Node.js, PostgreSQL, MySQL, MongoDB, SQLite, Redis, BullMQ, AWS S3, Docker',
+
+        repoUrl: 'https://github.com/rithishcodespace/db-backup-cli',
+        isHighlighted: true,
+      },
+
+      {
+        fileName: 'plantera',
+        title: 'Plantera',
+        period: '2025',
+        icon: 'leaf',
+        color: 'fuchsia',
+
+        bullets: [
+          'Developed a real-time environmental monitoring platform for deforestation detection using satellite imagery and machine learning.',
+          'Built an interactive dashboard featuring geographic visualization, trend analytics, and deforestation hotspot mapping.',
+          'Integrated a React frontend with Node.js backend APIs and Python-based machine learning models.',
+          'Implemented responsive visualization using Mapbox, Tailwind CSS, and data-driven UI components.',
+        ],
+
+        techStack:
+          'React, Node.js, Express.js, Python, Mapbox, Tailwind CSS, Machine Learning',
+
+        repoUrl: 'https://github.com/The-Plantera/Plantera-Web',
+        isHighlighted: false,
+      },
+
+      {
+        fileName: 'patentiq',
+        title: 'PatentIQ',
+        period: '2026',
+        icon: 'search',
+        color: 'amber',
+
+        bullets: [
+          'Built an AI-powered patent prior-art search platform to help innovators discover relevant existing patents and assess the novelty of their ideas.',
+          'Designed a semantic search pipeline that converts patent documents and queries into embeddings and retrieves relevant prior-art using vector similarity.',
+          'Developed an evidence analysis workflow that connects retrieved patents with supporting claims, technical similarities, and relevant prior-art evidence.',
+          'Designed the system to improve patent research efficiency by combining semantic retrieval, document processing, and AI-assisted analysis.'
+        ],
+
+        techStack:
+          'React, Node.js, Python, FastAPI, PostgreSQL, Vector Database, Embeddings, LLMs',
+
+        repoUrl: '#',
+        isHighlighted: false,
+      },
+
+      {
+        fileName: 'devtinder',
+        title: 'DevTinder',
+        period: '2025',
+        icon: 'users',
+        color: 'amber',
+
+        bullets: [
+          'Built a developer networking platform that enables developers to discover profiles, send connection requests, and build professional connections.',
+          'Implemented secure authentication and authorization with JWT, along with protected routes and user session management.',
+          'Developed REST APIs for user profiles, connection requests, authentication, and relationship management.',
+          'Designed a responsive React interface with reusable components and integrated frontend state management with the backend APIs.'
+        ],
+
+        techStack:
+          'React, Node.js, Express.js, MongoDB, JWT, REST APIs, Tailwind CSS',
+
+        repoUrl: '#',
+        isHighlighted: false,
+      },
+
+      {
+        fileName: 'netflixgpt',
+        title: 'NetflixGPT',
+        period: '2025',
+        icon: 'tv',
+        color: 'amber',
+
+        bullets: [
+          'Built a Netflix-inspired streaming interface with authentication, movie browsing, categories, trailers, and responsive content sections.',
+          'Integrated TMDB APIs to fetch movie metadata, posters, trailers, and categorized content dynamically.',
+          'Implemented an AI-powered movie recommendation feature using GPT to generate personalized movie suggestions from natural-language queries.',
+          'Optimized the application with reusable React components, Redux-based state management, and responsive UI patterns.'
+        ],
+
+        techStack:
+          'React, JavaScript, Redux Toolkit, Tailwind CSS, TMDB API, OpenAI API, Firebase',
+
+        repoUrl: '#',
         isHighlighted: false,
       },
     ],
   },
+
   achievements: {
     headingCommand: 'cat /var/log/achievements.log',
+
     list: [
       {
         fileName: 'achievement-01',
         icon: 'trophy',
-        value: '200+',
+        value: '1000+',
         label: 'DSA problems solved on LeetCode',
       },
+
       {
         fileName: 'achievement-02',
-        icon: 'server',
-        value: '3',
-        label: 'Production-grade backend systems with Spring Boot',
+        icon: 'award',
+        value: '1st',
+        label: 'Place at IEEE DevSpark Hackathon',
       },
+
       {
         fileName: 'achievement-03',
-        icon: 'network',
-        value: 'Scalable',
-        label: 'Strong distributed architectures knowledge',
+        icon: 'trophy',
+        value: '1st',
+        label: 'Place at BIT Hackathon',
+      },
+
+      {
+        fileName: 'achievement-04',
+        icon: 'medal',
+        value: 'Runner-up',
+        label: 'SNS Ideathon',
       },
     ],
   },
+
   education: {
     headingCommand: 'cat /etc/education.conf',
+
     fileName: 'education.json',
-    college: 'Terna Engineering College, Nerul',
-    degree: 'B.E. Information Technology',
-    period: 'Oct 2022 - Present',
-    cgpa: '7.0',
-    location: 'Maharashtra, India',
+
+    college: 'Bannari Amman Institute of Technology',
+    degree: 'Bachelor of Engineering in Computer Science and Engineering',
+    period: 'Aug 2024 - Present',
+    cgpa: '8.29/10',
+    location: 'Sathyamangalam, Tamil Nadu, India',
   },
+
   contact: {
     headingCommand: 'ssh rithish@contact-server',
+
     fileName: 'contact-form.sh',
+
     email: 'rithishcodespace@gmail.com',
-    phone: '+91 9021997018',
-    location: 'Navi Mumbai, 400706, IN',
+    phone: '+91 9952252304',
+    location: 'Tamil Nadu, India',
+
     github: 'github.com/rithishcodespace',
-    linkedin: 'linkedin.com/in/rithish-s',
+    linkedin: 'linkedin.com/in/rithish-saravanan-32a39431a/',
+    leetcode: 'leetcode.com/rithishcodespace',
   },
 };

@@ -59,11 +59,10 @@ const Hero = () => {
                 href={btn.href}
                 target={btn.href.startsWith('http') ? '_blank' : '_self'}
                 rel={btn.href.startsWith('http') ? 'noopener noreferrer' : ''}
-                className={`font-mono text-sm sm:text-base font-semibold px-5 py-3 rounded-lg flex items-center gap-2.5 border transition-all duration-200 cursor-pointer ${
-                  isProjects
+                className={`font-mono text-sm sm:text-base font-semibold px-5 py-3 rounded-lg flex items-center gap-2.5 border transition-all duration-200 cursor-pointer ${isProjects
                     ? 'bg-[#00ff9d]/15 border-[#00ff9d] text-[#00ff9d] shadow-[0_0_18px_rgba(0,255,157,0.25)] hover:bg-[#00ff9d]/25 hover:shadow-[0_0_25px_rgba(0,255,157,0.45)] hover:-translate-y-0.5'
                     : 'bg-[#0c1618] border-[#00ff9d]/30 text-[#00ff9d] hover:border-[#00ff9d] hover:bg-[#00ff9d]/10 hover:text-white hover:-translate-y-0.5'
-                }`}
+                  }`}
               >
                 {renderIcon(btn.icon)}
                 <span>{btn.label}</span>
