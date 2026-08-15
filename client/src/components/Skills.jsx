@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SectionHeader from './SectionHeader';
 import { portfolioData } from '../data/portfolioData';
 import DistributedSystemCard from './DistributedSystemCard';
+import SkillInspectionModal from './SkillInspectionModal';
 import {
   Code,
   Cpu,
@@ -11,10 +12,14 @@ import {
   Share2,
   Server,
   BookOpen,
+  RefreshCw,
 } from 'lucide-react';
 
 const Skills = () => {
   const { headingCommand, categories } = portfolioData.skills;
+  const [activeSkill, setActiveSkill] = useState(null);
+
+  const firstRowFileNames = ['languages.sh', 'backend.service', 'frontend.ui', 'databases.sql'];
 
   const renderIcon = (iconName) => {
     switch (iconName) {
@@ -50,16 +55,29 @@ const Skills = () => {
             return <DistributedSystemCard key={idx} cat={cat} />;
           }
 
+          const isFirstRow = firstRowFileNames.includes(cat.fileName);
           const isHighlighted = cat.isHighlighted;
+
           return (
             <div
               key={idx}
-              className={`h-full bg-[#0c1618] rounded-xl p-6 font-mono flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${
+              onClick={() => isFirstRow && setActiveSkill(cat)}
+              className={`h-full bg-[#0c1618] rounded-xl p-6 font-mono flex flex-col justify-between transition-all duration-300 relative ${
+                isFirstRow ? 'cursor-pointer group hover:-translate-y-1' : ''
+              } ${
                 isHighlighted
                   ? 'border border-[#00ff9d] shadow-[0_0_22px_rgba(0,255,157,0.22)] bg-[#0e1a1d]'
                   : 'border border-[#00ff9d]/15 hover:border-[#00ff9d]/40 hover:shadow-[0_0_15px_rgba(0,255,157,0.1)]'
               }`}
             >
+              {/* Hover Pop-up Badge for First Row Cards */}
+              {isFirstRow && (
+                <span className="absolute top-4 right-4 z-20 text-[11px] text-[#00ff9d] bg-[#081518] px-2.5 py-1 rounded border border-[#00ff9d] font-semibold flex items-center gap-1.5 opacity-0 group-hover:opacity-100 group-hover:bg-[#00ff9d] group-hover:text-black transition-all duration-200 shadow-[0_0_12px_rgba(0,255,157,0.3)] pointer-events-none">
+                  <RefreshCw className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} />
+                  <span>INSPECT</span>
+                </span>
+              )}
+
               <div>
                 {/* Header dots & filename */}
                 <div className="flex items-center gap-2 pb-3 mb-4 border-b border-slate-800/70 text-xs text-slate-400 overflow-hidden">
@@ -94,6 +112,12 @@ const Skills = () => {
           );
         })}
       </div>
+
+      {/* Interactive Centered Modal Popup for First Row Cards */}
+      <SkillInspectionModal
+        activeSkill={activeSkill}
+        onClose={() => setActiveSkill(null)}
+      />
     </section>
   );
 };

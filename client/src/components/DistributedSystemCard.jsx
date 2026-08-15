@@ -158,10 +158,10 @@ const DistributedSystemCard = ({ cat }) => {
         {/* System Status Banner */}
         <div
           className={`p-2.5 rounded-lg border text-xs font-mono mb-3 flex items-center justify-between gap-2 transition-colors ${!nodeStates.node1 && !nodeStates.node2 && !nodeStates.node3
-              ? 'bg-[#180a0c] border-rose-500/50 text-rose-300'
-              : !nodeStates.node1 || !nodeStates.node2 || !nodeStates.node3
-                ? 'bg-[#161208] border-amber-500/40 text-amber-300'
-                : 'bg-[#081518] border-[#00ff9d]/30 text-[#00ff9d]'
+            ? 'bg-[#180a0c] border-rose-500/50 text-rose-300'
+            : !nodeStates.node1 || !nodeStates.node2 || !nodeStates.node3
+              ? 'bg-[#161208] border-amber-500/40 text-amber-300'
+              : 'bg-[#081518] border-[#00ff9d]/30 text-[#00ff9d]'
             }`}
         >
           <div className="flex items-center gap-2 truncate">
@@ -286,8 +286,8 @@ const DistributedSystemCard = ({ cat }) => {
             <div
               onClick={() => toggleNode('node1')}
               className={`p-2 rounded-lg border text-center cursor-pointer transition-all duration-200 ${nodeStates.node1
-                  ? 'bg-[#081518] border-[#00ff9d]/50 hover:border-[#00ff9d] text-slate-100 shadow-[0_0_10px_rgba(0,255,157,0.1)]'
-                  : 'bg-[#180a0c] border-rose-500/60 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.2)] opacity-80'
+                ? 'bg-[#081518] border-[#00ff9d]/50 hover:border-[#00ff9d] text-slate-100 shadow-[0_0_10px_rgba(0,255,157,0.1)]'
+                : 'bg-[#180a0c] border-rose-500/60 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.2)] opacity-80'
                 }`}
             >
               <div className="font-bold text-[11px] sm:text-xs">NODE 01</div>
@@ -309,8 +309,8 @@ const DistributedSystemCard = ({ cat }) => {
             <div
               onClick={() => toggleNode('node2')}
               className={`p-2 rounded-lg border text-center cursor-pointer transition-all duration-200 ${nodeStates.node2
-                  ? 'bg-[#081518] border-[#00ff9d]/50 hover:border-[#00ff9d] text-slate-100 shadow-[0_0_10px_rgba(0,255,157,0.1)]'
-                  : 'bg-[#180a0c] border-rose-500/60 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.2)] opacity-80'
+                ? 'bg-[#081518] border-[#00ff9d]/50 hover:border-[#00ff9d] text-slate-100 shadow-[0_0_10px_rgba(0,255,157,0.1)]'
+                : 'bg-[#180a0c] border-rose-500/60 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.2)] opacity-80'
                 }`}
             >
               <div className="font-bold text-[11px] sm:text-xs">NODE 02</div>
@@ -332,8 +332,8 @@ const DistributedSystemCard = ({ cat }) => {
             <div
               onClick={() => toggleNode('node3')}
               className={`p-2 rounded-lg border text-center cursor-pointer transition-all duration-200 ${nodeStates.node3
-                  ? 'bg-[#081518] border-[#00ff9d]/50 hover:border-[#00ff9d] text-slate-100 shadow-[0_0_10px_rgba(0,255,157,0.1)]'
-                  : 'bg-[#180a0c] border-rose-500/60 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.2)] opacity-80'
+                ? 'bg-[#081518] border-[#00ff9d]/50 hover:border-[#00ff9d] text-slate-100 shadow-[0_0_10px_rgba(0,255,157,0.1)]'
+                : 'bg-[#180a0c] border-rose-500/60 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.2)] opacity-80'
                 }`}
             >
               <div className="font-bold text-[11px] sm:text-xs">NODE 03</div>
