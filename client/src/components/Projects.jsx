@@ -54,19 +54,19 @@ const Projects = () => {
   const renderProjectIcon = (iconName) => {
     switch (iconName) {
       case 'shopping-cart':
-        return <ShoppingCart className="w-7 h-7 text-[#00ff9d]" />;
+        return <ShoppingCart className="w-6 h-6 text-[#00ff9d]" />;
       case 'database':
-        return <Database className="w-7 h-7 text-[#00e5ff]" />;
+        return <Database className="w-6 h-6 text-[#00e5ff]" />;
       case 'leaf':
-        return <Leaf className="w-7 h-7 text-emerald-400" />;
+        return <Leaf className="w-6 h-6 text-emerald-400" />;
       case 'search':
-        return <Search className="w-7 h-7 text-amber-400" />;
+        return <Search className="w-6 h-6 text-amber-400" />;
       case 'users':
-        return <Users className="w-7 h-7 text-[#00e5ff]" />;
+        return <Users className="w-6 h-6 text-[#00e5ff]" />;
       case 'tv':
-        return <Tv className="w-7 h-7 text-purple-400" />;
+        return <Tv className="w-6 h-6 text-purple-400" />;
       default:
-        return <Code className="w-7 h-7 text-[#00ff9d]" />;
+        return <Code className="w-6 h-6 text-[#00ff9d]" />;
     }
   };
 
@@ -146,7 +146,7 @@ const Projects = () => {
       </div>
 
       {/* Interactive Project Viewer Container (Uniform Fixed Height) */}
-      <div className="relative flex items-center justify-center h-[650px] sm:h-[670px] my-4 select-none">
+      <div className="relative flex items-center justify-center h-[630px] sm:h-[650px] my-4 select-none">
         {/* Left Navigation Arrow */}
         <button
           onClick={handlePrev}
@@ -168,13 +168,13 @@ const Projects = () => {
         {/* Previous Card Peek (Desktop / Tablet) */}
         <div
           onClick={handlePrev}
-          className="hidden md:block absolute left-[-18%] lg:left-[-12%] xl:left-[-8%] w-[420px] lg:w-[460px] h-[610px] sm:h-[630px] opacity-30 hover:opacity-60 transition-all duration-300 scale-90 cursor-pointer z-10 filter blur-[0.5px] pointer-events-auto"
+          className="hidden md:block absolute left-[-18%] lg:left-[-12%] xl:left-[-8%] w-[420px] lg:w-[460px] h-[590px] sm:h-[610px] opacity-30 hover:opacity-60 transition-all duration-300 scale-90 cursor-pointer z-10 filter blur-[0.5px] pointer-events-auto"
         >
           <ProjectCardContent proj={list[prevIndex]} isPeeking={true} renderProjectIcon={renderProjectIcon} getTitleColor={getTitleColor} />
         </div>
 
         {/* Active Centered Project Card with Framer Motion popLayout */}
-        <div className="w-full max-w-2xl sm:max-w-3xl z-20 px-2 sm:px-6 relative h-[610px] sm:h-[630px]">
+        <div className="w-full max-w-2xl sm:max-w-3xl z-20 px-2 sm:px-6 relative h-[590px] sm:h-[610px]">
           <AnimatePresence initial={false} custom={direction} mode="popLayout">
             <motion.div
               key={currentIndex}
@@ -207,7 +207,7 @@ const Projects = () => {
         {/* Next Card Peek (Desktop / Tablet) */}
         <div
           onClick={handleNext}
-          className="hidden md:block absolute right-[-18%] lg:right-[-12%] xl:right-[-8%] w-[420px] lg:w-[460px] h-[610px] sm:h-[630px] opacity-30 hover:opacity-60 transition-all duration-300 scale-90 cursor-pointer z-10 filter blur-[0.5px] pointer-events-auto"
+          className="hidden md:block absolute right-[-18%] lg:right-[-12%] xl:right-[-8%] w-[420px] lg:w-[460px] h-[590px] sm:h-[610px] opacity-30 hover:opacity-60 transition-all duration-300 scale-90 cursor-pointer z-10 filter blur-[0.5px] pointer-events-auto"
         >
           <ProjectCardContent proj={list[nextIndex]} isPeeking={true} renderProjectIcon={renderProjectIcon} getTitleColor={getTitleColor} />
         </div>
@@ -227,7 +227,7 @@ const Projects = () => {
   );
 };
 
-// Sub-component for Project Card Rendering with Uniform Size
+// Sub-component for Project Card Rendering with Inline Icon + Title Header
 const ProjectCardContent = ({ proj, isPeeking, renderProjectIcon, getTitleColor }) => {
   const isHighlighted = proj.isHighlighted;
   const titleColorClass = getTitleColor(proj.color);
@@ -245,7 +245,7 @@ const ProjectCardContent = ({ proj, isPeeking, renderProjectIcon, getTitleColor 
       <div className="flex-1 flex flex-col justify-between overflow-hidden">
         <div>
           {/* Header dots & filename */}
-          <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-800/80 text-xs text-slate-400">
+          <div className="flex items-center justify-between pb-3 mb-3.5 border-b border-slate-800/80 text-xs text-slate-400">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] inline-block"></span>
               <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] inline-block"></span>
@@ -257,24 +257,24 @@ const ProjectCardContent = ({ proj, isPeeking, renderProjectIcon, getTitleColor 
             </span>
           </div>
 
-          {/* Project Icon & Period */}
-          <div className="flex items-center justify-between mb-2">
-            <div className="p-1.5 bg-[#081518] rounded-lg border border-slate-800">
-              {renderProjectIcon(proj.icon)}
+          {/* Project Title Header Row with Icon placed directly before the Name */}
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="p-2 bg-[#081518] rounded-lg border border-slate-800/90 shrink-0">
+                {renderProjectIcon(proj.icon)}
+              </div>
+              <h3 className={`text-xl sm:text-2xl font-black ${titleColorClass} leading-tight tracking-tight truncate`}>
+                {proj.title}
+              </h3>
             </div>
-            <span className="text-xs text-[#00e5ff] font-bold bg-[#00e5ff]/10 px-3 py-0.5 rounded-full border border-[#00e5ff]/30">
+            <span className="text-xs text-[#00e5ff] font-bold bg-[#00e5ff]/10 px-3 py-1 rounded-full border border-[#00e5ff]/30 shrink-0">
               {proj.period}
             </span>
           </div>
 
-          {/* Project Title */}
-          <h3 className={`text-xl sm:text-2xl font-black ${titleColorClass} mb-3 leading-tight tracking-tight`}>
-            {proj.title}
-          </h3>
-
           {/* Project Image Preview (e.g. Plantera) */}
           {proj.image && (
-            <div className="relative rounded-lg overflow-hidden border border-[#00ff9d]/30 mb-3 group/img h-36 sm:h-44 w-full bg-[#040c0e] shrink-0 shadow-md">
+            <div className="relative rounded-lg overflow-hidden border border-[#00ff9d]/30 mb-3.5 group/img h-36 sm:h-44 w-full bg-[#040c0e] shrink-0 shadow-md">
               <img
                 src={proj.image}
                 alt={proj.title}
@@ -288,7 +288,7 @@ const ProjectCardContent = ({ proj, isPeeking, renderProjectIcon, getTitleColor 
           )}
 
           {/* Bullets List */}
-          <ul className={`space-y-2 mb-4 ${proj.image ? 'max-h-[140px]' : 'max-h-[220px]'} overflow-y-auto pr-1`}>
+          <ul className="space-y-2.5 mb-4">
             {proj.bullets.map((bullet, bIdx) => (
               <li key={bIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
                 <span className="text-[#00ff9d] text-xs mt-0.5 shrink-0 select-none">▶</span>

@@ -287,6 +287,7 @@ export const portfolioData = {
         techStack:
           'TypeScript, Node.js, Express.js, PostgreSQL, Redis, Docker, AWS',
 
+        image: '/hummingtone.png',
         repoUrl: 'https://github.com/GowthamCD6/Humming-Tone',
         isHighlighted: true,
       },
@@ -309,6 +310,7 @@ export const portfolioData = {
         techStack:
           'TypeScript, Node.js, PostgreSQL, MySQL, MongoDB, SQLite, Redis, BullMQ, AWS S3, Docker',
 
+        image: '/dbbackupcli.png',
         repoUrl: 'https://github.com/rithishcodespace/db-backup-cli',
         isHighlighted: true,
       },
@@ -352,6 +354,7 @@ export const portfolioData = {
         techStack:
           'React, Node.js, Python, FastAPI, PostgreSQL, Vector Database, Embeddings, LLMs',
 
+        image: '/patentiq.png',
         repoUrl: '#',
         isHighlighted: false,
       },
@@ -373,6 +376,7 @@ export const portfolioData = {
         techStack:
           'React, Node.js, Express.js, MongoDB, JWT, REST APIs, Tailwind CSS',
 
+        image: '/devtinder.png',
         repoUrl: '#',
         isHighlighted: false,
       },
@@ -394,6 +398,7 @@ export const portfolioData = {
         techStack:
           'React, JavaScript, Redux Toolkit, Tailwind CSS, TMDB API, OpenAI API, Firebase',
 
+        image: '/netflixgpt.png',
         repoUrl: '#',
         isHighlighted: false,
       },
