@@ -354,6 +354,7 @@ export const portfolioData = {
         techStack:
           'React, Node.js, Python, FastAPI, PostgreSQL, Vector Database, Embeddings, LLMs',
 
+        image: '/patentiq.png',
         repoUrl: '#',
         isHighlighted: false,
       },
@@ -396,6 +397,7 @@ export const portfolioData = {
         techStack:
           'React, JavaScript, Redux Toolkit, Tailwind CSS, TMDB API, OpenAI API, Firebase',
 
+        image: '/netflixgpt.png',
         repoUrl: '#',
         isHighlighted: false,
       },
