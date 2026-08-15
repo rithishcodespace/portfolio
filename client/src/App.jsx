@@ -1,6 +1,7 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { trackingApi } from './services/api';
 import ParticleBackground from './components/ParticleBackground';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -14,6 +15,16 @@ import Contact from './components/Contact';
 import AdminLogin from './components/admin/AdminLogin';
 import AdminMessages from './components/admin/AdminMessages';
 import ProtectedRoute from './components/admin/ProtectedRoute';
+
+const PageViewTracker = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    trackingApi.trackPageView(location.pathname);
+  }, [location.pathname]);
+
+  return null;
+};
 
 const PublicPortfolio = () => {
   return (
@@ -76,6 +87,7 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <PageViewTracker />
         <Routes>
           {/* Public Portfolio Route */}
           <Route path="/" element={<PublicPortfolio />} />

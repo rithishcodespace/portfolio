@@ -6,10 +6,12 @@ const cors = require("cors");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 const createError = require("http-errors");
+const cookieParser = require("cookie-parser");
 const pool = require("./config/connection");
 
 const contactRoute = require("./routes/contact");
 const adminRoute = require("./routes/auth");
+const trackingRoute = require("./routes/tracking");
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -22,9 +24,11 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api/contact', contactRoute);
 app.use('/api/admin', adminRoute);
+app.use('/api/track', trackingRoute);
 
 app.use((error, req, res, next) => {
     console.error('Error:', error);

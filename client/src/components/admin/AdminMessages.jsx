@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { messagesApi } from '../../services/api';
+import { messagesApi, trackingApi } from '../../services/api';
 import AdminMessageDetailModal from './AdminMessageDetailModal';
 import {
   LogOut,
@@ -14,6 +14,7 @@ import {
   Eye,
   EyeOff,
   Filter,
+  Users
 } from 'lucide-react';
 
 const AdminMessages = () => {
@@ -21,10 +22,16 @@ const AdminMessages = () => {
   const navigate = useNavigate();
 
   const [messages, setMessages] = useState([]);
-  const [filter, setFilter] = useState('all'); // 'all' | 'unseen' | 'seen'
+  const [filter, setFilter] = useState('unseen'); // 'unseen' | 'seen' | 'all'
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedMessage, setSelectedMessage] = useState(null);
+
+  // View counts state
+  const [stats, setStats] = useState({
+    uniqueVisitors: 0,
+    totalViews: 0
+  });
 
   // Fetch messages from backend according to filter
   const fetchMessages = async (currentFilter = filter) => {
@@ -40,8 +47,29 @@ const AdminMessages = () => {
     }
   };
 
+  // Fetch unique view counts
+  const fetchStats = async () => {
+    try {
+      const data = await trackingApi.getStats();
+      if (data) {
+        setStats({
+          uniqueVisitors: data.uniqueVisitors || 0,
+          totalViews: data.totalViews || 0
+        });
+      }
+    } catch (err) {
+      console.error('Failed to fetch view stats:', err);
+    }
+  };
+
+  const handleRefresh = () => {
+    fetchMessages(filter);
+    fetchStats();
+  };
+
   useEffect(() => {
     fetchMessages(filter);
+    fetchStats();
   }, [filter]);
 
   const handleLogout = async () => {
@@ -50,7 +78,6 @@ const AdminMessages = () => {
   };
 
   const handleToggleSeen = async (id, targetSeen = true) => {
-    // Optimistic UI update
     setMessages((prev) =>
       prev.map((m) => (m.id === id ? { ...m, seen: targetSeen } : m))
     );
@@ -60,7 +87,6 @@ const AdminMessages = () => {
     try {
       await messagesApi.markSeen(id, targetSeen);
     } catch (err) {
-      // Revert if request failed
       fetchMessages(filter);
     }
   };
@@ -102,12 +128,12 @@ const AdminMessages = () => {
             </div>
           </div>
 
-          {/* Right Header Controls: Refresh & Logout */}
+          {/* Right Header Controls */}
           <div className="flex items-center gap-3">
             <button
-              onClick={() => fetchMessages(filter)}
+              onClick={handleRefresh}
               disabled={isLoading}
-              title="Refresh messages"
+              title="Refresh data"
               className="p-2 rounded-lg bg-[#0a1619] border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-[#00ff9d] transition-colors cursor-pointer disabled:opacity-50"
             >
               <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
@@ -126,6 +152,41 @@ const AdminMessages = () => {
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-8 space-y-6">
+
+        {/* View Count Stat Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Unique Visitors Card */}
+          <div className="bg-[#0a181c] border border-[#00ff9d]/30 rounded-xl p-4 flex items-center justify-between shadow-[0_0_15px_rgba(0,255,157,0.05)]">
+            <div className="space-y-1">
+              <span className="text-xs text-slate-400 font-semibold flex items-center gap-1.5">
+                <Users className="w-3.5 h-3.5 text-[#00ff9d]" />
+                Unique Visitors
+              </span>
+              <div className="text-2xl font-black text-slate-100">
+                {stats.uniqueVisitors}
+              </div>
+            </div>
+            <div className="w-10 h-10 rounded-lg bg-[#00ff9d]/10 border border-[#00ff9d]/20 flex items-center justify-center text-[#00ff9d]">
+              <Users className="w-5 h-5" />
+            </div>
+          </div>
+
+          {/* Total Views Card */}
+          <div className="bg-[#0a181c] border border-[#00e5ff]/30 rounded-xl p-4 flex items-center justify-between shadow-[0_0_15px_rgba(0,229,255,0.05)]">
+            <div className="space-y-1">
+              <span className="text-xs text-slate-400 font-semibold flex items-center gap-1.5">
+                <Eye className="w-3.5 h-3.5 text-[#00e5ff]" />
+                Total Page Views
+              </span>
+              <div className="text-2xl font-black text-slate-100">
+                {stats.totalViews}
+              </div>
+            </div>
+            <div className="w-10 h-10 rounded-lg bg-[#00e5ff]/10 border border-[#00e5ff]/20 flex items-center justify-center text-[#00e5ff]">
+              <Eye className="w-5 h-5" />
+            </div>
+          </div>
+        </div>
         
         {/* Toggle Filter Bar */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
@@ -137,17 +198,6 @@ const AdminMessages = () => {
           {/* Filter Pills Toggle */}
           <div className="inline-flex p-1 rounded-xl bg-[#040c0e] border border-slate-800 text-xs font-bold">
             <button
-              onClick={() => setFilter('all')}
-              className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer ${
-                filter === 'all'
-                  ? 'bg-[#00ff9d] text-black shadow-[0_0_15px_rgba(0,255,157,0.3)]'
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              All Messages
-            </button>
-            
-            <button
               onClick={() => setFilter('unseen')}
               className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
                 filter === 'unseen'
@@ -157,11 +207,6 @@ const AdminMessages = () => {
             >
               <EyeOff className="w-3.5 h-3.5" />
               <span>Unvisited / Unseen</span>
-              {filter === 'all' && unseenCount > 0 && (
-                <span className="text-[10px] bg-black/20 px-1.5 py-0.2 rounded-full">
-                  {unseenCount}
-                </span>
-              )}
             </button>
 
             <button
@@ -174,11 +219,17 @@ const AdminMessages = () => {
             >
               <Eye className="w-3.5 h-3.5" />
               <span>Visited / Seen</span>
-              {filter === 'all' && seenCount > 0 && (
-                <span className="text-[10px] bg-black/20 px-1.5 py-0.2 rounded-full">
-                  {seenCount}
-                </span>
-              )}
+            </button>
+
+            <button
+              onClick={() => setFilter('all')}
+              className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+                filter === 'all'
+                  ? 'bg-[#00ff9d] text-black shadow-[0_0_15px_rgba(0,255,157,0.3)]'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              All Messages
             </button>
           </div>
         </div>
@@ -206,7 +257,7 @@ const AdminMessages = () => {
               </p>
             </div>
             <button
-              onClick={() => fetchMessages(filter)}
+              onClick={handleRefresh}
               className="px-4 py-2 rounded-lg bg-[#00ff9d] text-black font-bold text-xs hover:bg-[#00ff9d]/90 transition-colors inline-flex items-center gap-2 cursor-pointer shadow-md"
             >
               <RefreshCw className="w-3.5 h-3.5" />
@@ -261,7 +312,6 @@ const AdminMessages = () => {
                       : 'bg-[#0a181c] border-[#00ff9d]/50 hover:border-[#00ff9d] shadow-[0_0_20px_rgba(0,255,157,0.08)]'
                   }`}
                 >
-                  {/* Unseen Left Accent Bar */}
                   {!isSeen && (
                     <div className="absolute left-0 top-3 bottom-3 w-1 bg-[#00ff9d] rounded-r" />
                   )}
@@ -294,7 +344,6 @@ const AdminMessages = () => {
                         <span>{dateText}</span>
                       </div>
 
-                      {/* Manual Toggle Seen Button */}
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -312,12 +361,10 @@ const AdminMessages = () => {
                     </div>
                   </div>
 
-                  {/* Subject Line */}
                   <div className="text-xs font-bold text-[#00e5ff] mb-1 group-hover:underline">
                     {subject}
                   </div>
 
-                  {/* Short Preview */}
                   <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed font-sans">
                     {snippet}
                   </p>

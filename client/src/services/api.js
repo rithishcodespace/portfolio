@@ -109,3 +109,23 @@ export const messagesApi = {
     return await messagesApi.markSeen(id, true);
   },
 };
+
+export const trackingApi = {
+  trackPageView: async (page = '/') => {
+    try {
+      return await request('/track', {
+        method: 'POST',
+        body: JSON.stringify({ page }),
+      });
+    } catch (err) {
+      console.error('Error tracking page view:', err);
+    }
+  },
+
+  getStats: async () => {
+    return await request('/track/stats', {
+      method: 'GET',
+    });
+  },
+};
+
