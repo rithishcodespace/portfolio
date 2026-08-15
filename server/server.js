@@ -17,14 +17,14 @@ const PORT = process.env.PORT;
 app.use(morgan('dev'));
 app.use(cors({
     origin: true,
-    credentials:true,
-    methods:["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 app.use(express.json());
 
 app.use('/api/contact', contactRoute);
-app.use('api/admin/', adminRoute);
+app.use('/api/admin', adminRoute);
 
 app.use((error, req, res, next) => {
     console.error('Error:', error);

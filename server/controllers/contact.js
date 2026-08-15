@@ -1,84 +1,72 @@
 const createError = require("http-errors");
 const db = require("../config/connection");
 
-exports.postMessage = (req,res,next) => {
-    try{
-        const {name, email, subject, message} = req.body;
-    
-        if(name == null || name.trim() == ""){
-            if (!name || name.trim() === "") {
-                return next(createError(400, "Name is required"));
-            }
+exports.postMessage = (req, res, next) => {
+    try {
+        const { name, email, subject, message } = req.body;
+
+        if (!name || name.trim() === "") {
+            return next(createError(400, "Name is required"));
         }
-        if(email == null || email.trim() == ""){
-            if (!name || name.trim() === "") {
-                return next(createError(400, "Email is required"));
-            }
+        if (!email || email.trim() === "") {
+            return next(createError(400, "Email is required"));
         }
-        if(subject == null || subject.trim() == ""){
-            if (!name || name.trim() === "") {
-                return next(createError(400, "Subject is required"));
-            }
+        if (!subject || subject.trim() === "") {
+            return next(createError(400, "Subject is required"));
         }
-        if(message == null || message.trim() == ""){
-            if (!name || name.trim() === "") {
-                return next(createError(400, "Message is required"));
-            }
+        if (!message || message.trim() === "") {
+            return next(createError(400, "Message is required"));
         }
 
-        let sql = "insert into messages values (?, ?, ?, ?)";
+        const sql = "INSERT INTO messages (name, email, subject, message) VALUES ($1, $2, $3, $4)";
 
-        db.query(sql, [name, email, subject, message], (err, result) => {
-            if(err){
+        db.query(sql, [name.trim(), email.trim(), subject.trim(), message.trim()], (err, result) => {
+            if (err) {
                 return next(err);
             }
-            res.status(200).json({
-                message: "Message Sent Sucessfully!"
+            return res.status(200).json({
+                message: "Message Sent Successfully!"
             });
-        })
-
+        });
+    } catch (error) {
+        next(error);
     }
-    catch(error){
-        next(error.message);
-    }
-}
+};
 
-exports.getMessages = (req,res,next) => {
-    try{
-        let sql = "select * from messages order by date asc";
-        db.query(sql,(err,result) => {
-            if(err){
-                next(err);
+exports.getMessages = (req, res, next) => {
+    try {
+        const sql = "SELECT * FROM messages ORDER BY created_at DESC";
+        db.query(sql, (err, result) => {
+            if (err) {
+                return next(err);
             }
-            res.status(200).json({
-                messages: result
+            return res.status(200).json({
+                messages: result.rows
             });
-        })
+        });
+    } catch (error) {
+        next(error);
     }
-    catch(error){
-        next(error.message);
-    }
-}
+};
 
-exports.getMessage = (req,res,next) => {
-    try{
-        const {id} = req.body;
+exports.getMessage = (req, res, next) => {
+    try {
+        const id = req.params.id || req.body.id;
 
-        if(id == null || id.trim() == ""){
-             return next(createError(400, "Invalid Id"));
+        if (!id) {
+            return next(createError(400, "Invalid Id"));
         }
 
-        let sql = "select * from messages order by date asc";
-        db.query(sql,(err,result) => {
-            if(err){
-                next(err);
+        const sql = "SELECT * FROM messages WHERE id = $1";
+        db.query(sql, [id], (err, result) => {
+            if (err) {
+                return next(err);
             }
-            res.status(200).json({
-                messages: result
+            return res.status(200).json({
+                message: result.rows[0] || null
             });
-        })
+        });
+    } catch (error) {
+        next(error);
     }
-    catch(error){
-        next(error.message);
-    }
-}
+};
