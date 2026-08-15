@@ -317,17 +317,17 @@ const DistributedSystemCard = ({ cat, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="h-full bg-[#0c1618] rounded-xl p-5 sm:p-6 font-mono flex flex-col justify-between transition-all duration-300 border border-[#00ff9d] shadow-[0_0_22px_rgba(0,255,157,0.22)] bg-[#0e1a1d] hover:-translate-y-1 cursor-pointer group select-none relative"
+      className="h-[340px] bg-[#0c1618] rounded-xl p-5 font-mono flex flex-col justify-between transition-all duration-300 border border-[#00ff9d] shadow-[0_0_22px_rgba(0,255,157,0.22)] bg-[#0e1a1d] hover:-translate-y-1.5 hover:shadow-[0_0_30px_rgba(0,255,157,0.35)] active:scale-[0.98] cursor-pointer group select-none relative"
     >
       {/* Inspect System Pop-Up Badge */}
-      <span className="absolute top-4 right-4 z-20 text-[11px] text-[#00ff9d] bg-[#081518] px-2.5 py-1 rounded border border-[#00ff9d] font-semibold flex items-center gap-1.5 opacity-0 group-hover:opacity-100 group-hover:bg-[#00ff9d] group-hover:text-black transition-all duration-200 shadow-[0_0_12px_rgba(0,255,157,0.3)] pointer-events-none">
-        <RefreshCw className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} />
-        <span>INSPECT SYSTEM</span>
+      <span className="absolute top-3 right-3 z-20 text-[10px] text-[#00ff9d] bg-[#040c0e] px-2 py-0.5 rounded-lg border border-[#00ff9d] font-bold flex items-center gap-1 opacity-0 group-hover:opacity-100 group-hover:scale-105 group-hover:bg-[#00ff9d] group-hover:text-black transition-all duration-200 shadow-[0_0_15px_rgba(0,255,157,0.4)] pointer-events-none">
+        <span>INSPECT</span>
+        <span className="text-xs">↗</span>
       </span>
 
-      <div>
+      <div className="flex-1 flex flex-col min-h-0">
         {/* Header dots & filename */}
-        <div className="flex items-center gap-2 pb-3 mb-4 border-b border-slate-800/70 text-xs text-slate-400 overflow-hidden">
+        <div className="flex items-center gap-2 pb-2.5 mb-3 border-b border-slate-800/70 text-xs text-slate-400 overflow-hidden shrink-0">
           <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] inline-block shrink-0"></span>
           <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] inline-block shrink-0"></span>
           <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f] inline-block shrink-0"></span>
@@ -337,21 +337,23 @@ const DistributedSystemCard = ({ cat, onClick }) => {
         </div>
 
         {/* Category Icon & Title */}
-        <div className="flex items-center gap-3 mb-3">
-          <Share2 className="w-6 h-6 text-fuchsia-400 shrink-0" />
-          <h3 className="text-base sm:text-lg font-bold text-slate-100 tracking-tight">
+        <div className="flex items-center gap-2.5 mb-2.5 shrink-0">
+          <Share2 className="w-5 h-5 text-fuchsia-400 shrink-0" />
+          <h3 className="text-sm sm:text-base font-bold text-slate-100 tracking-tight truncate">
             {cat.title}
           </h3>
         </div>
 
         {/* Items List */}
-        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-          {cat.items}
-        </p>
+        <div className="flex-1 overflow-y-auto no-scrollbar pr-1 my-1">
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+            {cat.items}
+          </p>
+        </div>
       </div>
 
       {/* Status footer pill */}
-      <div className="pt-3 mt-4 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-400 font-mono">
+      <div className="pt-2.5 mt-2 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-400 font-mono shrink-0">
         <span>[READY]</span>
         <span className="text-[#00ff9d] font-semibold">v1.0</span>
       </div>

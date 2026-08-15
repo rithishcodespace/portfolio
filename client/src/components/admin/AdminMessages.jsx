@@ -306,12 +306,18 @@ const AdminMessages = () => {
                 <div
                   key={msg.id || idx}
                   onClick={() => handleOpenMessage(msg)}
-                  className={`group relative rounded-xl border p-4 sm:p-5 transition-all duration-200 cursor-pointer ${
+                  className={`group relative rounded-xl border p-4 sm:p-5 transition-all duration-200 cursor-pointer hover:-translate-y-1 ${
                     isSeen
-                      ? 'bg-[#061012] border-slate-800/80 hover:border-slate-700 opacity-85'
-                      : 'bg-[#0a181c] border-[#00ff9d]/50 hover:border-[#00ff9d] shadow-[0_0_20px_rgba(0,255,157,0.08)]'
+                      ? 'bg-[#061012] border-slate-800/80 hover:border-[#00ff9d]/60 hover:shadow-[0_0_15px_rgba(0,255,157,0.15)] opacity-85 hover:opacity-100'
+                      : 'bg-[#0a181c] border-[#00ff9d]/50 hover:border-[#00ff9d] shadow-[0_0_20px_rgba(0,255,157,0.08)] hover:shadow-[0_0_25px_rgba(0,255,157,0.25)]'
                   }`}
                 >
+                  {/* Floating Hover Click Affordance Badge */}
+                  <span className="absolute top-3.5 right-14 z-20 text-[10px] text-[#00ff9d] bg-[#040c0e] px-2 py-0.5 rounded border border-[#00ff9d]/50 font-bold opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-200 pointer-events-none hidden sm:inline-flex items-center gap-1 shadow-md">
+                    <span>CLICK TO READ</span>
+                    <span className="text-[11px]">↗</span>
+                  </span>
+
                   {!isSeen && (
                     <div className="absolute left-0 top-3 bottom-3 w-1 bg-[#00ff9d] rounded-r" />
                   )}

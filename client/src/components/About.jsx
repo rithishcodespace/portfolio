@@ -40,7 +40,7 @@ const About = () => {
             onClick={() => setIsLeftFlipped(!isLeftFlipped)}
           >
             {/* FRONT SIDE: Profile Card */}
-            <div className="absolute inset-0 w-full h-full backface-hidden bg-[#0c1618] border border-[#00ff9d]/25 hover:border-[#00ff9d]/50 rounded-xl p-6 sm:p-7 shadow-xl transition-all duration-300 flex flex-col justify-between select-none">
+            <div className="absolute inset-0 w-full h-full backface-hidden bg-[#0c1618] border border-[#00ff9d]/25 hover:border-[#00ff9d] rounded-xl p-6 sm:p-7 shadow-xl hover:shadow-[0_0_30px_rgba(0,255,157,0.3)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between select-none">
               <div>
                 {/* Header controls */}
                 <div className="flex items-center justify-between pb-4 mb-5 border-b border-slate-800/70 font-mono text-sm text-slate-400">
@@ -218,7 +218,7 @@ const About = () => {
             onClick={() => setIsRightFlipped(!isRightFlipped)}
           >
             {/* FRONT SIDE: Summary Log */}
-            <div className="absolute inset-0 w-full h-full backface-hidden bg-[#0c1618] border border-[#00ff9d]/25 hover:border-[#00ff9d]/50 rounded-xl p-6 sm:p-8 shadow-xl transition-all duration-300 flex flex-col justify-between select-none">
+            <div className="absolute inset-0 w-full h-full backface-hidden bg-[#0c1618] border border-[#00ff9d]/25 hover:border-[#00ff9d] rounded-xl p-6 sm:p-8 shadow-xl hover:shadow-[0_0_30px_rgba(0,255,157,0.3)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between select-none">
               <div>
                 {/* Card Header dots */}
                 <div className="flex items-center justify-between pb-4 mb-5 border-b border-slate-800/70 font-mono text-sm text-slate-400">
