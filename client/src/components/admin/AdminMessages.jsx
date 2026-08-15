@@ -7,30 +7,31 @@ import {
   LogOut,
   Mail,
   RefreshCw,
-  MessageSquare,
   AlertTriangle,
   Clock,
   User,
   Inbox,
-  CheckCircle,
+  Eye,
+  EyeOff,
+  Filter,
 } from 'lucide-react';
 
 const AdminMessages = () => {
-  const { logout, adminUser } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   const [messages, setMessages] = useState([]);
-  const [readIds, setReadIds] = useState(new Set());
+  const [filter, setFilter] = useState('all'); // 'all' | 'unseen' | 'seen'
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedMessage, setSelectedMessage] = useState(null);
 
-  // Fetch messages from backend
-  const fetchMessages = async () => {
+  // Fetch messages from backend according to filter
+  const fetchMessages = async (currentFilter = filter) => {
     setIsLoading(true);
     setError(null);
     try {
-      const data = await messagesApi.getMessages();
+      const data = await messagesApi.getMessages(currentFilter);
       setMessages(Array.isArray(data) ? data : []);
     } catch (err) {
       setError('Unable to load messages. Please try again.');
@@ -40,19 +41,34 @@ const AdminMessages = () => {
   };
 
   useEffect(() => {
-    fetchMessages();
-  }, []);
+    fetchMessages(filter);
+  }, [filter]);
 
   const handleLogout = async () => {
     await logout();
     navigate('/admin', { replace: true });
   };
 
+  const handleToggleSeen = async (id, targetSeen = true) => {
+    // Optimistic UI update
+    setMessages((prev) =>
+      prev.map((m) => (m.id === id ? { ...m, seen: targetSeen } : m))
+    );
+    if (selectedMessage && selectedMessage.id === id) {
+      setSelectedMessage((prev) => (prev ? { ...prev, seen: targetSeen } : null));
+    }
+    try {
+      await messagesApi.markSeen(id, targetSeen);
+    } catch (err) {
+      // Revert if request failed
+      fetchMessages(filter);
+    }
+  };
+
   const handleOpenMessage = (msg) => {
     setSelectedMessage(msg);
-    if (msg.id) {
-      setReadIds((prev) => new Set([...prev, msg.id]));
-      messagesApi.markRead(msg.id).catch(() => {});
+    if (msg.id && !msg.seen) {
+      handleToggleSeen(msg.id, true);
     }
   };
 
@@ -60,18 +76,14 @@ const AdminMessages = () => {
     setSelectedMessage(null);
   };
 
-  const isMessageRead = (msg) => {
-    if (msg.is_read || msg.read) return true;
-    if (msg.id && readIds.has(msg.id)) return true;
-    return false;
-  };
+  const unseenCount = messages.filter((m) => !m.seen).length;
+  const seenCount = messages.filter((m) => m.seen).length;
 
   return (
     <div className="min-h-screen bg-[#070e10] text-slate-200 font-mono flex flex-col selection:bg-[#00ff9d] selection:text-black">
       {/* Header Bar */}
       <header className="border-b border-slate-800 bg-[#040c0e] py-4 px-4 sm:px-8 sticky top-0 z-30 shadow-md">
         <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
-          
           {/* Branding & Page Title */}
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-[#00ff9d]/10 border border-[#00ff9d]/30 flex items-center justify-center text-[#00ff9d]">
@@ -93,7 +105,7 @@ const AdminMessages = () => {
           {/* Right Header Controls: Refresh & Logout */}
           <div className="flex items-center gap-3">
             <button
-              onClick={fetchMessages}
+              onClick={() => fetchMessages(filter)}
               disabled={isLoading}
               title="Refresh messages"
               className="p-2 rounded-lg bg-[#0a1619] border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-[#00ff9d] transition-colors cursor-pointer disabled:opacity-50"
@@ -115,21 +127,60 @@ const AdminMessages = () => {
       {/* Main Content Area */}
       <main className="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-8 space-y-6">
         
-        {/* Subheader info bar */}
-        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-800/80 text-xs text-slate-400">
-          <div className="flex items-center gap-2">
-            <Inbox className="w-4 h-4 text-[#00ff9d]" />
-            <span className="text-slate-200 font-bold">INBOX_RECEIVER</span>
-            <span className="text-slate-500 font-mono text-[11px]">
-              [ADMIN_MODE]
-            </span>
+        {/* Toggle Filter Bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
+          <div className="flex items-center gap-2 text-xs text-slate-400 font-semibold">
+            <Filter className="w-3.5 h-3.5 text-[#00ff9d]" />
+            <span>Filter View:</span>
           </div>
 
-          {!isLoading && !error && messages.length > 0 && (
-            <div className="text-[11px] text-slate-400">
-              Click any message to open complete detail view
-            </div>
-          )}
+          {/* Filter Pills Toggle */}
+          <div className="inline-flex p-1 rounded-xl bg-[#040c0e] border border-slate-800 text-xs font-bold">
+            <button
+              onClick={() => setFilter('all')}
+              className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+                filter === 'all'
+                  ? 'bg-[#00ff9d] text-black shadow-[0_0_15px_rgba(0,255,157,0.3)]'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              All Messages
+            </button>
+            
+            <button
+              onClick={() => setFilter('unseen')}
+              className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+                filter === 'unseen'
+                  ? 'bg-[#00ff9d] text-black shadow-[0_0_15px_rgba(0,255,157,0.3)]'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <EyeOff className="w-3.5 h-3.5" />
+              <span>Unvisited / Unseen</span>
+              {filter === 'all' && unseenCount > 0 && (
+                <span className="text-[10px] bg-black/20 px-1.5 py-0.2 rounded-full">
+                  {unseenCount}
+                </span>
+              )}
+            </button>
+
+            <button
+              onClick={() => setFilter('seen')}
+              className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+                filter === 'seen'
+                  ? 'bg-[#00ff9d] text-black shadow-[0_0_15px_rgba(0,255,157,0.3)]'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <Eye className="w-3.5 h-3.5" />
+              <span>Visited / Seen</span>
+              {filter === 'all' && seenCount > 0 && (
+                <span className="text-[10px] bg-black/20 px-1.5 py-0.2 rounded-full">
+                  {seenCount}
+                </span>
+              )}
+            </button>
+          </div>
         </div>
 
         {/* LOADING STATE */}
@@ -155,7 +206,7 @@ const AdminMessages = () => {
               </p>
             </div>
             <button
-              onClick={fetchMessages}
+              onClick={() => fetchMessages(filter)}
               className="px-4 py-2 rounded-lg bg-[#00ff9d] text-black font-bold text-xs hover:bg-[#00ff9d]/90 transition-colors inline-flex items-center gap-2 cursor-pointer shadow-md"
             >
               <RefreshCw className="w-3.5 h-3.5" />
@@ -170,9 +221,15 @@ const AdminMessages = () => {
             <div className="w-12 h-12 rounded-full bg-[#040c0e] border border-slate-800 flex items-center justify-center text-slate-500 mx-auto">
               <Inbox className="w-6 h-6" />
             </div>
-            <h3 className="text-base font-bold text-slate-200">No messages yet</h3>
+            <h3 className="text-base font-bold text-slate-200">
+              No {filter === 'all' ? '' : filter} messages
+            </h3>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Messages submitted through your portfolio contact form will appear here.
+              {filter === 'unseen'
+                ? 'All messages have been marked as seen.'
+                : filter === 'seen'
+                ? 'No messages marked as visited/seen yet.'
+                : 'Messages submitted through your portfolio contact form will appear here.'}
             </p>
           </div>
         )}
@@ -181,7 +238,7 @@ const AdminMessages = () => {
         {!isLoading && !error && messages.length > 0 && (
           <div className="space-y-3">
             {messages.map((msg, idx) => {
-              const read = isMessageRead(msg);
+              const isSeen = Boolean(msg.seen);
               const name = msg.name || msg.sender_name || 'Anonymous';
               const email = msg.email || msg.sender_email || 'No email';
               const subject = msg.subject || 'No Subject';
@@ -199,25 +256,29 @@ const AdminMessages = () => {
                   key={msg.id || idx}
                   onClick={() => handleOpenMessage(msg)}
                   className={`group relative rounded-xl border p-4 sm:p-5 transition-all duration-200 cursor-pointer ${
-                    read
-                      ? 'bg-[#061012] border-slate-800/80 hover:border-slate-700 opacity-90'
+                    isSeen
+                      ? 'bg-[#061012] border-slate-800/80 hover:border-slate-700 opacity-85'
                       : 'bg-[#0a181c] border-[#00ff9d]/50 hover:border-[#00ff9d] shadow-[0_0_20px_rgba(0,255,157,0.08)]'
                   }`}
                 >
-                  {/* Subtle Unread Left Accent Bar */}
-                  {!read && (
+                  {/* Unseen Left Accent Bar */}
+                  {!isSeen && (
                     <div className="absolute left-0 top-3 bottom-3 w-1 bg-[#00ff9d] rounded-r" />
                   )}
 
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 mb-2">
                     <div className="space-y-0.5">
                       <div className="flex items-center gap-2">
-                        <span className={`font-bold text-sm ${read ? 'text-slate-300' : 'text-slate-100 font-extrabold'}`}>
+                        <span className={`font-bold text-sm ${isSeen ? 'text-slate-300' : 'text-slate-100 font-extrabold'}`}>
                           {name}
                         </span>
-                        {!read && (
+                        {!isSeen ? (
                           <span className="text-[9px] font-bold uppercase tracking-wider text-[#00ff9d] bg-[#00ff9d]/10 px-2 py-0.5 rounded border border-[#00ff9d]/30">
-                            UNREAD
+                            UNSEEN
+                          </span>
+                        ) : (
+                          <span className="text-[9px] font-medium uppercase tracking-wider text-slate-400 bg-slate-800/80 px-2 py-0.5 rounded">
+                            SEEN
                           </span>
                         )}
                       </div>
@@ -227,9 +288,27 @@ const AdminMessages = () => {
                       </div>
                     </div>
 
-                    <div className="text-[11px] text-slate-400 flex items-center gap-1 shrink-0">
-                      <Clock className="w-3 h-3 text-slate-500" />
-                      <span>{dateText}</span>
+                    <div className="flex items-center gap-3 shrink-0">
+                      <div className="text-[11px] text-slate-400 flex items-center gap-1">
+                        <Clock className="w-3 h-3 text-slate-500" />
+                        <span>{dateText}</span>
+                      </div>
+
+                      {/* Manual Toggle Seen Button */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleToggleSeen(msg.id, !isSeen);
+                        }}
+                        title={isSeen ? 'Mark as Unseen' : 'Mark as Seen'}
+                        className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
+                          isSeen
+                            ? 'bg-slate-800/80 border-slate-700 hover:border-slate-500 text-slate-400 hover:text-slate-200'
+                            : 'bg-[#00ff9d]/10 border-[#00ff9d]/30 hover:bg-[#00ff9d] hover:text-black text-[#00ff9d]'
+                        }`}
+                      >
+                        {isSeen ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                      </button>
                     </div>
                   </div>
 
@@ -254,6 +333,7 @@ const AdminMessages = () => {
         <AdminMessageDetailModal
           message={selectedMessage}
           onClose={handleCloseModal}
+          onToggleSeen={handleToggleSeen}
         />
       )}
     </div>

@@ -35,8 +35,17 @@ exports.postMessage = (req, res, next) => {
 
 exports.getMessages = (req, res, next) => {
     try {
-        const sql = "SELECT * FROM messages ORDER BY created_at DESC";
-        db.query(sql, (err, result) => {
+        const { filter } = req.query;
+        let sql = "SELECT * FROM messages ORDER BY created_at DESC";
+        let params = [];
+
+        if (filter === 'unseen' || filter === 'unvisited') {
+            sql = "SELECT * FROM messages WHERE seen = false ORDER BY created_at DESC";
+        } else if (filter === 'seen' || filter === 'visited') {
+            sql = "SELECT * FROM messages WHERE seen = true ORDER BY created_at DESC";
+        }
+
+        db.query(sql, params, (err, result) => {
             if (err) {
                 return next(err);
             }
@@ -64,6 +73,31 @@ exports.getMessage = (req, res, next) => {
             }
             return res.status(200).json({
                 message: result.rows[0] || null
+            });
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.seen = (req, res, next) => {
+    try {
+        const id = req.params.id || req.body.id;
+        const seenStatus = req.body.seen !== undefined ? req.body.seen : true;
+
+        if (!id) {
+            return next(createError(400, "Invalid Id"));
+        }
+
+        const sql = "UPDATE messages SET seen = $1 WHERE id = $2 RETURNING *";
+
+        db.query(sql, [seenStatus, id], (err, result) => {
+            if (err) {
+                return next(err);
+            }
+            return res.status(200).json({
+                message: "Marked as seen!",
+                data: result.rows[0]
             });
         });
     } catch (error) {

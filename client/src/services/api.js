@@ -79,8 +79,9 @@ export const authApi = {
 };
 
 export const messagesApi = {
-  getMessages: async () => {
-    const data = await request('/contact', {
+  getMessages: async (filter = 'all') => {
+    const query = filter && filter !== 'all' ? `?filter=${filter}` : '';
+    const data = await request(`/contact${query}`, {
       method: 'GET',
     });
     return data.messages || data;
@@ -93,13 +94,18 @@ export const messagesApi = {
     });
   },
 
-  markRead: async (id) => {
+  markSeen: async (id, seen = true) => {
     try {
-      return await request(`/contact/${id}/read`, {
+      return await request(`/contact/mark_as_seen/${id}`, {
         method: 'PATCH',
+        body: JSON.stringify({ seen }),
       });
     } catch (err) {
       return { success: true };
     }
+  },
+
+  markRead: async (id) => {
+    return await messagesApi.markSeen(id, true);
   },
 };
