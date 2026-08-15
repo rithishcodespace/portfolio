@@ -6,6 +6,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 const createError = require("http-errors");
+const pool = require("./config/connection");
 
 const contactRoute = require("./routes/contact");
 

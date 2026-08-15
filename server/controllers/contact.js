@@ -28,6 +28,32 @@ exports.postMessage = (req,res,next) => {
 
         let sql = "insert into messages values (?, ?, ?, ?)";
 
+        db.query(sql, [name, email, subject, message], (err, res) => {
+            if(err){
+                return next(err);
+            }
+            res.status(200).json({
+                message: "Message Sent Sucessfully!"
+            });
+        })
+
+    }
+    catch(error){
+        next(error.message);
+    }
+}
+
+exports.getMessages = (req,res,next) => {
+    try{
+        let sql = "select * from messages order by date asc";
+        db.query(sql,(err,res) => {
+            if(err){
+                next(err);
+            }
+            res.status(200).json({
+                messages: res
+            });
+        })
     }
     catch(error){
         next(error.message);
@@ -36,7 +62,21 @@ exports.postMessage = (req,res,next) => {
 
 exports.getMessage = (req,res,next) => {
     try{
+        let id = req.params.id;
+
+        if(id == null || id.trim() == ""){
+             return next(createError(400, "Invalid Id"));
+        }
+
         let sql = "select * from messages order by date asc";
+        db.query(sql,(err,res) => {
+            if(err){
+                next(err);
+            }
+            res.status(200).json({
+                messages: res
+            });
+        })
     }
     catch(error){
         next(error.message);
