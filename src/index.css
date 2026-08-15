@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-dark: #070e10;
+    --card-bg: #0d171a;
+    --card-bg-hover: #101c20;
+    --accent-green: #00ff9d;
+    --accent-cyan: #00e5ff;
+    --border-color: rgba(0, 255, 157, 0.15);
+    --border-color-highlight: rgba(0, 255, 157, 0.6);
+  }
+
+  body {
+    background-color: #070e10;
+    color: #e2e8f0;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Utilities for Rithish Portfolio terminal theme */
+.bg-dark-main {
+  background-color: #070e10;
+}
+
+.bg-card-dark {
+  background-color: #0c1618;
+}
+
+.bg-card-highlight {
+  background-color: #0e1a1d;
+}
+
+.border-terminal {
+  border-color: rgba(0, 255, 157, 0.15);
+}
+
+.border-terminal-glow {
+  border-color: #00ff9d;
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.2), inset 0 0 10px rgba(0, 255, 157, 0.05);
+}
+
+.border-cyan-glow {
+  border-color: #00e5ff;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+}
+
+/* Text glow effects */
+.text-neon-green {
+  color: #00ff9d;
+}
+
+.text-glow-green {
+  color: #00ff9d;
+  text-shadow: 0 0 12px rgba(0, 255, 157, 0.5), 0 0 25px rgba(0, 255, 157, 0.25);
+}
+
+.text-neon-cyan {
+  color: #00e5ff;
+}
+
+.text-glow-cyan {
+  color: #00e5ff;
+  text-shadow: 0 0 12px rgba(0, 229, 255, 0.5), 0 0 25px rgba(0, 229, 255, 0.25);
+}
+
+/* Custom Underline for headings */
+.section-underline {
+  height: 3px;
+  width: 60px;
+  background: linear-gradient(90deg, #00e5ff 0%, #00ff9d 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070e10;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #15292c;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 255, 157, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00ff9d33;
+}
+
+/* 3D Flip Card Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
