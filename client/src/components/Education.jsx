@@ -1,22 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SectionHeader from './SectionHeader';
 import { portfolioData } from '../data/portfolioData';
 import {
   GraduationCap,
   Briefcase,
   Award,
-  ChevronDown,
-  ChevronUp,
   Target,
-  Sparkles,
-  CheckCircle2,
   Terminal,
-  Zap,
 } from 'lucide-react';
 
 const Education = () => {
   const { headingCommand, school, college, career } = portfolioData.education;
-  const [showCareerDetails, setShowCareerDetails] = useState(false);
 
   return (
     <section id="edu" className="py-16 sm:py-24 px-4 max-w-4xl mx-auto relative z-10 font-mono">
@@ -125,16 +119,16 @@ const Education = () => {
         </div>
 
         {/* ========================================================================= */}
-        {/* STAGE 03: CAREER / PLACEMENT (NEXT) + GATE SIDE QUEST */}
+        {/* STAGE 03: CAREER / FUTURE (NEXT) */}
         {/* ========================================================================= */}
         <div className="relative z-10 pl-6 sm:pl-8">
-          {/* Node Icon on Timeline (Centered on stem line) */}
+          {/* Node Icon on Timeline */}
           <div className="absolute left-[-24px] sm:left-[-32px] top-6 -translate-x-1/2 w-7 h-7 rounded-full bg-[#081518] border-2 border-[#00e5ff] flex items-center justify-center text-[10px] font-bold text-[#00e5ff] shadow-[0_0_12px_rgba(0,229,255,0.5)]">
             03
           </div>
 
-          <div className="bg-[#0a1619] border border-[#00e5ff]/50 hover:border-[#00e5ff] shadow-[0_0_22px_rgba(0,229,255,0.15)] rounded-xl p-6 sm:p-7 transition-all duration-300 space-y-5">
-            {/* Header dots */}
+          <div className="bg-[#0a1619] border border-[#00e5ff]/50 hover:border-[#00e5ff] shadow-[0_0_22px_rgba(0,229,255,0.15)] rounded-xl p-6 sm:p-7 transition-all duration-300 space-y-4">
+            {/* Header dots & Status */}
             <div className="flex items-center justify-between pb-3.5 border-b border-slate-800/80 text-xs text-slate-400">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] inline-block"></span>
@@ -147,11 +141,11 @@ const Education = () => {
               </span>
             </div>
 
-            {/* Badge & Title */}
+            {/* Step Badge & Title */}
             <div>
-              <div className="flex items-center gap-2 text-[#00e5ff] text-xs font-bold tracking-wider mb-1.5">
+              <div className="flex items-center gap-2 text-[#00e5ff] text-xs font-bold tracking-wider mb-1">
                 <Briefcase className="w-4 h-4 text-[#00e5ff] shrink-0" />
-                <span>{career.step} {career.tag}</span>
+                <span>{career.step} / {career.tag}</span>
               </div>
 
               <h3 className="text-xl sm:text-2xl font-black text-slate-100 tracking-tight">
@@ -159,108 +153,84 @@ const Education = () => {
               </h3>
             </div>
 
-            {/* Target & Focus Grid */}
+            {/* Two-Column Area: TARGET & INTERESTS */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div className="bg-[#040c0e] border border-slate-800/90 p-3 rounded-lg">
-                <span className="text-[10px] text-slate-500 font-bold block mb-1 tracking-wider">
+              {/* LEFT: TARGET */}
+              <div className="bg-[#040c0e] border border-slate-800/90 p-3.5 rounded-lg">
+                <span className="text-[10px] text-slate-500 font-bold block mb-1.5 tracking-wider uppercase">
                   TARGET
                 </span>
-                <span className="text-sm font-bold text-[#00e5ff] flex items-center gap-1.5">
-                  <Target className="w-3.5 h-3.5 text-[#00e5ff]" />
-                  <span>{career.target}</span>
-                </span>
+                <div className="space-y-1">
+                  <div className="text-sm font-bold text-[#00e5ff] flex items-center gap-1.5">
+                    <Target className="w-3.5 h-3.5 text-[#00e5ff] shrink-0" />
+                    <span>{career.targetPrimary}</span>
+                  </div>
+                  <div className="text-xs font-semibold text-slate-300 pl-5">
+                    {career.targetSecondary}
+                  </div>
+                </div>
               </div>
 
-              <div className="bg-[#040c0e] border border-slate-800/90 p-3 rounded-lg">
-                <span className="text-[10px] text-slate-500 font-bold block mb-1 tracking-wider">
-                  FOCUS AREAS
+              {/* RIGHT: INTERESTS */}
+              <div className="bg-[#040c0e] border border-slate-800/90 p-3.5 rounded-lg">
+                <span className="text-[10px] text-slate-500 font-bold block mb-1.5 tracking-wider uppercase">
+                  INTERESTS
                 </span>
                 <div className="flex flex-wrap gap-1.5">
-                  {career.focus.map((f, i) => (
+                  {career.interests.map((interest, i) => (
                     <span
                       key={i}
-                      className="text-[11px] bg-[#0c1a1d] text-slate-200 border border-slate-700 px-2 py-0.5 rounded font-semibold"
+                      className="text-[11px] bg-[#0c1a1d] text-slate-200 border border-slate-700/80 px-2 py-0.5 rounded font-semibold"
                     >
-                      {f}
+                      {interest}
                     </span>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* Clever Recruiter Humor Box */}
+            {/* Current Objective */}
             <div className="bg-[#081518] border border-slate-800/90 rounded-lg p-3.5 text-xs">
-              <div className="flex items-center justify-between text-[10px] text-slate-500 font-bold mb-1">
-                <span className="flex items-center gap-1 text-amber-400">
-                  <Zap className="w-3 h-3 fill-current" />
-                  <span>CURRENT OBJECTIVE</span>
-                </span>
-                <span className="text-[#00ff9d]">● {career.objectiveStatus}</span>
+              <div className="text-[10px] text-slate-500 font-bold mb-1 tracking-wider uppercase">
+                CURRENT OBJECTIVE
               </div>
-              <p className="text-slate-300 italic font-medium text-xs">
+              <p className="text-slate-200 italic font-medium text-xs sm:text-sm">
                 "{career.objective}"
               </p>
             </div>
 
-            {/* Interactive Toggle: WHAT I'M LOOKING FOR */}
-            <div className="border border-slate-800/80 rounded-lg overflow-hidden bg-[#040c0e]">
-              <button
-                onClick={() => setShowCareerDetails(!showCareerDetails)}
-                className="w-full p-3 text-xs font-bold text-slate-300 hover:text-[#00e5ff] flex items-center justify-between transition-colors cursor-pointer"
-              >
-                <span className="flex items-center gap-2">
-                  <Sparkles className="w-3.5 h-3.5 text-[#00e5ff]" />
-                  <span>WHAT I'M LOOKING FOR</span>
+            {/* LOOKING FOR Section */}
+            <div className="bg-[#040c0e] border border-slate-800/90 rounded-lg p-3.5 text-xs space-y-2.5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-slate-800/80 pb-2">
+                <span className="text-[10px] text-slate-500 font-bold tracking-wider uppercase">
+                  LOOKING FOR
                 </span>
-                {showCareerDetails ? (
-                  <ChevronUp className="w-4 h-4 text-slate-400" />
-                ) : (
-                  <ChevronDown className="w-4 h-4 text-slate-400" />
-                )}
-              </button>
-
-              {showCareerDetails && (
-                <div className="p-3 pt-0 text-xs space-y-2 border-t border-slate-800/80 animate-fadeIn">
-                  {career.lookingFor.map((item, i) => (
-                    <div key={i} className="flex items-center gap-2 text-slate-300">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#00e5ff] shrink-0" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
+                <span className="text-xs font-bold text-[#00e5ff]">
+                  {career.lookingForRole}
+                </span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-0.5">
+                {career.lookingForBullets.map((item, i) => (
+                  <div key={i} className="flex items-center gap-2 text-slate-300 text-xs">
+                    <span className="text-[#00ff9d] shrink-0 font-bold">•</span>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* ========================================================================= */}
-            {/* SMALL SECONDARY DETAIL: GATE SIDE QUEST */}
-            {/* ========================================================================= */}
-            <div className="pt-4 border-t border-slate-800/80">
-              <div className="bg-[#050c0e] border border-amber-500/30 rounded-lg p-3 sm:p-3.5 text-xs">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-amber-400 font-extrabold uppercase tracking-wider bg-amber-950/50 border border-amber-500/40 px-2 py-0.5 rounded">
-                      ⚡ {career.gateSideQuest.subtitle}
-                    </span>
-                    <span className="font-bold text-slate-200 text-xs">
-                      {career.gateSideQuest.title}
-                    </span>
-                  </div>
-                  <span className="text-[10px] text-amber-300 font-bold bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30">
-                    ● {career.gateSideQuest.status}
-                  </span>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-400">
-                  <span className="text-slate-500">Core Subjects:</span>
-                  {career.gateSideQuest.topics.map((t, idx) => (
-                    <span
-                      key={idx}
-                      className="bg-[#0c1618] border border-slate-800 text-slate-300 px-2 py-0.5 rounded font-mono text-[10px]"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
+            {/* Secondary Footer: GATE / CSE PREPARATION */}
+            <div className="pt-3 border-t border-slate-800/70 flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-slate-500 font-bold tracking-wider uppercase">
+                  ALSO PREPARING FOR:
+                </span>
+                <span className="text-xs font-bold text-amber-400">
+                  {career.gatePrep.title}
+                </span>
+              </div>
+              <div className="flex items-center gap-1.5 text-[11px] text-slate-400 font-mono">
+                {career.gatePrep.topics.join(' · ')}
               </div>
             </div>
           </div>

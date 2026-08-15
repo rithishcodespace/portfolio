@@ -374,7 +374,7 @@ export const portfolioData = {
           'React, Node.js, Python, FastAPI, PostgreSQL, Vector Database, Embeddings, LLMs',
 
         image: '/patentiq.png',
-        repoUrl: '#',
+        repoUrl: 'https://github.com/rithishcodespace/PatentIQ',
         isHighlighted: false,
       },
 
@@ -396,7 +396,7 @@ export const portfolioData = {
           'React, Node.js, Express.js, MongoDB, JWT, REST APIs, Tailwind CSS',
 
         image: '/devtinder.png',
-        repoUrl: '#',
+        repoUrl: 'https://github.com/rithishcodespace/DevTinder.git',
         isHighlighted: false,
       },
 
@@ -436,10 +436,11 @@ export const portfolioData = {
         label: 'DSA problems solved on LeetCode',
         tag: 'PROBLEM SOLVING MILESTONE',
         category: 'ALGORITHMS & DATA STRUCTURES',
-        badge: 'VERIFIED METRIC',
+        badge: 'LEETCODE PROFILE',
         color: 'emerald',
         details: 'Optimized time & space complexities across arrays, trees, graphs, dynamic programming, and system design algorithms.',
         image: '/leetcode.png',
+        url: 'https://leetcode.com/u/rithishcodespace',
       },
 
       {
@@ -530,21 +531,26 @@ export const portfolioData = {
       step: '03',
       tag: 'NEXT',
       title: 'CAREER / PLACEMENT',
-      target: 'Software Engineering',
-      focus: ['Backend Engineering', 'Full-Stack Development', 'Cloud / DevOps'],
-      status: 'LOOKING FOR THE NEXT CHALLENGE',
-      objective: 'Turn side projects into production problems.',
-      objectiveStatus: 'READY FOR REAL-WORLD BUGS',
-      lookingFor: [
-        'Backend / Full-stack engineering opportunities',
-        'Problems involving scalable systems, APIs, and infrastructure',
-        'High-impact software engineering roles',
+      status: 'LOOKING FOR MY FIRST PRODUCTION BATTLE',
+      objective: 'Build systems that survive contact with actual users.',
+      targetPrimary: 'Software Engineering',
+      targetSecondary: 'Backend Engineering',
+      interests: [
+        'Backend Systems',
+        'Distributed Systems',
+        'Cloud & DevOps',
+        'Full-Stack Development',
       ],
-      gateSideQuest: {
-        title: 'GATE — CSE',
-        subtitle: 'OPTIONAL SIDE QUEST',
+      lookingForRole: 'Internships / Software Engineering Opportunities',
+      lookingForBullets: [
+        'Backend-heavy work',
+        'Real engineering problems',
+        'Strong engineering teams',
+        'Opportunities to learn and contribute',
+      ],
+      gatePrep: {
+        title: 'GATE / CSE',
         topics: ['DSA', 'OS', 'DBMS', 'Networks'],
-        status: 'PREPARING',
       },
     },
   },
