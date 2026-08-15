@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 
@@ -14,11 +13,11 @@ const adminRoute = require("./routes/auth");
 const trackingRoute = require("./routes/tracking");
 
 dotenv.config();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 app.use(morgan('dev'));
 app.use(cors({
-    origin: true,
+    origin: process.env.CLIENT_URL,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"]
@@ -42,5 +41,5 @@ app.use((error, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`server is listening on http://localhost:${PORT}`);
+    console.log(`server started sucessfully on port:${PORT}`);
 })
