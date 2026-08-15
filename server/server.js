@@ -9,6 +9,7 @@ const createError = require("http-errors");
 const pool = require("./config/connection");
 
 const contactRoute = require("./routes/contact");
+const adminRoute = require("./routes/auth");
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -23,6 +24,7 @@ app.use(cors({
 app.use(express.json());
 
 app.use('/api/contact', contactRoute);
+app.use('api/admin/', adminRoute);
 
 app.use((error, req, res, next) => {
     console.error('Error:', error);

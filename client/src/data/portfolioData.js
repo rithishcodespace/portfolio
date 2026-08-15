@@ -198,7 +198,7 @@ export const portfolioData = {
         title: 'Frontend',
         icon: 'layout',
         color: 'violet',
-        items: 'React, Vite, Tailwind CSS, HTML, CSS',
+        items: 'React, Redux, Vite, Tailwind CSS, HTML, CSS',
       },
 
       {

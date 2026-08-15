@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import SectionHeader from './SectionHeader';
 import { portfolioData } from '../data/portfolioData';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, AlertCircle } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
+import { messagesApi } from '../services/api';
 
 const Contact = () => {
   const { headingCommand, fileName, email, phone, location, github, linkedin } =
@@ -15,15 +16,26 @@ const Contact = () => {
     message: '',
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
+    setIsSubmitting(true);
+    setErrorMsg('');
+    try {
+      await messagesApi.postMessage(formData);
+      setSubmitted(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 4000);
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 5000);
+    } catch (err) {
+      setErrorMsg(err.message || 'Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -134,12 +146,29 @@ const Contact = () => {
           <div className="pt-2">
             <button
               type="submit"
-              className="bg-[#00ff9d]/15 text-[#00ff9d] border border-[#00ff9d] hover:bg-[#00ff9d] hover:text-black font-bold text-sm sm:text-base px-6 py-3 rounded-md flex items-center gap-2.5 transition-all duration-200 cursor-pointer shadow-[0_0_15px_rgba(0,255,157,0.2)] hover:shadow-[0_0_22px_rgba(0,255,157,0.45)] hover:-translate-y-0.5"
+              disabled={isSubmitting}
+              className="bg-[#00ff9d]/15 text-[#00ff9d] border border-[#00ff9d] hover:bg-[#00ff9d] hover:text-black font-bold text-sm sm:text-base px-6 py-3 rounded-md flex items-center gap-2.5 transition-all duration-200 cursor-pointer shadow-[0_0_15px_rgba(0,255,157,0.2)] hover:shadow-[0_0_22px_rgba(0,255,157,0.45)] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <Send className="w-4.5 h-4.5" />
-              <span>./SEND_MESSAGE.SH</span>
+              {isSubmitting ? (
+                <>
+                  <div className="w-4 h-4 rounded-full border-2 border-[#00ff9d] border-t-transparent animate-spin" />
+                  <span>TRANSMITTING...</span>
+                </>
+              ) : (
+                <>
+                  <Send className="w-4.5 h-4.5" />
+                  <span>./SEND_MESSAGE.SH</span>
+                </>
+              )}
             </button>
           </div>
+
+          {errorMsg && (
+            <div className="p-3.5 bg-red-950/40 border border-red-500 text-red-300 text-sm rounded-md font-mono flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+              <span>[ERROR] {errorMsg}</span>
+            </div>
+          )}
 
           {submitted && (
             <div className="p-3.5 bg-[#00ff9d]/10 border border-[#00ff9d] text-[#00ff9d] text-sm rounded-md font-mono">

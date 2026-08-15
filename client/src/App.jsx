@@ -1,4 +1,6 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 import ParticleBackground from './components/ParticleBackground';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -9,8 +11,11 @@ import Projects from './components/Projects';
 import Achievements from './components/Achievements';
 import Education from './components/Education';
 import Contact from './components/Contact';
+import AdminLogin from './components/admin/AdminLogin';
+import AdminMessages from './components/admin/AdminMessages';
+import ProtectedRoute from './components/admin/ProtectedRoute';
 
-function App() {
+const PublicPortfolio = () => {
   return (
     <div className="relative min-h-screen bg-[#070e10] text-slate-200 overflow-x-clip selection:bg-[#00ff9d] selection:text-black font-mono">
       {/* Animated Live Dot Particle Background */}
@@ -42,7 +47,7 @@ function App() {
         {/* 7. Education Section: cat /etc/education.conf */}
         <Education />
 
-        {/* 8. Contact Section: ssh chetancdhri@contact-server */}
+        {/* 8. Contact Section: ssh rithish@contact-server */}
         <Contact />
       </main>
 
@@ -64,6 +69,35 @@ function App() {
         </div>
       </footer>
     </div>
+  );
+};
+
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Public Portfolio Route */}
+          <Route path="/" element={<PublicPortfolio />} />
+
+          {/* Admin Login Route */}
+          <Route path="/admin" element={<AdminLogin />} />
+
+          {/* Protected Admin Messages Route */}
+          <Route
+            path="/admin/messages"
+            element={
+              <ProtectedRoute>
+                <AdminMessages />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Fallback to Home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
