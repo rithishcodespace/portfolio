@@ -357,28 +357,6 @@ export const portfolioData = {
       },
 
       {
-        fileName: 'patentiq',
-        title: 'PatentIQ',
-        period: '2026',
-        icon: 'search',
-        color: 'amber',
-
-        bullets: [
-          'Built an AI-powered patent prior-art search platform to help innovators discover relevant existing patents and assess the novelty of their ideas.',
-          'Designed a semantic search pipeline that converts patent documents and queries into embeddings and retrieves relevant prior-art using vector similarity.',
-          'Developed an evidence analysis workflow that connects retrieved patents with supporting claims, technical similarities, and relevant prior-art evidence.',
-          'Designed the system to improve patent research efficiency by combining semantic retrieval, document processing, and AI-assisted analysis.'
-        ],
-
-        techStack:
-          'React, Node.js, Python, FastAPI, PostgreSQL, Vector Database, Embeddings, LLMs',
-
-        image: '/patentiq.png',
-        repoUrl: 'https://github.com/rithishcodespace/PatentIQ',
-        isHighlighted: false,
-      },
-
-      {
         fileName: 'devtinder',
         title: 'DevTinder',
         period: '2025',
@@ -419,6 +397,28 @@ export const portfolioData = {
 
         image: '/netflixgpt.png',
         repoUrl: '#',
+        isHighlighted: false,
+      },
+
+      {
+        fileName: 'patentiq',
+        title: 'PatentIQ',
+        period: '2026',
+        icon: 'search',
+        color: 'amber',
+
+        bullets: [
+          'Built an AI-powered patent prior-art search platform to help innovators discover relevant existing patents and assess the novelty of their ideas.',
+          'Designed a semantic search pipeline that converts patent documents and queries into embeddings and retrieves relevant prior-art using vector similarity.',
+          'Developed an evidence analysis workflow that connects retrieved patents with supporting claims, technical similarities, and relevant prior-art evidence.',
+          'Designed the system to improve patent research efficiency by combining semantic retrieval, document processing, and AI-assisted analysis.'
+        ],
+
+        techStack:
+          'React, Node.js, Python, FastAPI, PostgreSQL, Vector Database, Embeddings, LLMs',
+
+        image: '/patentiq.png',
+        repoUrl: 'https://github.com/rithishcodespace/PatentIQ',
         isHighlighted: false,
       },
     ],
