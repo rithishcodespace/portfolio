@@ -1,5 +1,7 @@
 // vercel calls portfolio.rithish.site:443 -> render's api-gateway will route to api.rithish.site:renders-port
-const API_BASE_URL = import.meta.env.VITE_API_URL; 
+const rawApiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const cleanApiUrl = rawApiUrl.replace(/\/+$/, '');
+const API_BASE_URL = cleanApiUrl.endsWith('/api') ? cleanApiUrl : `${cleanApiUrl}/api`; 
 
 const request = async (endpoint, options = {}) => {
   const defaultHeaders = {

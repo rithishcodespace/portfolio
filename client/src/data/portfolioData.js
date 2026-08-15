@@ -34,7 +34,7 @@ export const portfolioData = {
       },
       {
         label: 'RESUME.PDF',
-        href: '/resume.pdf',
+        href: '/resumes/Rithish_CV.pdf',
         type: 'resume',
         icon: 'fileText',
       },
@@ -52,7 +52,7 @@ export const portfolioData = {
 
     profile: {
       fileName: 'avatar.png',
-      avatarUrl: '/avatar.png',
+      avatarUrl: '/images/avatar.png',
       name: 'Rithish S',
       role: 'Computer Science & Engineering Student',
       location: 'Tamil Nadu, India',
@@ -306,7 +306,7 @@ export const portfolioData = {
         techStack:
           'TypeScript, Node.js, Express.js, PostgreSQL, Redis, Docker, AWS',
 
-        image: '/hummingtone.png',
+        image: '/images/hummingtone.png',
         repoUrl: 'https://github.com/GowthamCD6/Humming-Tone',
         isHighlighted: true,
       },
@@ -329,7 +329,7 @@ export const portfolioData = {
         techStack:
           'TypeScript, Node.js, PostgreSQL, MySQL, MongoDB, SQLite, Redis, BullMQ, AWS S3, Docker',
 
-        image: '/dbbackupcli.png',
+        image: '/images/dbbackupcli.png',
         repoUrl: 'https://github.com/rithishcodespace/db-backup-cli',
         isHighlighted: true,
       },
@@ -351,7 +351,7 @@ export const portfolioData = {
         techStack:
           'React, Node.js, Express.js, Python, Mapbox, Tailwind CSS, Machine Learning',
 
-        image: '/plantera.png',
+        image: '/images/plantera.png',
         repoUrl: 'https://github.com/The-Plantera/Plantera-Web',
         isHighlighted: false,
       },
@@ -373,7 +373,7 @@ export const portfolioData = {
         techStack:
           'React, Node.js, Express.js, MongoDB, JWT, REST APIs, Tailwind CSS',
 
-        image: '/devtinder.png',
+        image: '/images/devtinder.png',
         repoUrl: 'https://github.com/rithishcodespace/DevTinder.git',
         isHighlighted: false,
       },
@@ -395,7 +395,7 @@ export const portfolioData = {
         techStack:
           'React, JavaScript, Redux Toolkit, Tailwind CSS, TMDB API, OpenAI API, Firebase',
 
-        image: '/netflixgpt.png',
+        image: '/images/netflixgpt.png',
         repoUrl: '#',
         isHighlighted: false,
       },
@@ -417,7 +417,7 @@ export const portfolioData = {
         techStack:
           'React, Node.js, Python, FastAPI, PostgreSQL, Vector Database, Embeddings, LLMs',
 
-        image: '/patentiq.png',
+        image: '/images/patentiq.png',
         repoUrl: 'https://github.com/rithishcodespace/PatentIQ',
         isHighlighted: false,
       },
@@ -439,7 +439,7 @@ export const portfolioData = {
         badge: 'LEETCODE PROFILE',
         color: 'emerald',
         details: 'Optimized time & space complexities across arrays, trees, graphs, dynamic programming, and system design algorithms.',
-        image: '/leetcode.png',
+        image: '/images/leetcode.png',
         url: 'https://leetcode.com/u/rithishcodespace',
       },
 
@@ -454,7 +454,7 @@ export const portfolioData = {
         badge: 'RECOGNIZED',
         color: 'amber',
         details: 'Awarded 1st place with ₹10,000 cash prize in the National Level Hackathon organized by IEEE.',
-        image: '/ieee_devspark.png',
+        image: '/images/ieee_devspark.png',
       },
 
       {
@@ -468,7 +468,7 @@ export const portfolioData = {
         badge: 'CHAMPION',
         color: 'sky',
         details: 'Awarded 1st place with ₹3,000 cash prize at the BIT Hackathon for building an intuitive prototype with real-time features.',
-        image: '/bit_hackathon.png',
+        image: '/images/bit_hackathon.png',
       },
 
       {
@@ -482,7 +482,7 @@ export const portfolioData = {
         badge: 'HONORABLE MENTION',
         color: 'rose',
         details: 'Awarded ₹10,000 cash prize along with official tech goodies for presenting innovative software solutions at the SNS Ideathon.',
-        image: '/sns_ideathon.png',
+        image: '/images/sns_ideathon.png',
       },
 
       {
@@ -497,7 +497,7 @@ export const portfolioData = {
         color: 'violet',
         details:
           'Secured 1st place in Code With Curious, a coding competition organized by the BIT Code Circle Club, demonstrating strong problem-solving and programming skills.',
-        image: '/code_with_curious.png',
+        image: '/images/code_with_curious.png',
       },
     ],
   },
