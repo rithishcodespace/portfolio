@@ -12,7 +12,7 @@ import Contact from './components/Contact';
 
 function App() {
   return (
-    <div className="relative min-h-screen bg-[#070e10] text-slate-200 overflow-x-hidden selection:bg-[#00ff9d] selection:text-black font-mono">
+    <div className="relative min-h-screen bg-[#070e10] text-slate-200 overflow-x-clip selection:bg-[#00ff9d] selection:text-black font-mono">
       {/* Animated Live Dot Particle Background */}
       <ParticleBackground />
 
