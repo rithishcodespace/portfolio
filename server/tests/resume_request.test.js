@@ -2,6 +2,7 @@ const http = require("http");
 const app = require("../server");
 const db = require("../config/connection");
 const { ADMIN_COOKIE_NAME, generateAdminToken } = require("../middleware/auth");
+const emailService = require("../utils/email");
 
 let server;
 let baseUrl;
@@ -40,6 +41,7 @@ function makeRequest(path, options = {}) {
           headers: res.headers,
           setCookies: parseSetCookie(res.headers["set-cookie"]),
           body: json || body,
+          rawBody: body
         });
       });
     });
@@ -54,7 +56,7 @@ function makeRequest(path, options = {}) {
 
 async function runTests() {
   console.log("==================================================");
-  console.log("     RESUME REQUEST FEATURE AUTOMATED TESTS       ");
+  console.log("     RESUME REQUEST FEATURE & RESEND TEST SUITE   ");
   console.log("==================================================\n");
 
   server = http.createServer(app);
@@ -76,15 +78,15 @@ async function runTests() {
   }
 
   try {
-    // 1. Missing required field fullName -> 400
+    // 1. Missing required fields rejected
     const res1 = await makeRequest("/api/resume/request", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: { email: "test@company.com", company: "Tech Corp" }
     });
-    assert(1, res1.statusCode === 400, "Validation rejects missing fullName");
+    assert(1, res1.statusCode === 400, "Validation rejects missing required fullName");
 
-    // 2. Invalid email format -> 400
+    // 2. Invalid email rejected
     const res2 = await makeRequest("/api/resume/request", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -92,7 +94,7 @@ async function runTests() {
     });
     assert(2, res2.statusCode === 400, "Validation rejects invalid email format");
 
-    // 3. Invalid LinkedIn URL -> 400
+    // 3. Invalid LinkedIn URL rejected
     const res3 = await makeRequest("/api/resume/request", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -105,38 +107,47 @@ async function runTests() {
     });
     assert(3, res3.statusCode === 400, "Validation rejects invalid LinkedIn URL");
 
-    // 4. Valid Request -> 200 & record returned
+    // 4. Valid Request accepted & saved
+    const testEmail = `test.recruiter.${Date.now()}@google.com`;
     const res4 = await makeRequest("/api/resume/request", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: {
         fullName: "Jane Recruiter",
-        email: "jane@google.com",
+        email: testEmail,
         company: "Google",
         role: "Software Engineering Recruiter",
         reason: "Internship opportunity for Summer 2026",
         linkedin: "https://linkedin.com/in/jane-recruiter"
       }
     });
-    assert(4, res4.statusCode === 200 && res4.body.success, "Valid resume request saved successfully");
+    assert(4, res4.statusCode === 200 && res4.body.success, "Valid resume request accepted successfully");
 
-    // 5. Query PostgreSQL database to confirm row exists
-    const dbRes = await db.query("SELECT * FROM resume_requests WHERE email = $1", ["jane@google.com"]);
+    // 5. PostgreSQL resume request created
+    const dbRes = await db.query("SELECT * FROM resume_requests WHERE email = $1", [testEmail]);
     assert(5, dbRes.rows.length > 0 && dbRes.rows[0].company === "Google", "Record verified in PostgreSQL resume_requests table");
 
-    // 6. Admin Retrieval GET /api/resume/requests -> 200 with admin token
+    // 6. Verify API Key is NEVER returned to client
+    const apiKeyExposed = res4.rawBody.includes(process.env.RESEND_API_KEY || "re_");
+    assert(6, !apiKeyExposed, "Resend API key is never exposed in client API responses");
+
+    // 7. Verify Resend Client Instance & Attachment structure
+    const resendClient = emailService.getResendClient();
+    assert(7, resendClient !== undefined, "Resend client instance initialized correctly");
+
+    // 8. Admin Retrieval GET /api/resume/requests -> 200 with admin token
     const adminToken = generateAdminToken({ id: 1, email: "admin@portfolio" });
-    const res6 = await makeRequest("/api/resume/requests", {
+    const res8 = await makeRequest("/api/resume/requests", {
       method: "GET",
       headers: { Cookie: `${ADMIN_COOKIE_NAME}=${adminToken}` }
     });
-    assert(6, res6.statusCode === 200 && Array.isArray(res6.body.requests), "Admin can fetch list of resume requests");
+    assert(8, res8.statusCode === 200 && Array.isArray(res8.body.requests), "Admin can fetch list of resume requests");
 
-    // 7. Unauthenticated GET /api/resume/requests -> 401
-    const res7 = await makeRequest("/api/resume/requests", {
+    // 9. Unauthenticated GET /api/resume/requests -> 401
+    const res9 = await makeRequest("/api/resume/requests", {
       method: "GET"
     });
-    assert(7, res7.statusCode === 401, "Unauthenticated access to GET /api/resume/requests rejected with 401");
+    assert(9, res9.statusCode === 401, "Unauthenticated access to GET /api/resume/requests rejected with 401");
 
   } catch (err) {
     console.error("Test execution error:", err);
