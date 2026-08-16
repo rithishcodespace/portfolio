@@ -7,17 +7,33 @@ const fs = require("fs");
  */
 async function getTransporter() {
   const host = process.env.SMTP_HOST;
-  const port = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 587;
+  const port = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 465;
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
 
-  if (host && user && pass) {
-    return nodemailer.createTransport({
-      host,
-      port,
-      secure: port === 465,
-      auth: { user, pass }
-    });
+  if (user && pass) {
+    // If using Gmail, use Nodemailer's built-in 'gmail' service to bypass cloud provider port 587 blocking
+    if ((host && host.includes("gmail")) || (user && user.endsWith("@gmail.com"))) {
+      return nodemailer.createTransport({
+        service: "gmail",
+        auth: { user, pass },
+        connectionTimeout: 10000,
+        greetingTimeout: 10000,
+        socketTimeout: 15000
+      });
+    }
+
+    if (host) {
+      return nodemailer.createTransport({
+        host,
+        port,
+        secure: port === 465,
+        auth: { user, pass },
+        connectionTimeout: 10000,
+        greetingTimeout: 10000,
+        socketTimeout: 15000
+      });
+    }
   }
 
   // Fallback for local development or missing SMTP credentials
