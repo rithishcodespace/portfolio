@@ -6,9 +6,9 @@ const fs = require("fs");
 let resendInstance = null;
 
 function getResendClient() {
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = process.env.RESEND_API_KEY || process.env.RENDER_API_KEY;
   if (!apiKey) {
-    console.warn("[Email Service] RESEND_API_KEY is missing in environment variables.");
+    console.warn("[Email Service] RESEND_API_KEY (or RENDER_API_KEY) is missing in environment variables.");
     return null;
   }
   if (!resendInstance) {
