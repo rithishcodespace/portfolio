@@ -37,13 +37,13 @@ function isValidEmail(email) {
  */
 function isValidUrl(url) {
   if (!url || typeof url !== "string") return false;
-  const trimmed = url.trim();
+  let trimmed = url.trim();
   if (!trimmed.startsWith("http://") && !trimmed.startsWith("https://")) {
-    return false;
+    trimmed = `https://${trimmed}`;
   }
   try {
-    new URL(trimmed);
-    return true;
+    const parsed = new URL(trimmed);
+    return Boolean(parsed.hostname && parsed.hostname.includes("."));
   } catch (e) {
     return false;
   }
@@ -110,8 +110,11 @@ exports.postResumeRequest = async (req, res, next) => {
     }
 
     if (linkedin) {
+      if (!linkedin.startsWith("http://") && !linkedin.startsWith("https://")) {
+        linkedin = `https://${linkedin}`;
+      }
       if (!isValidUrl(linkedin)) {
-        return next(createError(400, "Please provide a valid LinkedIn URL starting with http:// or https://"));
+        return next(createError(400, "Please provide a valid LinkedIn profile URL."));
       }
       if (linkedin.length > 255) {
         return next(createError(400, "LinkedIn URL must not exceed 255 characters."));
