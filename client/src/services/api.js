@@ -129,3 +129,20 @@ export const trackingApi = {
   },
 };
 
+export const resumeApi = {
+  requestResume: async (formData) => {
+    return await request('/resume/request', {
+      method: 'POST',
+      body: JSON.stringify(formData),
+    });
+  },
+
+  getResumeRequests: async () => {
+    const data = await request('/resume/requests', {
+      method: 'GET',
+    });
+    return data.requests || data;
+  },
+};
+
+

@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { portfolioData } from '../data/portfolioData';
 import { Zap, Terminal, FileText, Activity, ShieldCheck, Award, Code2 } from 'lucide-react';
 import { GithubIcon } from './Icons';
+import RequestResumeModal from './RequestResumeModal';
 
 const Hero = () => {
   const { command, tagline, buttons } = portfolioData.hero;
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
 
   // Instant hardware-accelerated cursor tracking
   useEffect(() => {
     const handleMouseMove = (e) => {
-      // Direct viewport relative coords for responsive grid spotlight
       const rect = e.currentTarget.getBoundingClientRect?.() || { left: 0, top: 0 };
       setMousePos({
         x: e.clientX - rect.left,
@@ -47,7 +48,7 @@ const Hero = () => {
       id="home"
       className="min-h-screen flex flex-col justify-center items-center px-4 pt-24 pb-16 relative z-10 text-center select-none overflow-hidden"
     >
-      {/* Background Interactive Developer Grid Mask (Sharp & Snappy) */}
+      {/* Background Interactive Developer Grid Mask */}
       <div
         className="pointer-events-none absolute inset-0 z-0 opacity-20 transition-opacity duration-300"
         style={{
@@ -76,17 +77,14 @@ const Hero = () => {
           </span>
         </div>
 
-        {/* 2. Hero Name Title with White Brackets & Minimal Glow Neon Name */}
+        {/* 2. Hero Name Title */}
         <h1 className="text-5xl sm:text-7xl md:text-8xl font-extrabold font-mono tracking-tight mb-6 leading-tight flex items-center justify-center gap-1 sm:gap-2 flex-wrap cursor-default">
-          {/* Opening bracket in crisp white */}
           <span className="text-white font-extrabold opacity-95">
             &lt;
           </span>
-          {/* Name in glowing neon green with minimal subtle glow */}
           <span className="text-[#00ff9d] text-glow-green font-extrabold">
             Rithish S
           </span>
-          {/* Closing bracket in crisp white */}
           <span className="text-white font-extrabold opacity-95">
             /&gt;
           </span>
@@ -107,6 +105,22 @@ const Hero = () => {
         <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-12">
           {buttons.map((btn, idx) => {
             const isProjects = btn.type === 'projects';
+            const isResume = btn.type === 'resume';
+
+            if (isResume) {
+              return (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setIsResumeModalOpen(true)}
+                  className="font-mono text-xs sm:text-sm font-bold px-4 sm:px-5 py-2.5 sm:py-3 rounded-lg flex items-center gap-2 border transition-all duration-150 active:scale-95 cursor-pointer bg-[#081518]/90 border-[#00ff9d]/30 text-[#00ff9d] hover:border-[#00ff9d] hover:bg-[#00ff9d]/10 hover:text-white hover:-translate-y-1 shadow-sm"
+                >
+                  {renderIcon(btn.icon)}
+                  <span>{btn.label}</span>
+                </button>
+              );
+            }
+
             return (
               <a
                 key={idx}
@@ -127,7 +141,7 @@ const Hero = () => {
         </div>
 
         {/* Unique Feature: Sleek System Telemetry & Milestone Bar */}
-        <div className="w-full max-w-3xl bg-[#061215]/80 border border-slate-800/80 rounded-xl p-3 font-mono text-[11px] text-slate-400 flex flex-wrap items-center justify-around gap-3 shadow-lg backdrop-blur-sm hover:border-[#00ff9d]/40 transition-colors duration-300">
+        <div className="w-full max-w-3xl bg-[#061215]/80 border border-slate-800/80 rounded-xl p-3 font-mono text-[11px] text-slate-400 flex flex-wrap items-around justify-around gap-3 shadow-lg backdrop-blur-sm hover:border-[#00ff9d]/40 transition-colors duration-300">
           <div className="flex items-center gap-1.5 text-[#00ff9d]">
             <Activity className="w-3.5 h-3.5 animate-pulse" />
             <span className="font-bold">STATUS: ACTIVE</span>
@@ -150,6 +164,12 @@ const Hero = () => {
         </div>
 
       </div>
+
+      {/* Request Resume Modal */}
+      <RequestResumeModal
+        isOpen={isResumeModalOpen}
+        onClose={() => setIsResumeModalOpen(false)}
+      />
     </section>
   );
 };

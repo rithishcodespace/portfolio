@@ -11,6 +11,7 @@ const pool = require("./config/connection");
 const contactRoute = require("./routes/contact");
 const adminRoute = require("./routes/auth");
 const trackingRoute = require("./routes/tracking");
+const resumeRoute = require("./routes/resume");
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use('/api/contact', contactRoute);
 app.use('/api/admin', adminRoute);
 app.use('/api/track', trackingRoute);
+app.use('/api/resume', resumeRoute);
 
 // health api
 app.get('/api/health', (req, res) => {
@@ -37,7 +39,9 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use((error, req, res, next) => {
-    console.error('Error:', error);
+    if (error.status >= 500 || !error.status) {
+        console.error('Server Error:', error);
+    }
     res.status(error.status || 500);
     res.send({
         error: {
