@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import gsap from 'gsap';
 import { portfolioData } from '../data/portfolioData';
-import { Zap, Terminal, FileText, Activity, ShieldCheck, Award, Code2 } from 'lucide-react';
+import { Zap, Terminal, FileText } from 'lucide-react';
 import { GithubIcon } from './Icons';
 import RequestResumeModal from './RequestResumeModal';
 
@@ -9,10 +10,23 @@ const Hero = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
 
+  const heroRef = useRef(null);
+  const sessionBadgeRef = useRef(null);
+  const tagOpenRef = useRef(null);
+  const tagCloseRef = useRef(null);
+  const roleRef = useRef(null);
+  const taglineRef = useRef(null);
+  const buttonsRef = useRef(null);
+  const nameCharsRef = useRef([]);
+
+  const heroNameText = "Rithish S";
+
   // Instant hardware-accelerated cursor tracking
   useEffect(() => {
     const handleMouseMove = (e) => {
-      const rect = e.currentTarget.getBoundingClientRect?.() || { left: 0, top: 0 };
+      const rect =
+        e.currentTarget.getBoundingClientRect?.() || { left: 0, top: 0 };
+
       setMousePos({
         x: e.clientX - rect.left,
         y: e.clientY - rect.top,
@@ -20,24 +34,209 @@ const Hero = () => {
     };
 
     const heroElem = document.getElementById('home');
+
     if (heroElem) {
       heroElem.addEventListener('mousemove', handleMouseMove);
     }
+
     return () => {
-      if (heroElem) heroElem.removeEventListener('mousemove', handleMouseMove);
+      if (heroElem) {
+        heroElem.removeEventListener('mousemove', handleMouseMove);
+      }
     };
+  }, []);
+
+  // GSAP Master Terminal Boot Entrance Animation Sequence
+  useLayoutEffect(() => {
+    const prefersReducedMotion = window
+      .matchMedia('(prefers-reduced-motion: reduce)')
+      .matches;
+
+    const ctx = gsap.context(() => {
+      if (prefersReducedMotion) {
+        gsap.set(
+          [
+            sessionBadgeRef.current,
+            tagOpenRef.current,
+            tagCloseRef.current,
+            roleRef.current,
+            taglineRef.current,
+            buttonsRef.current,
+          ],
+          {
+            opacity: 1,
+            y: 0,
+            x: 0,
+            scale: 1,
+          }
+        );
+
+        if (nameCharsRef.current.length > 0) {
+          gsap.set(nameCharsRef.current, {
+            opacity: 1,
+            y: 0,
+          });
+        }
+
+        return;
+      }
+
+      // Hide elements initially to prevent flash of unstyled content
+      gsap.set(sessionBadgeRef.current, {
+        opacity: 0,
+        y: -12,
+        scale: 0.96,
+      });
+
+      if (nameCharsRef.current.length > 0) {
+        gsap.set(nameCharsRef.current, {
+          opacity: 0,
+          y: 8,
+        });
+      }
+
+      gsap.set(tagOpenRef.current, {
+        opacity: 0,
+        x: -12,
+        scale: 0.85,
+      });
+
+      gsap.set(tagCloseRef.current, {
+        opacity: 0,
+        x: 12,
+        scale: 0.85,
+      });
+
+      gsap.set(roleRef.current, {
+        opacity: 0,
+        y: 12,
+      });
+
+      gsap.set(taglineRef.current, {
+        opacity: 0,
+        y: 12,
+      });
+
+      const btnContainer = buttonsRef.current;
+
+      if (btnContainer && btnContainer.children) {
+        gsap.set(btnContainer.children, {
+          opacity: 0,
+          y: 12,
+          scale: 0.96,
+        });
+      }
+
+      // Create Master GSAP Timeline
+      const tl = gsap.timeline({
+        defaults: {
+          ease: 'power2.out',
+        },
+      });
+
+      // 1. Session Prompt Pill Reveal
+      tl.to(sessionBadgeRef.current, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.45,
+      });
+
+      // 2. Character-by-Character Name Reveal ("Rithish S")
+      if (nameCharsRef.current.length > 0) {
+        tl.to(
+          nameCharsRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.22,
+            stagger: 0.06,
+            ease: 'power2.out',
+          },
+          '-=0.1'
+        );
+      }
+
+      // 3. Mechanical Code Tags Reveal (< appears first, then />)
+      tl.to(
+        tagOpenRef.current,
+        {
+          opacity: 0.95,
+          x: 0,
+          scale: 1,
+          duration: 0.3,
+          ease: 'back.out(1.4)',
+        },
+        '+=0.05'
+      );
+
+      tl.to(
+        tagCloseRef.current,
+        {
+          opacity: 0.95,
+          x: 0,
+          scale: 1,
+          duration: 0.3,
+          ease: 'back.out(1.4)',
+        },
+        '-=0.15'
+      );
+
+      // 4. Role Subtitle Bar Reveal
+      tl.to(
+        roleRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+        },
+        '+=0.08'
+      );
+
+      // 5. Tagline Description Reveal
+      tl.to(
+        taglineRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+        },
+        '-=0.2'
+      );
+
+      // 6. Action Buttons Staggered Reveal
+      if (btnContainer && btnContainer.children) {
+        tl.to(
+          btnContainer.children,
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.38,
+            stagger: 0.08,
+          },
+          '-=0.2'
+        );
+      }
+    }, heroRef);
+
+    return () => ctx.revert();
   }, []);
 
   const renderIcon = (iconType) => {
     switch (iconType) {
       case 'zap':
         return <Zap className="w-4 h-4 text-[#00ff9d]" />;
+
       case 'terminal':
         return <Terminal className="w-4 h-4 text-[#00e5ff]" />;
+
       case 'fileText':
         return <FileText className="w-4 h-4 text-[#00ff9d]" />;
+
       case 'github':
         return <GithubIcon className="w-4 h-4 text-[#00ff9d]" />;
+
       default:
         return null;
     }
@@ -46,6 +245,7 @@ const Hero = () => {
   return (
     <section
       id="home"
+      ref={heroRef}
       className="min-h-screen flex flex-col justify-center items-center px-4 pt-24 pb-16 relative z-10 text-center select-none overflow-hidden"
     >
       {/* Background Interactive Developer Grid Mask */}
@@ -68,10 +268,14 @@ const Hero = () => {
       />
 
       <div className="max-w-5xl mx-auto flex flex-col items-center relative z-10">
-        
+
         {/* 1. Terminal Session Prompt Pill */}
-        <div className="mb-6 font-mono text-xs sm:text-sm text-slate-300 flex items-center gap-2 justify-center bg-[#071317]/90 px-3.5 sm:px-5 py-2 rounded-full border border-[#00ff9d]/30 shadow-[0_0_20px_rgba(0,255,157,0.1)] backdrop-blur-md hover:border-[#00ff9d] transition-colors duration-200 max-w-full overflow-hidden">
+        <div
+          ref={sessionBadgeRef}
+          className="mb-6 font-mono text-xs sm:text-sm text-slate-300 flex items-center gap-2 justify-center bg-[#071317]/90 px-3.5 sm:px-5 py-2 rounded-full border border-[#00ff9d]/30 shadow-[0_0_20px_rgba(0,255,157,0.1)] backdrop-blur-md hover:border-[#00ff9d] transition-colors duration-200 max-w-full overflow-hidden"
+        >
           <span className="text-[#00ff9d] font-bold shrink-0">$</span>
+
           <span className="text-[#00ff9d] font-medium tracking-wide truncate">
             {command || './init_session.sh --user=rithish'}
           </span>
@@ -79,30 +283,54 @@ const Hero = () => {
 
         {/* 2. Hero Name Title */}
         <h1 className="text-3xl min-[380px]:text-4xl min-[480px]:text-5xl sm:text-7xl md:text-8xl font-extrabold font-mono tracking-tight mb-4 sm:mb-6 leading-tight flex items-center justify-center gap-1 sm:gap-2 flex-wrap cursor-default">
-          <span className="text-white font-extrabold opacity-95">
+          <span
+            ref={tagOpenRef}
+            className="text-white font-extrabold opacity-95 inline-block"
+          >
             &lt;
           </span>
-          <span className="text-[#00ff9d] text-glow-green font-extrabold">
-            Rithish S
+
+          <span className="text-[#00ff9d] text-glow-green font-extrabold inline-flex">
+            {heroNameText.split('').map((char, index) => (
+              <span
+                key={index}
+                ref={(el) => (nameCharsRef.current[index] = el)}
+                className="inline-block opacity-0"
+              >
+                {char === ' ' ? '\u00A0' : char}
+              </span>
+            ))}
           </span>
-          <span className="text-white font-extrabold opacity-95">
+
+          <span
+            ref={tagCloseRef}
+            className="text-white font-extrabold opacity-95 inline-block"
+          >
             /&gt;
           </span>
         </h1>
 
         {/* 3. Role Subtitle Bar */}
-        <p className="text-xs min-[380px]:text-sm sm:text-lg md:text-xl font-mono text-[#00ff9d] font-semibold mb-4 max-w-3xl leading-relaxed tracking-wide px-2">
+        <p
+          ref={roleRef}
+          className="text-xs min-[380px]:text-sm sm:text-lg md:text-xl font-mono text-[#00ff9d] font-semibold mb-4 max-w-3xl leading-relaxed tracking-wide px-2"
+        >
           Backend Engineer | Distributed Systems | Cloud & DevOps
         </p>
 
-        {/* 4. Tagline Command */}
-        <div className="mb-6 sm:mb-8 font-mono text-xs sm:text-sm md:text-base text-slate-300 max-w-2xl flex items-center justify-center gap-2 px-2">
-          <span className="text-[#00ff9d] font-bold shrink-0">$</span>
-          <span className="font-medium text-slate-300">{tagline}</span>
-        </div>
+        {/* 4. Tagline */}
+        <p
+          ref={taglineRef}
+          className="mb-6 sm:mb-8 font-mono text-xs sm:text-sm md:text-base text-slate-300 max-w-2xl text-center leading-relaxed px-2 font-medium"
+        >
+          {tagline}
+        </p>
 
         {/* 5. Action Buttons Row */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 mb-10 sm:mb-12">
+        <div
+          ref={buttonsRef}
+          className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 mb-10 sm:mb-12"
+        >
           {buttons.map((btn, idx) => {
             const isProjects = btn.type === 'projects';
             const isResume = btn.type === 'resume';
@@ -126,7 +354,11 @@ const Hero = () => {
                 key={idx}
                 href={btn.href}
                 target={btn.href.startsWith('http') ? '_blank' : '_self'}
-                rel={btn.href.startsWith('http') ? 'noopener noreferrer' : ''}
+                rel={
+                  btn.href.startsWith('http')
+                    ? 'noopener noreferrer'
+                    : ''
+                }
                 className={`font-mono text-xs sm:text-sm font-bold px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-lg flex items-center gap-2 border transition-all duration-150 active:scale-95 cursor-pointer ${
                   isProjects
                     ? 'bg-[#00ff9d]/15 border-[#00ff9d] text-[#00ff9d] shadow-[0_0_20px_rgba(0,255,157,0.3)] hover:bg-[#00ff9d]/25 hover:shadow-[0_0_30px_rgba(0,255,157,0.5)] hover:-translate-y-1'
@@ -139,30 +371,6 @@ const Hero = () => {
             );
           })}
         </div>
-
-        {/* Unique Feature: Sleek System Telemetry & Milestone Bar */}
-        <div className="w-full max-w-3xl bg-[#061215]/80 border border-slate-800/80 rounded-xl p-3 font-mono text-[10px] sm:text-[11px] text-slate-400 grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-around gap-2.5 sm:gap-3 shadow-lg backdrop-blur-sm hover:border-[#00ff9d]/40 transition-colors duration-300">
-          <div className="flex items-center gap-1.5 text-[#00ff9d]">
-            <Activity className="w-3.5 h-3.5 animate-pulse shrink-0" />
-            <span className="font-bold">STATUS: ACTIVE</span>
-          </div>
-
-          <div className="flex items-center gap-1.5 text-slate-300">
-            <Code2 className="w-3.5 h-3.5 text-[#00e5ff] shrink-0" />
-            <span>1000+ DSA SOLVED</span>
-          </div>
-
-          <div className="flex items-center gap-1.5 text-slate-300">
-            <Award className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-            <span>HACKATHON WINNER</span>
-          </div>
-
-          <div className="flex items-center gap-1.5 text-slate-300">
-            <ShieldCheck className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-            <span>PRODUCTION READY</span>
-          </div>
-        </div>
-
       </div>
 
       {/* Request Resume Modal */}
