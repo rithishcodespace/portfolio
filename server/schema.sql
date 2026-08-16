@@ -28,3 +28,14 @@ CREATE TABLE page_views (
     page VARCHAR(255) NOT NULL,
     viewed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE resume_requests (
+    id SERIAL PRIMARY KEY,
+    full_name VARCHAR(150) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    company VARCHAR(255) NOT NULL,
+    role VARCHAR(150),
+    reason TEXT,
+    linkedin VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
