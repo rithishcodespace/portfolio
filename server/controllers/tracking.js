@@ -1,11 +1,35 @@
 const crypto = require("crypto");
 const db = require("../config/connection");
+const { isOwnerRequest, isAdminRoute } = require("../middleware/auth");
 
 /**
  * Record a page view and create/update anonymous visitor session
  */
 exports.trackPageView = async (req, res, next) => {
   try {
+    const page = (req.body && req.body.page && typeof req.body.page === "string")
+      ? req.body.page.trim()
+      : "/";
+
+    // Check 1: Owner browser exclusion via analytics_owner cookie
+    if (isOwnerRequest(req)) {
+      return res.status(200).json({
+        success: true,
+        ignored: true,
+        reason: "owner"
+      });
+    }
+
+    // Check 2: Explicit exclusion for /admin and /admin/* routes
+    if (isAdminRoute(page)) {
+      return res.status(200).json({
+        success: true,
+        ignored: true,
+        reason: "admin_route"
+      });
+    }
+
+    // Check 3: Anonymous visitor tracking
     let visitorId = req.cookies ? req.cookies.visitor_id : null;
     let isNewVisitor = false;
 
@@ -15,13 +39,10 @@ exports.trackPageView = async (req, res, next) => {
       res.cookie("visitor_id", visitorId, {
         maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
         httpOnly: true,
-        sameSite: "lax"
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production"
       });
     }
-
-    const page = (req.body && req.body.page && typeof req.body.page === 'string')
-      ? req.body.page.trim()
-      : "/";
 
     // Insert or update visitor timestamp
     await db.query(
