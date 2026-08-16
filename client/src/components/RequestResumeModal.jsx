@@ -63,7 +63,7 @@ const RequestResumeModal = ({ isOpen, onClose }) => {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg bg-[#071317] border border-[#00ff9d]/30 rounded-xl shadow-[0_0_40px_rgba(0,255,157,0.15)] p-5 sm:p-6 font-mono text-slate-200 text-sm my-8"
+        className="relative w-full max-w-lg bg-[#071317] border border-[#00ff9d]/30 rounded-xl shadow-[0_0_40px_rgba(0,255,157,0.15)] p-5 sm:p-6 font-mono text-slate-200 text-sm my-4 sm:my-8 max-h-[88vh] overflow-y-auto no-scrollbar"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}

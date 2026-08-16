@@ -56,43 +56,43 @@ const Contact = () => {
 
         {/* Contact Info Header */}
         <div className="space-y-3.5 mb-7 text-xs sm:text-sm text-slate-300">
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4">
-            <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-[#00ff9d]" />
-              <a href={`mailto:${email}`} className="hover:text-[#00ff9d] transition-colors">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-4">
+            <div className="flex items-center gap-2 max-w-full">
+              <Mail className="w-4 h-4 text-[#00ff9d] shrink-0" />
+              <a href={`mailto:${email}`} className="hover:text-[#00ff9d] transition-colors truncate">
                 {email}
               </a>
             </div>
             <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-[#00ff9d]" />
+              <Phone className="w-4 h-4 text-[#00ff9d] shrink-0" />
               <a href={`tel:${phone}`} className="hover:text-[#00ff9d] transition-colors">
                 {phone}
               </a>
             </div>
             <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-[#00ff9d]" />
+              <MapPin className="w-4 h-4 text-[#00ff9d] shrink-0" />
               <span>{location}</span>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-3 border-t border-slate-800/60 text-[#00e5ff]">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-4 pt-3 border-t border-slate-800/60 text-[#00e5ff]">
             <a
               href={`https://${github}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:underline"
+              className="flex items-center gap-2 hover:underline max-w-full"
             >
-              <GithubIcon className="w-4 h-4" />
-              <span>{github}</span>
+              <GithubIcon className="w-4 h-4 shrink-0" />
+              <span className="truncate">{github}</span>
             </a>
             <a
               href={`https://${linkedin}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:underline"
+              className="flex items-center gap-2 hover:underline max-w-full"
             >
-              <LinkedinIcon className="w-4 h-4" />
-              <span>{linkedin}</span>
+              <LinkedinIcon className="w-4 h-4 shrink-0" />
+              <span className="truncate">{linkedin}</span>
             </a>
           </div>
         </div>

@@ -71,7 +71,7 @@ const Skills = () => {
             <div
               key={idx}
               onClick={() => setActiveSkill(cat)}
-              className={`h-[340px] bg-[#0c1618] rounded-xl p-5 font-mono flex flex-col justify-between transition-all duration-300 relative cursor-pointer group hover:-translate-y-1.5 active:scale-[0.98] select-none ${
+              className={`h-[300px] min-[400px]:h-[320px] sm:h-[340px] bg-[#0c1618] rounded-xl p-4 sm:p-5 font-mono flex flex-col justify-between transition-all duration-300 relative cursor-pointer group hover:-translate-y-1.5 active:scale-[0.98] select-none ${
                 isHighlighted
                   ? 'border border-[#00ff9d] shadow-[0_0_22px_rgba(0,255,157,0.22)] bg-[#0e1a1d] hover:shadow-[0_0_30px_rgba(0,255,157,0.35)]'
                   : 'border border-[#00ff9d]/20 hover:border-[#00ff9d] hover:shadow-[0_0_25px_rgba(0,255,157,0.25)]'

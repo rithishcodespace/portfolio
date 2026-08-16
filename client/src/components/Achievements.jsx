@@ -201,9 +201,9 @@ const Achievements = () => {
                   key={idx}
                   className="w-full min-w-full shrink-0 flex items-center justify-center px-1 sm:px-4"
                 >
-                  {/* Card Container: Fixed aspect layout */}
+                  {/* Card Container: Responsive aspect layout */}
                   <div
-                    className={`w-full max-w-4xl lg:max-w-5xl h-[480px] sm:h-[520px] rounded-2xl p-5 sm:p-8 font-mono flex flex-col justify-between transition-all duration-500 shadow-2xl ${
+                    className={`w-full max-w-4xl lg:max-w-5xl h-[460px] min-[400px]:h-[480px] sm:h-[520px] max-h-[82vh] rounded-2xl p-4 sm:p-8 font-mono flex flex-col justify-between transition-all duration-500 shadow-2xl overflow-y-auto no-scrollbar ${
                       isActive
                         ? `${theme.cardBg} ${theme.border} ${theme.shadow} opacity-100 scale-100`
                         : 'bg-[#081214] border border-slate-800/80 opacity-25 scale-95'
@@ -211,25 +211,25 @@ const Achievements = () => {
                   >
                     <div>
                       {/* Window Header */}
-                      <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-slate-800/80 text-xs sm:text-sm text-slate-400">
-                        <div className="flex items-center gap-2">
-                          <span className="w-3 h-3 rounded-full bg-[#ff5f56] inline-block"></span>
-                          <span className="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block"></span>
-                          <span className="w-3 h-3 rounded-full bg-[#27c93f] inline-block"></span>
-                          <span className="ml-2 text-slate-300 font-bold text-xs sm:text-sm">
+                      <div className="flex items-center justify-between pb-2.5 sm:pb-3.5 mb-3 sm:mb-4 border-b border-slate-800/80 text-xs sm:text-sm text-slate-400">
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff5f56] inline-block"></span>
+                          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ffbd2e] inline-block"></span>
+                          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#27c93f] inline-block"></span>
+                          <span className="ml-1 sm:ml-2 text-slate-300 font-bold text-xs sm:text-sm truncate max-w-[130px] sm:max-w-none">
                             {item.fileName}
                           </span>
                         </div>
                         <span
-                          className={`text-xs px-3 py-1 rounded border font-semibold tracking-wider flex items-center gap-1.5 ${theme.badgeText} ${theme.badgeBg}`}
+                          className={`text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 rounded border font-semibold tracking-wider flex items-center gap-1 sm:gap-1.5 ${theme.badgeText} ${theme.badgeBg}`}
                         >
-                          <Award className="w-3.5 h-3.5" />
+                          <Award className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                           <span>[ {item.badge} ]</span>
                         </span>
                       </div>
 
                       {/* Main Grid: 60% IMAGE (7 cols) / 40% TEXT (5 cols) on Desktop */}
-                      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-center">
                         
                         {/* 1. VISUAL EVIDENCE FRAME (Dominant 60% area / 7 cols) */}
                         <div className="md:col-span-7 relative group">
@@ -246,44 +246,44 @@ const Achievements = () => {
                               <img
                                 src={item.image}
                                 alt={item.label}
-                                className="w-full h-52 sm:h-64 lg:h-72 object-contain bg-black/60 rounded-xl transform group-hover:scale-[1.02] transition-transform duration-500"
+                                className="w-full h-36 min-[400px]:h-44 sm:h-64 lg:h-72 object-contain bg-black/60 rounded-xl transform group-hover:scale-[1.02] transition-transform duration-500"
                               />
 
                               {/* Evidence Badge Overlay */}
-                              <div className="absolute top-2.5 left-2.5 bg-black/85 backdrop-blur-md px-2.5 py-1 rounded text-[11px] border font-mono font-bold flex items-center gap-1.5 shadow-md border-slate-700 text-slate-200">
-                                <Award className={`w-3.5 h-3.5 ${theme.badgeText}`} />
+                              <div className="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 bg-black/85 backdrop-blur-md px-2 sm:px-2.5 py-0.5 sm:py-1 rounded text-[10px] sm:text-[11px] border font-mono font-bold flex items-center gap-1 sm:gap-1.5 shadow-md border-slate-700 text-slate-200">
+                                <Award className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${theme.badgeText}`} />
                                 <span>ACHIEVEMENT ARTIFACT</span>
                               </div>
 
                               {/* Zoom Lightbox Hint Overlay */}
                               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white text-xs font-bold font-mono backdrop-blur-[2px]">
                                 <ZoomIn className={`w-5 h-5 ${theme.badgeText}`} />
-                                <span>CLICK TO EXPAND IMAGE</span>
+                                <span>TAP / CLICK TO EXPAND</span>
                               </div>
                             </div>
                           ) : (
                             /* Digital Certificate Artifact fallback */
-                            <div className="relative rounded-xl border border-slate-700/80 bg-[#050e10] p-6 h-52 sm:h-64 lg:h-72 flex flex-col justify-between shadow-xl">
-                              <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 text-xs">
-                                <span className="text-slate-400 font-bold">OFFICIAL_RESULT_ARTIFACT</span>
-                                <span className={`font-mono text-[11px] ${theme.badgeText}`}>[ OFFICIAL ]</span>
+                            <div className="relative rounded-xl border border-slate-700/80 bg-[#050e10] p-4 sm:p-6 h-36 min-[400px]:h-44 sm:h-64 lg:h-72 flex flex-col justify-between shadow-xl">
+                              <div className="flex items-center justify-between border-b border-slate-800/80 pb-2 sm:pb-3 text-xs">
+                                <span className="text-slate-400 font-bold text-[10px] sm:text-xs">OFFICIAL_RESULT_ARTIFACT</span>
+                                <span className={`font-mono text-[10px] sm:text-[11px] ${theme.badgeText}`}>[ OFFICIAL ]</span>
                               </div>
 
-                              <div className="flex items-center gap-4 my-auto">
-                                <div className="p-4 bg-[#08171a] rounded-xl border border-slate-700 shrink-0">
+                              <div className="flex items-center gap-3 sm:gap-4 my-auto">
+                                <div className="p-2.5 sm:p-4 bg-[#08171a] rounded-xl border border-slate-700 shrink-0">
                                   {renderIcon(item.icon, item.color)}
                                 </div>
                                 <div>
-                                  <span className="text-[11px] text-slate-400 font-bold tracking-wider uppercase block mb-1">
+                                  <span className="text-[10px] sm:text-[11px] text-slate-400 font-bold tracking-wider uppercase block mb-0.5 sm:mb-1">
                                     {item.tag}
                                   </span>
-                                  <h4 className="text-xl sm:text-2xl font-black text-slate-100">
+                                  <h4 className="text-base sm:text-2xl font-black text-slate-100">
                                     {item.label}
                                   </h4>
                                 </div>
                               </div>
 
-                              <div className="flex items-center justify-between text-[11px] text-slate-500 pt-3 border-t border-slate-800/80 font-mono">
+                              <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-slate-500 pt-2 sm:pt-3 border-t border-slate-800/80 font-mono">
                                 <span>ISSUER: {item.category}</span>
                                 <span className={theme.badgeText}>OFFICIAL</span>
                               </div>
@@ -291,11 +291,11 @@ const Achievements = () => {
                           )}
 
                           {/* Evidence Caption */}
-                          <div className="mt-2 flex items-center justify-between text-[11px] text-slate-400 px-1 font-mono">
-                            <span>REF: {item.fileName}</span>
-                            <span className={`flex items-center gap-1 ${theme.badgeText}`}>
+                          <div className="mt-1.5 sm:mt-2 flex items-center justify-between text-[10px] sm:text-[11px] text-slate-400 px-1 font-mono">
+                            <span className="truncate max-w-[160px] sm:max-w-none">REF: {item.fileName}</span>
+                            <span className={`flex items-center gap-1 ${theme.badgeText} shrink-0`}>
                               <CheckCircle2 className="w-3 h-3" />
-                              <span>CLICK IMAGE TO ZOOM</span>
+                              <span>TAP TO ZOOM</span>
                             </span>
                           </div>
                         </div>
@@ -303,23 +303,23 @@ const Achievements = () => {
                         {/* 2. CONCISE TEXT CONTEXT (40% area / 5 cols) */}
                         <div className="md:col-span-5 flex flex-col justify-center">
                           {/* Achievement Tag */}
-                          <span className="text-[11px] text-slate-400 font-bold tracking-wider uppercase bg-[#050e10] px-3 py-1 rounded-md border border-slate-800 w-fit mb-3">
+                          <span className="text-[10px] sm:text-[11px] text-slate-400 font-bold tracking-wider uppercase bg-[#050e10] px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-md border border-slate-800 w-fit mb-2 sm:mb-3">
                             {item.tag}
                           </span>
 
                           {/* Giant Value */}
-                          <h3 className={`text-4xl sm:text-5xl font-black mb-2 tracking-tight ${theme.metricText}`}>
+                          <h3 className={`text-2xl min-[400px]:text-3xl sm:text-5xl font-black mb-1 sm:mb-2 tracking-tight ${theme.metricText}`}>
                             {item.value}
                           </h3>
 
                           {/* Title / Label */}
-                          <h4 className="text-base sm:text-lg text-slate-100 font-extrabold leading-snug mb-3">
+                          <h4 className="text-xs min-[400px]:text-sm sm:text-lg text-slate-100 font-extrabold leading-snug mb-2 sm:mb-3">
                             {item.label}
                           </h4>
 
                           {/* Concise One-Line Context */}
                           {item.details && (
-                            <p className="text-xs text-slate-300 leading-relaxed bg-[#050e10]/80 p-3 rounded-lg border border-slate-800/80 mb-3">
+                            <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed bg-[#050e10]/80 p-2 sm:p-3 rounded-lg border border-slate-800/80 mb-2 sm:mb-3">
                               {item.details}
                             </p>
                           )}
@@ -331,9 +331,9 @@ const Achievements = () => {
                               target="_blank"
                               rel="noopener noreferrer"
                               onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#00ff9d] text-black hover:bg-[#00ff9d]/90 font-bold text-xs sm:text-sm transition-all duration-200 shadow-[0_0_15px_rgba(0,255,157,0.3)] w-fit mt-1"
+                              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-[#00ff9d] text-black hover:bg-[#00ff9d]/90 font-bold text-xs sm:text-sm transition-all duration-200 shadow-[0_0_15px_rgba(0,255,157,0.3)] w-fit mt-1"
                             >
-                              <ExternalLink className="w-4 h-4" />
+                              <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                               <span>VIEW LEETCODE PROFILE</span>
                             </a>
                           )}
@@ -343,8 +343,8 @@ const Achievements = () => {
                     </div>
 
                     {/* Compact Bottom Metadata Bar */}
-                    <div className="pt-3.5 border-t border-slate-800/80 mt-auto flex items-center justify-between text-xs text-slate-400 font-mono">
-                      <div className="flex items-center gap-4">
+                    <div className="pt-2.5 sm:pt-3.5 border-t border-slate-800/80 mt-auto flex items-center justify-between text-[11px] sm:text-xs text-slate-400 font-mono">
+                      <div className="flex items-center gap-2 sm:gap-4">
                         <span><strong className="text-slate-300">CATEGORY:</strong> {item.category}</span>
                       </div>
                       {item.url ? (
@@ -353,14 +353,14 @@ const Achievements = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className={`flex items-center gap-1.5 font-bold hover:underline ${theme.badgeText}`}
+                          className={`flex items-center gap-1.5 font-bold hover:underline ${theme.badgeText} truncate max-w-[160px] sm:max-w-none`}
                         >
-                          <ExternalLink className="w-3.5 h-3.5" />
-                          <span>leetcode.com/u/rithishcodespace</span>
+                          <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                          <span className="truncate">leetcode.com/u/rithishcodespace</span>
                         </a>
                       ) : (
                         <div className={`flex items-center gap-1.5 font-bold ${theme.badgeText}`}>
-                          <CheckCircle2 className="w-4 h-4" />
+                          <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                           <span>RECORDED</span>
                         </div>
                       )}

@@ -83,13 +83,12 @@ export const DistributedInspectorContent = () => {
 
         {/* System Status Banner */}
         <div
-          className={`p-2.5 rounded-lg border text-xs font-mono mb-3 flex items-center justify-between gap-2 transition-colors ${
-            !nodeStates.node1 && !nodeStates.node2 && !nodeStates.node3
+          className={`p-2.5 rounded-lg border text-xs font-mono mb-3 flex items-center justify-between gap-2 transition-colors ${!nodeStates.node1 && !nodeStates.node2 && !nodeStates.node3
               ? 'bg-[#180a0c] border-rose-500/50 text-rose-300'
               : !nodeStates.node1 || !nodeStates.node2 || !nodeStates.node3
-              ? 'bg-[#161208] border-amber-500/40 text-amber-300'
-              : 'bg-[#081518] border-[#00ff9d]/30 text-[#00ff9d]'
-          }`}
+                ? 'bg-[#161208] border-amber-500/40 text-amber-300'
+                : 'bg-[#081518] border-[#00ff9d]/30 text-[#00ff9d]'
+            }`}
         >
           <div className="flex items-center gap-2 truncate">
             {!nodeStates.node1 && !nodeStates.node2 && !nodeStates.node3 ? (
@@ -203,23 +202,20 @@ export const DistributedInspectorContent = () => {
                 <div
                   key={nodeKey}
                   onClick={() => toggleNode(nodeKey)}
-                  className={`p-2 rounded-lg border text-center cursor-pointer transition-all duration-200 ${
-                    isHealthy
+                  className={`p-2 rounded-lg border text-center cursor-pointer transition-all duration-200 ${isHealthy
                       ? 'bg-[#081518] border-[#00ff9d]/50 hover:border-[#00ff9d] text-slate-100 shadow-[0_0_10px_rgba(0,255,157,0.1)]'
                       : 'bg-[#180a0c] border-rose-500/60 text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.2)] opacity-80'
-                  }`}
+                    }`}
                 >
                   <div className="font-bold text-[11px] sm:text-xs">{name}</div>
                   <div className="flex items-center justify-center gap-1.5 mt-0.5">
                     <span
-                      className={`w-2 h-2 rounded-full ${
-                        isHealthy ? 'bg-[#00ff9d] animate-pulse' : 'bg-rose-500'
-                      }`}
+                      className={`w-2 h-2 rounded-full ${isHealthy ? 'bg-[#00ff9d] animate-pulse' : 'bg-rose-500'
+                        }`}
                     ></span>
                     <span
-                      className={`text-[10px] font-semibold ${
-                        isHealthy ? 'text-[#00ff9d]' : 'text-rose-400'
-                      }`}
+                      className={`text-[10px] font-semibold ${isHealthy ? 'text-[#00ff9d]' : 'text-rose-400'
+                        }`}
                     >
                       {isHealthy ? 'HEALTHY' : 'FAILED'}
                     </span>
@@ -317,7 +313,7 @@ const DistributedSystemCard = ({ cat, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="h-[340px] bg-[#0c1618] rounded-xl p-5 font-mono flex flex-col justify-between transition-all duration-300 border border-[#00ff9d] shadow-[0_0_22px_rgba(0,255,157,0.22)] bg-[#0e1a1d] hover:-translate-y-1.5 hover:shadow-[0_0_30px_rgba(0,255,157,0.35)] active:scale-[0.98] cursor-pointer group select-none relative"
+      className="h-[300px] min-[400px]:h-[320px] sm:h-[340px] bg-[#0c1618] rounded-xl p-4 sm:p-5 font-mono flex flex-col justify-between transition-all duration-300 border border-[#00ff9d] shadow-[0_0_22px_rgba(0,255,157,0.22)] bg-[#0e1a1d] hover:-translate-y-1.5 hover:shadow-[0_0_30px_rgba(0,255,157,0.35)] active:scale-[0.98] cursor-pointer group select-none relative"
     >
       {/* Inspect System Pop-Up Badge */}
       <span className="absolute top-3 right-3 z-20 text-[10px] text-[#00ff9d] bg-[#040c0e] px-2 py-0.5 rounded-lg border border-[#00ff9d] font-bold flex items-center gap-1 opacity-0 group-hover:opacity-100 group-hover:scale-105 group-hover:bg-[#00ff9d] group-hover:text-black transition-all duration-200 shadow-[0_0_15px_rgba(0,255,157,0.4)] pointer-events-none">

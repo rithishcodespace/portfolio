@@ -26,16 +26,16 @@ const Education = () => {
       </div>
 
       {/* Main Continuous Trajectory Timeline Container */}
-      <div className="relative pl-8 sm:pl-12 space-y-10">
+      <div className="relative pl-5 min-[400px]:pl-8 sm:pl-12 space-y-8 sm:space-y-10">
         {/* Continuous Vertical Timeline Line Stem */}
-        <div className="absolute left-[16px] sm:left-[24px] top-6 bottom-16 w-0.5 bg-gradient-to-b from-slate-600 via-[#00ff9d] to-[#00e5ff] z-0"></div>
+        <div className="absolute left-[12px] min-[400px]:left-[16px] sm:left-[24px] top-6 bottom-16 w-0.5 bg-gradient-to-b from-slate-600 via-[#00ff9d] to-[#00e5ff] z-0"></div>
 
         {/* ========================================================================= */}
         {/* STAGE 01: SCHOOL (FOUNDATION) */}
         {/* ========================================================================= */}
-        <div className="relative z-10 pl-6 sm:pl-8">
+        <div className="relative z-10 pl-4 min-[400px]:pl-6 sm:pl-8">
           {/* Node Icon on Timeline (Centered on stem line) */}
-          <div className="absolute left-[-24px] sm:left-[-32px] top-5 -translate-x-1/2 w-7 h-7 rounded-full bg-[#081518] border-2 border-slate-600 flex items-center justify-center text-[10px] font-bold text-slate-400 shadow-md">
+          <div className="absolute left-[-16px] min-[400px]:left-[-24px] sm:left-[-32px] top-5 -translate-x-1/2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#081518] border-2 border-slate-600 flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-slate-400 shadow-md">
             01
           </div>
 
@@ -73,13 +73,13 @@ const Education = () => {
         {/* ========================================================================= */}
         {/* STAGE 02: COLLEGE (CURRENT) — PROMINENTLY HIGHLIGHTED */}
         {/* ========================================================================= */}
-        <div className="relative z-10 pl-6 sm:pl-8">
+        <div className="relative z-10 pl-4 min-[400px]:pl-6 sm:pl-8">
           {/* Node Icon on Timeline (Centered on stem line) */}
-          <div className="absolute left-[-24px] sm:left-[-32px] top-6 -translate-x-1/2 w-7 h-7 rounded-full bg-[#081518] border-2 border-[#00ff9d] flex items-center justify-center text-[10px] font-bold text-[#00ff9d] shadow-[0_0_12px_rgba(0,255,157,0.5)]">
+          <div className="absolute left-[-16px] min-[400px]:left-[-24px] sm:left-[-32px] top-6 -translate-x-1/2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#081518] border-2 border-[#00ff9d] flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-[#00ff9d] shadow-[0_0_12px_rgba(0,255,157,0.5)]">
             02
           </div>
 
-          <div className="bg-[#0e1a1d] border border-[#00ff9d] shadow-[0_0_25px_rgba(0,255,157,0.18)] rounded-xl p-6 sm:p-7 transition-all duration-300 relative group">
+          <div className="bg-[#0e1a1d] border border-[#00ff9d] shadow-[0_0_25px_rgba(0,255,157,0.18)] rounded-xl p-4 sm:p-7 transition-all duration-300 relative group">
             {/* Header dots */}
             <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-slate-800/80 text-xs text-slate-400">
               <div className="flex items-center gap-2">
@@ -121,9 +121,9 @@ const Education = () => {
         {/* ========================================================================= */}
         {/* STAGE 03: CAREER / FUTURE (NEXT) */}
         {/* ========================================================================= */}
-        <div className="relative z-10 pl-6 sm:pl-8">
+        <div className="relative z-10 pl-4 min-[400px]:pl-6 sm:pl-8">
           {/* Node Icon on Timeline */}
-          <div className="absolute left-[-24px] sm:left-[-32px] top-6 -translate-x-1/2 w-7 h-7 rounded-full bg-[#081518] border-2 border-[#00e5ff] flex items-center justify-center text-[10px] font-bold text-[#00e5ff] shadow-[0_0_12px_rgba(0,229,255,0.5)]">
+          <div className="absolute left-[-16px] min-[400px]:left-[-24px] sm:left-[-32px] top-6 -translate-x-1/2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#081518] border-2 border-[#00e5ff] flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-[#00e5ff] shadow-[0_0_12px_rgba(0,229,255,0.5)]">
             03
           </div>
 
