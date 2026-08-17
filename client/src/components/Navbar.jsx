@@ -39,7 +39,7 @@ const Navbar = () => {
   return (
     <header className="fixed top-3 sm:top-4 left-0 right-0 z-50 flex justify-center px-3 sm:px-4">
       <nav
-        className={`w-full max-w-5xl bg-[#0a1417]/95 backdrop-blur-md border transition-all duration-300 rounded-2xl md:rounded-full px-4 sm:px-7 py-2.5 sm:py-3 flex flex-col md:flex-row md:items-center justify-between shadow-xl shadow-black/60 ${
+        className={`w-full max-w-6xl bg-[#0a1417]/95 backdrop-blur-md border transition-all duration-300 rounded-2xl md:rounded-full px-4 sm:px-6 py-2 sm:py-2.5 flex flex-col md:flex-row md:items-center justify-between shadow-xl shadow-black/60 ${
           scrolled ? 'border-[#00ff9d]/30 shadow-[#00ff9d]/5' : 'border-[#00ff9d]/20'
         }`}
       >
@@ -52,7 +52,7 @@ const Navbar = () => {
               e.preventDefault();
               handleNavClick('home');
             }}
-            className="flex items-center gap-1 font-mono font-bold text-base sm:text-lg text-slate-100 hover:text-[#00ff9d] transition-colors shrink-0"
+            className="flex items-center gap-1 font-mono font-bold text-base sm:text-lg text-slate-100 hover:text-[#00ff9d] transition-colors shrink-0 mr-4"
           >
             <span className="text-[#00ff9d] font-extrabold text-lg sm:text-xl">&gt;</span>
             <span className="text-[#00e5ff] tracking-tight">{portfolioData.header.logo}</span>
@@ -70,14 +70,14 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Nav Links */}
-        <div className="hidden md:flex items-center space-x-1 sm:space-x-2">
+        <div className="hidden md:flex items-center space-x-1 lg:space-x-1.5">
           {portfolioData.header.navLinks.map((link) => {
             const isActive = activeSection === link.id;
             return (
               <button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                className={`font-mono text-xs lg:text-sm px-3 py-1.5 rounded-md transition-all duration-200 whitespace-nowrap cursor-pointer ${
+                className={`font-mono text-xs px-2.5 py-1.5 rounded-md transition-all duration-200 whitespace-nowrap cursor-pointer ${
                   isActive
                     ? 'text-[#00ff9d] font-semibold bg-[#00ff9d]/15 border border-[#00ff9d]/30 shadow-[0_0_10px_rgba(0,255,157,0.15)]'
                     : 'text-slate-300 hover:text-white hover:bg-slate-800/60'

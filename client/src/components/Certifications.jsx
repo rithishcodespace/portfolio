@@ -3,21 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import SectionHeader from './SectionHeader';
 import { portfolioData } from '../data/portfolioData';
 import {
-  Award,
-  ShieldCheck,
-  ExternalLink,
   ZoomIn,
   X,
-  CheckCircle2,
-  Cloud,
-  Layers,
-  Terminal,
-  Code,
   Calendar,
-  Key,
-  BadgeCheck,
-  Sliders,
-  MoveRight,
 } from 'lucide-react';
 
 const Certifications = () => {
@@ -157,41 +145,10 @@ const Certifications = () => {
     }
   };
 
-  const renderIcon = (iconName, theme) => {
-    const iconClass = `w-6 h-6 sm:w-7 sm:h-7 ${theme.accentText}`;
-    switch (iconName) {
-      case 'cloud':
-        return <Cloud className={iconClass} />;
-      case 'layers':
-        return <Layers className={iconClass} />;
-      case 'terminal':
-        return <Terminal className={iconClass} />;
-      case 'code':
-      default:
-        return <Code className={iconClass} />;
-    }
-  };
-
   return (
     <section id="certs" className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 font-mono scroll-mt-24 select-none">
       {/* Section Header */}
       <SectionHeader command={headingCommand} />
-
-      {/* Header Info Bar */}
-      <div className="mb-6 flex items-center justify-between pb-3 border-b border-slate-800/80 text-xs text-slate-400">
-        <div className="flex items-center gap-2">
-          <Terminal className="w-4 h-4 text-[#00ff9d]" />
-          <span className="text-slate-200 font-bold uppercase tracking-wider">CERTIFICATE_STREAM</span>
-          <span className="text-[#00ff9d] font-mono text-[11px] bg-[#00ff9d]/10 px-2 py-0.5 rounded border border-[#00ff9d]/30">
-            [{list.length} CREDENTIALS VERIFIED]
-          </span>
-        </div>
-
-        <div className="flex items-center gap-2 text-slate-500 text-[11px] hidden sm:flex">
-          <Sliders className="w-3.5 h-3.5 text-[#00ff9d]" />
-          <span>DRAG SCRUBBER OR SWIPE HORIZONTALLY</span>
-        </div>
-      </div>
 
       {/* TACTILE SCRUBBER TIMELINE RAIL */}
       <div className="mb-6 px-1">
@@ -255,131 +212,62 @@ const Certifications = () => {
                     </div>
 
                     <span
-                      className={`text-[10px] px-2 py-0.5 rounded border font-semibold tracking-wider flex items-center gap-1 ${theme.badgeText} ${theme.badgeBg}`}
+                      className={`text-[10px] px-2 py-0.5 rounded border font-semibold tracking-wider ${theme.badgeText} ${theme.badgeBg}`}
                     >
-                      <BadgeCheck className="w-3 h-3" />
-                      <span>{item.badge}</span>
+                      {item.badge}
                     </span>
                   </div>
 
-                  {/* Image OR Digital Artifact Box */}
-                  {item.image ? (
-                    <div
-                      onClick={() =>
-                        setSelectedImage({
-                          src: item.image,
-                          title: item.title,
-                          issuer: item.issuer,
-                          fileName: item.fileName,
-                        })
-                      }
-                      className="relative mb-4 rounded-xl overflow-hidden border border-slate-700/80 bg-black/60 cursor-pointer group/img"
-                    >
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-40 sm:h-44 object-contain bg-black/80 transform group-hover/img:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white text-xs font-bold backdrop-blur-[2px]">
-                        <ZoomIn className={`w-4 h-4 ${theme.accentText}`} />
-                        <span>EXPAND ARTIFACT</span>
-                      </div>
+                  {/* Certificate Image Box */}
+                  <div
+                    onClick={() =>
+                      setSelectedImage({
+                        src: item.image,
+                        title: item.title,
+                        issuer: item.issuer,
+                        fileName: item.fileName,
+                      })
+                    }
+                    className="relative mb-4 rounded-xl overflow-hidden border border-slate-700/80 bg-black/60 cursor-pointer group/img"
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-44 sm:h-48 object-contain bg-black/80 transform group-hover/img:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white text-xs font-bold backdrop-blur-[2px]">
+                      <ZoomIn className={`w-4 h-4 ${theme.accentText}`} />
+                      <span>EXPAND ARTIFACT</span>
                     </div>
-                  ) : (
-                    /* Digital Certificate Artifact Container */
-                    <div className="relative mb-4 rounded-xl border border-slate-800/90 bg-[#040d10] p-4 flex flex-col justify-between shadow-inner">
-                      <div className="flex items-center justify-between border-b border-slate-800/80 pb-2 mb-2.5 text-[11px]">
-                        <div className="flex items-center gap-1.5">
-                          <ShieldCheck className={`w-4 h-4 ${theme.accentText}`} />
-                          <span className="text-slate-300 font-bold tracking-wide">VERIFIED_CREDENTIAL</span>
-                        </div>
-                        <span className="text-[10px] text-slate-500 font-mono">CRED_0{idx + 1}</span>
-                      </div>
+                  </div>
 
-                      <div className="flex items-start gap-3 my-1">
-                        <div className="p-2.5 bg-[#07171c] rounded-xl border border-slate-700/60 shrink-0">
-                          {renderIcon(item.icon, theme)}
-                        </div>
-                        <div className="min-w-0">
-                          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-0.5 truncate">
-                            {item.issuer}
-                          </span>
-                          <h4 className="text-sm sm:text-base font-black text-slate-100 leading-snug line-clamp-2">
-                            {item.title}
-                          </h4>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center justify-between text-[10px] text-slate-400 pt-2.5 border-t border-slate-800/80 mt-2 font-mono">
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3 text-slate-500" />
-                          <span>YEAR: {item.issueDate}</span>
-                        </span>
-                        <span className="flex items-center gap-1 truncate max-w-[130px]">
-                          <Key className="w-3 h-3 text-slate-500 shrink-0" />
-                          <span className="truncate">ID: {item.credentialId}</span>
-                        </span>
-                      </div>
-                    </div>
-                  )}
+                  {/* Title & Issuer Info */}
+                  <div className="mb-3">
+                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-0.5 truncate">
+                      {item.issuer}
+                    </span>
+                    <h4 className="text-sm sm:text-base font-black text-slate-100 leading-snug line-clamp-2">
+                      {item.title}
+                    </h4>
+                  </div>
 
                   {/* Description Box */}
-                  <p className="text-xs text-slate-300 leading-relaxed bg-[#030a0d]/70 p-3 rounded-lg border border-slate-800/80 mb-4 line-clamp-3">
+                  <p className="text-xs text-slate-300 leading-relaxed bg-[#030a0d]/70 p-3 rounded-lg border border-slate-800/80 mb-3 line-clamp-3">
                     {item.description}
                   </p>
-
-                  {/* Skills Tags */}
-                  <div className="mb-4">
-                    <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider block mb-1.5">
-                      COMPETENCIES:
-                    </span>
-                    <div className="flex flex-wrap gap-1">
-                      {item.skills.map((skill, sIdx) => (
-                        <span
-                          key={sIdx}
-                          className={`text-[10px] px-2 py-0.5 rounded border font-medium ${theme.tagBg}`}
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
                 </div>
 
-                {/* Bottom Action */}
-                <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between mt-auto">
-                  <span className="text-[10px] text-slate-400 flex items-center gap-1 font-mono">
-                    <CheckCircle2 className={`w-3.5 h-3.5 ${theme.accentText}`} />
-                    <span>VERIFIED</span>
+                {/* Bottom Card Footer */}
+                <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between mt-auto font-mono text-[10px] text-slate-400">
+                  <span className="flex items-center gap-1">
+                    <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                    <span>ISSUED: {item.issueDate}</span>
                   </span>
-
-                  {item.verifyUrl && (
-                    <a
-                      href={item.verifyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 ${theme.btnBg}`}
-                    >
-                      <span>VERIFY</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
                 </div>
               </motion.div>
             );
           })}
         </div>
-      </div>
-
-      {/* Footer Instruction Bar */}
-      <div className="flex items-center justify-between text-xs text-slate-500 mt-4 pt-3 border-t border-slate-800/60 font-mono">
-        <span className="hidden sm:inline">
-          [USE SCRUBBER RAIL OR SWIPE HORIZONTALLY TO TRAVERSE CREDENTIALS]
-        </span>
-        <span className="text-[11px] text-[#00ff9d] font-semibold flex items-center gap-1.5 mx-auto sm:mx-0">
-          <span>DRAG SCRUBBER KNOB TO SEEK</span>
-          <MoveRight className="w-3.5 h-3.5 animate-pulse" />
-        </span>
       </div>
 
       {/* FULLSCREEN LIGHTBOX MODAL */}
@@ -426,10 +314,6 @@ const Certifications = () => {
                 <span className="font-bold text-slate-100">{selectedImage.title}</span>
                 <span className="text-slate-500 ml-2">[{selectedImage.issuer}]</span>
               </div>
-              <span className="text-[#00ff9d] flex items-center gap-1.5 font-bold">
-                <Award className="w-4 h-4" />
-                <span>OFFICIAL CERTIFICATION ARTIFACT</span>
-              </span>
             </div>
           </div>
         </div>
