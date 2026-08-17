@@ -9,6 +9,7 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
+import Certifications from './components/Certifications';
 import Achievements from './components/Achievements';
 import Education from './components/Education';
 import Contact from './components/Contact';
@@ -52,13 +53,16 @@ const PublicPortfolio = () => {
         {/* 5. Projects Section: docker ps --filter status=running */}
         <Projects />
 
-        {/* 6. Achievements Section: cat /var/log/achievements.log */}
+        {/* 6. Certifications Section: ls -la /certifications/ */}
+        <Certifications />
+
+        {/* 7. Achievements Section: cat /var/log/achievements.log */}
         <Achievements />
 
-        {/* 7. Education Section: cat /etc/education.conf */}
+        {/* 8. Education Section: cat /etc/education.conf */}
         <Education />
 
-        {/* 8. Contact Section: ssh rithish@contact-server */}
+        {/* 9. Contact Section: ssh rithish@contact-server */}
         <Contact />
       </main>
 
