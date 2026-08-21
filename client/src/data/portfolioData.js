@@ -527,11 +527,31 @@ export const portfolioData = {
         details: 'Optimized time & space complexities across arrays, trees, graphs, dynamic programming, and system design algorithms.',
         image: '/images/leetcode.png',
         url: 'https://leetcode.com/u/rithishcodespace',
+        urlLabel: 'VIEW LEETCODE PROFILE',
+        urlDisplay: 'leetcode.com/u/rithishcodespace',
+      },
+
+      {
+        fileName: 'eslint_underflow_fix.json',
+        step: '02',
+        icon: 'git-pull-request',
+        value: 'OPEN SOURCE',
+        label: 'ESLint Core Contributor',
+        tag: 'OPEN SOURCE CONTRIBUTION',
+        category: 'ESLINT / JAVASCRIPT TOOLING',
+        badge: 'ESLINT #21218',
+        color: 'sky',
+        details:
+          'Fixed false negatives in ESLint\'s no-loss-of-precision rule (#21218) by properly handling IEEE 754 float64 underflow to 0/-0 for subnormal numeric literals.',
+        image: '/images/eslint_pr_merged.png',
+        url: 'https://github.com/eslint/eslint/pull/21218',
+        urlLabel: 'VIEW PR ON GITHUB',
+        urlDisplay: 'github.com/eslint/eslint/pull/21218',
       },
 
       {
         fileName: 'ieee_devspark_result.conf',
-        step: '02',
+        step: '03',
         icon: 'award',
         value: '1st PLACE',
         label: 'Place at IEEE DevSpark Hackathon',
@@ -545,7 +565,7 @@ export const portfolioData = {
 
       {
         fileName: 'bit_hackathon_award.log',
-        step: '03',
+        step: '04',
         icon: 'trophy',
         value: '1st PLACE',
         label: 'Place at BIT Hackathon',
@@ -559,7 +579,7 @@ export const portfolioData = {
 
       {
         fileName: 'sns_ideathon_runnerup.json',
-        step: '04',
+        step: '05',
         icon: 'medal',
         value: 'RUNNER-UP',
         label: 'SNS Ideathon',
@@ -573,7 +593,7 @@ export const portfolioData = {
 
       {
         fileName: 'code_with_curious_first_place.json',
-        step: '05',
+        step: '06',
         icon: 'trophy',
         value: '1ST PLACE',
         label: 'Code With Curious',

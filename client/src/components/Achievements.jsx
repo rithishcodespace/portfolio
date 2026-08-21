@@ -14,6 +14,7 @@ import {
   ZoomIn,
   X,
   ExternalLink,
+  GitPullRequest,
 } from 'lucide-react';
 
 const Achievements = () => {
@@ -130,6 +131,9 @@ const Achievements = () => {
         return <Trophy className={iconClass} />;
       case 'medal':
         return <Medal className={iconClass} />;
+      case 'git-pull-request':
+      case 'git':
+        return <GitPullRequest className={iconClass} />;
       case 'code':
       default:
         return <Code className={iconClass} />;
@@ -334,7 +338,7 @@ const Achievements = () => {
                               className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-[#00ff9d] text-black hover:bg-[#00ff9d]/90 font-bold text-xs sm:text-sm transition-all duration-200 shadow-[0_0_15px_rgba(0,255,157,0.3)] w-fit mt-1"
                             >
                               <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                              <span>VIEW LEETCODE PROFILE</span>
+                              <span>{item.urlLabel || 'VIEW DETAILS'}</span>
                             </a>
                           )}
                         </div>
@@ -356,7 +360,7 @@ const Achievements = () => {
                           className={`flex items-center gap-1.5 font-bold hover:underline ${theme.badgeText} truncate max-w-[160px] sm:max-w-none`}
                         >
                           <ExternalLink className="w-3.5 h-3.5 shrink-0" />
-                          <span className="truncate">leetcode.com/u/rithishcodespace</span>
+                          <span className="truncate">{item.urlDisplay || item.url.replace(/^https?:\/\//, '')}</span>
                         </a>
                       ) : (
                         <div className={`flex items-center gap-1.5 font-bold ${theme.badgeText}`}>
