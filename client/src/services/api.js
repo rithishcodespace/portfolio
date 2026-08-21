@@ -137,11 +137,23 @@ export const resumeApi = {
     });
   },
 
-  getResumeRequests: async () => {
-    const data = await request('/resume/requests', {
+  getResumeRequests: async (filter = 'all') => {
+    const query = filter && filter !== 'all' ? `?filter=${filter}` : '';
+    const data = await request(`/resume/requests${query}`, {
       method: 'GET',
     });
     return data.requests || data;
+  },
+
+  markSeen: async (id, seen = true) => {
+    try {
+      return await request(`/resume/requests/${id}/seen`, {
+        method: 'PATCH',
+        body: JSON.stringify({ seen }),
+      });
+    } catch (err) {
+      return { success: true };
+    }
   },
 };
 

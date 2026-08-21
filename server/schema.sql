@@ -37,5 +37,6 @@ CREATE TABLE resume_requests (
     role VARCHAR(150),
     reason TEXT,
     linkedin VARCHAR(255),
+    seen BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

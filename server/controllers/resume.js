@@ -176,12 +176,59 @@ exports.getResumeRequests = async (req, res, next) => {
       return next(createError(401, "Not authorized to access resume requests"));
     }
 
-    const sql = "SELECT * FROM resume_requests ORDER BY created_at DESC";
+    const { filter } = req.query;
+    let sql = "SELECT * FROM resume_requests ORDER BY created_at DESC";
+
+    if (filter === 'unseen' || filter === 'unvisited') {
+      sql = "SELECT * FROM resume_requests WHERE seen = false OR seen IS NULL ORDER BY created_at DESC";
+    } else if (filter === 'seen' || filter === 'visited') {
+      sql = "SELECT * FROM resume_requests WHERE seen = true ORDER BY created_at DESC";
+    }
+
     const dbResult = await db.query(sql);
 
     return res.status(200).json({
       success: true,
       requests: dbResult.rows
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * PATCH /api/resume/requests/:id/seen (Admin only)
+ */
+exports.markResumeRequestSeen = async (req, res, next) => {
+  try {
+    // Authenticate admin session
+    let token = req.cookies ? req.cookies[ADMIN_COOKIE_NAME] : null;
+    if (!token && req.headers && req.headers.authorization) {
+      const parts = req.headers.authorization.split(" ");
+      if (parts.length === 2 && parts[0] === "Bearer") {
+        token = parts[1];
+      }
+    }
+
+    const decoded = verifyToken(token);
+    if (!decoded || decoded.type !== "admin") {
+      return next(createError(401, "Not authorized to update resume request"));
+    }
+
+    const id = req.params.id || req.body.id;
+    const seenStatus = req.body.seen !== undefined ? Boolean(req.body.seen) : true;
+
+    if (!id) {
+      return next(createError(400, "Invalid Id"));
+    }
+
+    const sql = "UPDATE resume_requests SET seen = $1 WHERE id = $2 RETURNING *";
+    const dbResult = await db.query(sql, [seenStatus, id]);
+
+    return res.status(200).json({
+      success: true,
+      message: "Resume request status updated successfully",
+      data: dbResult.rows[0] || null
     });
   } catch (error) {
     next(error);
