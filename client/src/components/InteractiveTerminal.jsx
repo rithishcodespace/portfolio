@@ -1,45 +1,54 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { assistantApi } from '../services/api';
 
-const BOOT_LOGS = [
-  '[  0.000000] Linux 6.8.0-49-generic (x86_64) #49-Ubuntu SMP',
-  '[  0.001420] systemd[1]: Mounted Portfolio Shell Environment.',
-  '[  0.002810] daemon[812]: groq-llm engine online (qwen-3.8 / gpt-120b)',
-  '[  0.003940] profile: verified records loaded (/data/profile.json)',
-  '[  0.004210] session: pts/1 established for rithish@portfolio',
-  '',
-  'Type any question in natural language (e.g. "What projects have you built?").',
-  'Type "help" for options, "clear" to reset screen, or "flip" for human.txt.',
-];
-
-const SPINNER_FRAMES = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
-
 const getTimestamp = () => {
   const d = new Date();
   return d.toTimeString().split(' ')[0];
 };
 
 /**
- * Format terminal stdout: preserve whitespace, highlight bold text with subtle green accent
+ * Format terminal stdout with clean monospace indentation, headers, and subtle green accents
  */
 const renderStdout = (text) => {
   if (!text) return null;
   const lines = text.split('\n');
-  return lines.map((line, lIdx) => {
-    let lineContent = line;
-    const isBullet =
-      line.trim().startsWith('* ') ||
-      line.trim().startsWith('- ') ||
-      line.trim().startsWith('• ');
 
+  return lines.map((line, lIdx) => {
+    const trimmed = line.trim();
+
+    // Subtle divider lines like ----- or ======
+    if (/^[-=]{3,}$/.test(trimmed)) {
+      return (
+        <div key={lIdx} className="text-slate-600 select-none font-mono text-[11px] leading-3 py-0.5">
+          {line}
+        </div>
+      );
+    }
+
+    // Bullet items
+    const isBullet =
+      trimmed.startsWith('* ') ||
+      trimmed.startsWith('- ') ||
+      trimmed.startsWith('• ');
+
+    let lineContent = line;
     if (isBullet) {
       lineContent = line.replace(/^\s*(\*|-|•)\s*/, '  • ');
     }
 
+    // Section headers ending with a colon (e.g. "Tech stack:", "Key features:")
+    const isSectionHeader = /^[A-Za-z0-9\s/&]+:$/.test(trimmed);
+
+    // Parse inline bold markers
     const parts = lineContent.split(/(\*\*.*?\*\*)/g);
 
     return (
-      <div key={lIdx} className="min-h-[1.25em]">
+      <div
+        key={lIdx}
+        className={`min-h-[1.35em] ${
+          isSectionHeader ? 'text-slate-200 font-semibold pt-1' : 'text-slate-300'
+        }`}
+      >
         {parts.map((part, pIdx) => {
           if (part.startsWith('**') && part.endsWith('**')) {
             return (
@@ -56,12 +65,9 @@ const renderStdout = (text) => {
 };
 
 const InteractiveTerminal = ({ onFlip }) => {
-  // Terminal history entries: array of items { id, command, output, status, timestamp, isError }
   const [history, setHistory] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [loadingText, setLoadingText] = useState('executing query via daemon...');
-  const [spinnerIndex, setSpinnerIndex] = useState(0);
 
   // Command history for Up/Down arrow navigation
   const [commandHistory, setCommandHistory] = useState([]);
@@ -70,15 +76,6 @@ const InteractiveTerminal = ({ onFlip }) => {
 
   const terminalScrollRef = useRef(null);
   const inputRef = useRef(null);
-
-  // Spinner animation while LLM is generating
-  useEffect(() => {
-    if (!isLoading) return;
-    const interval = setInterval(() => {
-      setSpinnerIndex((prev) => (prev + 1) % SPINNER_FRAMES.length);
-    }, 80);
-    return () => clearInterval(interval);
-  }, [isLoading]);
 
   // Auto-scroll terminal buffer to bottom
   const scrollToBottom = () => {
@@ -92,8 +89,7 @@ const InteractiveTerminal = ({ onFlip }) => {
   }, [history, isLoading, input]);
 
   // Focus input on load and when terminal body is clicked
-  const handleTerminalClick = (e) => {
-    // Only focus if the user is not selecting text
+  const handleTerminalClick = () => {
     const selection = window.getSelection();
     if (!selection || selection.toString().length === 0) {
       inputRef.current?.focus();
@@ -149,7 +145,6 @@ const InteractiveTerminal = ({ onFlip }) => {
     const timeStr = getTimestamp();
 
     if (!cmd) {
-      // Empty enter: just print prompt line
       setHistory((prev) => [
         ...prev,
         {
@@ -184,21 +179,20 @@ const InteractiveTerminal = ({ onFlip }) => {
           command: cmd,
           timestamp: timeStr,
           status: 'exit: 0',
-          output: `portfolio-sh v2.6.0 (x86_64-pc-linux-gnu)
-Built-in terminal utilities:
+          output: `portfolio-sh v2.6.0
+Built-in utilities:
 
   help          Display this help documentation
   clear         Clear the terminal screen (or Ctrl+L)
   flip          Toggle 3D card to inspect human.txt
   cat human.txt Same as 'flip'
   whoami        Display current terminal session identity
-  history       List previously entered queries
-  uname -a      Display system kernel architecture
+  history       List previously entered questions
 
 Natural Language Queries:
-  Type any question naturally. Queries are streamed to Groq LLM
-  grounded on /data/profile.json facts.
-  Example: "What distributed systems projects have you built?"`,
+  Type questions in natural language. Answers are generated by the assistant engine
+  using verified profile records.
+  Example: "What projects has Rithish built?"`,
         },
       ]);
       return;
@@ -212,7 +206,7 @@ Natural Language Queries:
           command: cmd,
           timestamp: timeStr,
           status: 'exit: 0',
-          output: '[system] flipping viewport to human.txt view...',
+          output: '[ OK ] Flipping viewport to human.txt view...',
         },
       ]);
       if (onFlip) {
@@ -229,21 +223,7 @@ Natural Language Queries:
           command: cmd,
           timestamp: timeStr,
           status: 'exit: 0',
-          output: 'visitor@portfolio.rithish.site [session: guest | pts/1]',
-        },
-      ]);
-      return;
-    }
-
-    if (lower === 'uname' || lower === 'uname -a') {
-      setHistory((prev) => [
-        ...prev,
-        {
-          id: Date.now().toString(),
-          command: cmd,
-          timestamp: timeStr,
-          status: 'exit: 0',
-          output: 'Linux portfolio 6.8.0-49-generic #49-Ubuntu SMP PREEMPT_DYNAMIC x86_64 GNU/Linux',
+          output: 'visitor@portfolio.rithish.site [session: guest]',
         },
       ]);
       return;
@@ -261,15 +241,14 @@ Natural Language Queries:
           command: cmd,
           timestamp: timeStr,
           status: 'exit: 0',
-          output: historyList || '  (no commands in history)',
+          output: historyList || '  (no questions in history)',
         },
       ]);
       return;
     }
 
-    // Natural Language Query -> Groq LLM Backend
+    // Natural Language Query -> Backend Assistant API
     setIsLoading(true);
-    setLoadingText('querying groq-llm daemon...');
 
     // Prepare previous history for conversation context (last 4 items)
     const chatContext = history
@@ -283,7 +262,7 @@ Natural Language Queries:
     try {
       const res = await assistantApi.chat(cmd, chatContext);
       const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
-      const answer = res?.answer || 'Command execution finished with empty output.';
+      const answer = res?.answer || 'Execution finished with empty output.';
 
       setHistory((prev) => [
         ...prev,
@@ -305,9 +284,11 @@ Natural Language Queries:
         {
           id: Date.now().toString(),
           command: cmd,
-          output: `[error] query daemon unreachable.
-Rithish is a Backend Engineer focusing on Node.js, TypeScript, and Distributed Systems.
-Try asking about 'projects', 'skills', or 'contact'.`,
+          output: `[ ERROR ] Failed to connect to assistant engine. (exit 1)
+Try asking:
+- What projects has Rithish built?
+- What is his backend experience?
+- What technologies does he use?`,
           timestamp: timeStr,
           status: `exit: 1 | ${elapsed}s`,
           isError: true,
@@ -332,14 +313,14 @@ Try asking about 'projects', 'skills', or 'contact'.`,
       className="absolute inset-0 w-full h-full backface-hidden bg-[#0B1110] border border-[#00FF9C]/20 hover:border-[#00FF9C]/40 rounded-xl shadow-2xl flex flex-col font-mono text-slate-300 select-text cursor-text transition-all duration-300"
       onClick={handleTerminalClick}
     >
-      {/* Linux / Shell Window Titlebar */}
+      {/* Shell Window Titlebar */}
       <div className="flex items-center justify-between px-3.5 py-2.5 bg-[#080d0c] border-b border-[#00FF9C]/10 select-none shrink-0 rounded-t-xl">
         <div className="flex items-center gap-2">
           <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]/90 inline-block" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]/90 inline-block" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]/90 inline-block" />
           <span className="ml-1.5 text-slate-400 font-mono text-[11px] sm:text-xs tracking-tight">
-            bash &mdash; rithish@portfolio:~ (pts/1)
+            portfolio-sh &mdash; rithish@portfolio:~
           </span>
         </div>
 
@@ -362,20 +343,46 @@ Try asking about 'projects', 'skills', or 'contact'.`,
       {/* Terminal Screen / STDOUT Buffer */}
       <div
         ref={terminalScrollRef}
-        className="flex-1 p-3.5 sm:p-4 overflow-y-auto space-y-2.5 text-xs sm:text-[13px] leading-relaxed custom-terminal-scroll"
+        className="flex-1 p-3.5 sm:p-4 overflow-y-auto overflow-x-hidden space-y-3 text-xs sm:text-[13px] leading-relaxed custom-terminal-scroll"
       >
-        {/* Startup Boot Log (Shown when terminal is loaded) */}
-        <div className="space-y-0.5 text-slate-500 text-[11px] select-none font-mono pb-1 border-b border-slate-900">
-          {BOOT_LOGS.map((line, idx) => (
-            <div key={idx} className={idx < 5 ? 'text-slate-500' : 'text-[#00FF9C]/80 font-medium'}>
-              {line}
+        {/* Startup Output */}
+        <div className="space-y-2.5 text-slate-300 text-xs sm:text-[13px] font-mono pb-2.5 border-b border-slate-800/60 leading-relaxed select-none">
+          {/* Portfolio environment initialization status */}
+          <div className="space-y-0.5 text-xs">
+            <div>
+              <span className="text-[#00FF9C] font-semibold">[ OK ]</span>{' '}
+              <span className="text-slate-300">Portfolio environment initialized</span>
             </div>
-          ))}
+            <div>
+              <span className="text-[#00FF9C] font-semibold">[ OK ]</span>{' '}
+              <span className="text-slate-300">Profile records loaded</span>
+            </div>
+            <div>
+              <span className="text-[#00FF9C] font-semibold">[ OK ]</span>{' '}
+              <span className="text-slate-300">Assistant engine ready</span>
+            </div>
+          </div>
+
+          {/* Welcome message */}
+          <div className="text-slate-300 pt-0.5">
+            Welcome to Rithish&apos;s portfolio terminal.
+            <br />
+            Ask questions in natural language to explore his background, projects, skills, and experience.
+          </div>
+
+          {/* Plain-text discoverable examples */}
+          <div className="space-y-0.5 pt-0.5 text-slate-400">
+            <div className="text-slate-200 font-medium">Try asking:</div>
+            <div className="pl-2">- What projects has Rithish built?</div>
+            <div className="pl-2">- What is his backend experience?</div>
+            <div className="pl-2">- What are his achievements?</div>
+            <div className="pl-2">- What technologies does he use?</div>
+          </div>
         </div>
 
         {/* Command History Execution Sequence */}
         {history.map((item) => (
-          <div key={item.id} className="space-y-1 pt-1">
+          <div key={item.id} className="space-y-1 pt-1 break-words">
             {/* Shell Prompt + Executed Query */}
             <div className="flex items-baseline flex-wrap">
               <span className="font-bold select-none shrink-0 font-mono">
@@ -392,18 +399,18 @@ Try asking about 'projects', 'skills', or 'contact'.`,
 
             {/* Execution status & stdout */}
             {item.command !== '' && (
-              <div className="space-y-1 pl-2 sm:pl-3">
+              <div className="space-y-1 pl-2 sm:pl-3 pt-0.5">
                 {item.status && (
-                  <div className="text-[10px] text-slate-400 select-none">
+                  <div className="text-[10px] text-slate-500 select-none">
                     [{item.status} &bull; {item.timestamp}]
                   </div>
                 )}
                 {item.output && (
                   <div
-                    className={`font-mono leading-relaxed pl-2 border-l ${
+                    className={`font-mono leading-relaxed pl-2.5 border-l ${
                       item.isError
                         ? 'text-rose-400 border-rose-500/40'
-                        : 'text-slate-200 border-[#00FF9C]/25'
+                        : 'border-[#00FF9C]/25'
                     }`}
                   >
                     {renderStdout(item.output)}
@@ -416,17 +423,14 @@ Try asking about 'projects', 'skills', or 'contact'.`,
 
         {/* Active Command Execution Loading State */}
         {isLoading && (
-          <div className="space-y-1 pl-2 sm:pl-3 pt-1 text-xs text-[#00FF9C]">
-            <span className="mr-2 text-slate-400 font-mono select-none">
-              {SPINNER_FRAMES[spinnerIndex]}
-            </span>
-            <span className="text-slate-300 font-mono">{loadingText}</span>
-            <span className="inline-block w-1.5 h-3 bg-[#00FF9C] ml-1.5 animate-terminal-cursor align-middle" />
+          <div className="flex items-center gap-2 pl-2 sm:pl-3 pt-1 text-xs font-mono">
+            <span className="text-[#00FF9C] font-semibold animate-pulse">[ RUNNING ]</span>
+            <span className="text-slate-400">querying assistant engine...</span>
           </div>
         )}
 
-        {/* Active Shell Prompt Line */}
-        <div className="flex items-baseline flex-wrap pt-1">
+        {/* Active Shell Prompt Line with blinking cursor and placeholder */}
+        <div className="flex items-baseline flex-wrap pt-1.5">
           <span className="font-bold select-none shrink-0 font-mono">
             <span className="text-[#00FF9C]">rithish@portfolio</span>
             <span className="text-slate-500">:</span>
@@ -435,7 +439,7 @@ Try asking about 'projects', 'skills', or 'contact'.`,
             <span className="text-slate-400">&nbsp;</span>
           </span>
 
-          <form onSubmit={handleSubmit} className="flex-1 min-w-[140px] inline-flex items-baseline">
+          <form onSubmit={handleSubmit} className="flex-1 min-w-[200px] inline-flex items-baseline">
             <input
               ref={inputRef}
               type="text"
@@ -446,14 +450,15 @@ Try asking about 'projects', 'skills', or 'contact'.`,
               spellCheck={false}
               autoComplete="off"
               autoFocus
-              className="w-full bg-transparent text-white font-mono text-xs sm:text-[13px] focus:outline-none border-none p-0 m-0 caret-[#00FF9C]"
+              placeholder="Type a question about Rithish..."
+              className="w-full bg-transparent text-white font-mono text-xs sm:text-[13px] focus:outline-none border-none p-0 m-0 caret-[#00FF9C] placeholder:text-slate-600 placeholder:font-mono placeholder:text-xs sm:placeholder:text-[13px]"
             />
           </form>
         </div>
       </div>
 
-      {/* Terminal Status Bar (Minimal Footer) */}
-      <div className="px-3.5 py-1.5 bg-[#080d0c] border-t border-[#00FF9C]/10 flex items-center justify-between text-[10px] text-slate-400 select-none rounded-b-xl">
+      {/* Terminal Status Bar (Minimal Fixed Footer) */}
+      <div className="px-3.5 py-1.5 bg-[#080d0c] border-t border-[#00FF9C]/10 flex items-center justify-between text-[10px] text-slate-400 select-none rounded-b-xl shrink-0">
         <span className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-[#00FF9C] inline-block animate-pulse" />
           <span>PORTFOLIO_TTY</span>

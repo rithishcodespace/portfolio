@@ -18,19 +18,39 @@ const getProfileData = () => {
 };
 
 const SYSTEM_PROMPT = (profile) => `
-You are the interactive portfolio terminal assistant for Rithish S, a Backend Engineer and Computer Science & Engineering student.
-You are embedded inside a retro-futuristic terminal interface on his portfolio website.
+You are the interactive portfolio terminal for Rithish S, a Backend Engineer and Computer Science & Engineering student.
+You respond directly as terminal standard output (stdout).
 
-Here is Rithish's complete profile data:
+Profile Information:
 ${JSON.stringify(profile, null, 2)}
 
-STRICT RESPONSE GUIDELINES:
-1. Answer questions in natural language, formatted cleanly for a developer terminal.
-2. LENGTH: SHORT to MEDIUM only (1 to 4 sentences, or a tight 2-4 item bulleted list). NEVER write long essay-like walls of text.
-3. TONE: Confident, technical, sharp, and concise. No conversational filler like "Certainly! I'd be happy to tell you about...".
-4. ACCURACY: Only state facts from the profile data above. Never fabricate skills, roles, or claims.
-5. If the user asks for contact info, provide email (${profile?.email || 'rithishcodespace@gmail.com'}) and relevant links directly.
-6. If the user asks something completely irrelevant to Rithish or software engineering, return a short terminal message: "Command not recognized. I can answer questions about Rithish's projects, distributed systems experience, skills, certifications, and background."
+STRICT TERMINAL STDOUT FORMATTING RULES:
+1. Always format responses as clean, structured terminal stdout. Never act like a chatty bot or conversational assistant.
+2. NO conversational greetings or pleasantries (never say "Hi!", "Sure!", "I'd be happy to help", "Here is information..."). Start directly with the title or output.
+3. STRUCTURE & FORMATTING:
+   - For a specific project or topic, write the name and underline it with dashes:
+     AskDB
+     -----
+   - Use clean, indented sections with 2 spaces (e.g. "Tech stack:", "Key features:", "Summary:"):
+     Tech stack:
+       Node.js      TypeScript
+       PostgreSQL   Redis
+     Key features:
+       - Feature one
+       - Feature two
+   - Keep answers readable, clean, and concise (short to medium, typically 5-12 lines of structured terminal stdout).
+4. ACCURACY: Only use verified facts from the profile data. Never invent technologies or claims.
+5. If asked for contact details, format as:
+Contact Information
+-------------------
+Email:    ${profile?.email || 'rithishcodespace@gmail.com'}
+Phone:    ${profile?.phone || '+91 9952252304'}
+GitHub:   ${profile?.links?.github || 'https://github.com/rithishcodespace'}
+LinkedIn: ${profile?.links?.linkedin || 'https://www.linkedin.com/in/rithish-saravanan-32a39431a/'}
+LeetCode: ${profile?.links?.leetcode || 'https://leetcode.com/u/rithishcodespace'}
+6. If asked an unrelated question outside of Rithish or computer science, output:
+Command not recognized.
+Available topics: projects, backend experience, skills, achievements, education, contact.
 `.trim();
 
 /**
@@ -38,7 +58,6 @@ STRICT RESPONSE GUIDELINES:
  */
 const cleanModelResponse = (text) => {
   if (!text) return '';
-  // Remove <think>...</think> or reasoning tags if present
   let cleaned = text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
   return cleaned;
 };
@@ -50,35 +69,75 @@ const getFallbackResponse = (query, profile) => {
   const q = query.toLowerCase();
 
   if (q.includes('skill') || q.includes('stack') || q.includes('tech')) {
-    return `Rithish specializes in Backend Engineering & Distributed Systems. Key skills include Node.js, TypeScript, Go/Python, Express, FastAPI, PostgreSQL, Redis, BullMQ, Docker, Kubernetes, AWS, and System Design.`;
+    return `Technical Stack
+---------------
+Backend & Core:
+  Node.js, TypeScript, Express.js, FastAPI, Python, REST APIs
+
+Distributed Systems & Databases:
+  Redis, BullMQ, PostgreSQL, MySQL, MongoDB, System Design
+
+Cloud & DevOps:
+  AWS EC2/S3, Docker, Kubernetes, Helm, GitHub Actions, Prometheus`;
   }
   if (q.includes('project') || q.includes('built')) {
-    return `Key projects:
-• Humming Tone (2026): Production e-commerce platform with RBAC & Redis caching.
-• DB Backup CLI (2026): Automated multi-database backup utility with BullMQ queues & AWS S3.
-• PatentIQ (2026): AI patent prior-art semantic search with vector embeddings.`;
+    return `Featured Projects
+-----------------
+DB Backup CLI (2026)
+  Cross-platform CLI tool for automated multi-database backups.
+  Tech: TypeScript, Redis, BullMQ, AWS S3, Docker
+  Repo: https://github.com/rithishcodespace/db-backup-cli
+
+Humming Tone (2026)
+  Production e-commerce platform with RBAC & Redis caching.
+  Tech: Node.js, TypeScript, PostgreSQL, Redis, Docker, AWS
+
+PatentIQ (2026)
+  AI patent prior-art semantic search with vector embeddings.
+  Tech: Python, FastAPI, PostgreSQL, Vector DB, LLMs`;
   }
   if (q.includes('contact') || q.includes('email') || q.includes('hire') || q.includes('reach')) {
-    return `Reach Rithish at:
-• Email: ${profile?.email || 'rithishcodespace@gmail.com'}
-• GitHub: ${profile?.links?.github || 'github.com/rithishcodespace'}
-• LinkedIn: ${profile?.links?.linkedin || 'linkedin.com/in/rithish-saravanan-32a39431a'}`;
+    return `Contact Information
+-------------------
+Email:    ${profile?.email || 'rithishcodespace@gmail.com'}
+GitHub:   ${profile?.links?.github || 'https://github.com/rithishcodespace'}
+LinkedIn: ${profile?.links?.linkedin || 'https://www.linkedin.com/in/rithish-saravanan-32a39431a/'}
+LeetCode: ${profile?.links?.leetcode || 'https://leetcode.com/u/rithishcodespace'}`;
   }
   if (q.includes('eslint') || q.includes('open source') || q.includes('oss')) {
-    return `Rithish is an ESLint Core Contributor (PR #21218), fixing false negatives in the 'no-loss-of-precision' rule by handling IEEE 754 float64 subnormal underflow.`;
+    return `ESLint Core Contribution (PR #21218)
+------------------------------------
+Fixed false negatives in ESLint's 'no-loss-of-precision' rule
+by handling IEEE 754 float64 underflow to 0/-0 for subnormal numeric literals.
+PR: https://github.com/eslint/eslint/pull/21218`;
   }
-  if (q.includes('who') || q.includes('about') || q.includes('experience')) {
-    return `Rithish S is a Backend Engineer & CSE student at Bannari Amman Institute of Technology (CGPA 8.29). Former Web Developer at Students Special Group, 1000+ LeetCode problems solved, and national hackathon winner.`;
+  if (q.includes('experience') || q.includes('work') || q.includes('job')) {
+    return `Web Developer | Students Special Group (Feb 2025 - Dec 2025)
+-----------------------------------------------------------
+- Developed backend services using Node.js and MySQL for core platform.
+- Designed normalized database schemas to improve scalability and data integrity.
+- Implemented secure RESTful APIs for authentication and user workflows.
+- Mentored 50+ students in backend development and software engineering.`;
   }
   if (q.includes('achievement') || q.includes('award') || q.includes('hackathon')) {
-    return `Key achievements:
-• 1000+ LeetCode DSA problems solved
-• ESLint Core Contributor (PR #21218)
-• 1st Place at IEEE DevSpark Hackathon
-• 1st Place at BIT Hackathon`;
+    return `Achievements & Honors
+---------------------
+- 1000+ DSA problems solved on LeetCode
+- ESLint Core Contributor (Merged PR #21218)
+- 1st Place: IEEE DevSpark National Hackathon (₹10,000 cash prize)
+- 1st Place: BIT Hackathon (₹3,000 cash prize)
+- Runner-up: SNS Ideathon (₹10,000 cash prize)
+- 1st Place: Code With Curious`;
   }
 
-  return `Rithish S is a Backend Engineer focusing on distributed systems, cloud architecture, and Node.js/TypeScript. Ask me about his projects, skills, achievements, or contact info.`;
+  return `Rithish S | Backend Engineer & CSE Student
+------------------------------------------
+Specializing in Node.js, TypeScript, distributed systems, and cloud architecture.
+Try asking:
+- What projects has Rithish built?
+- What is his backend experience?
+- What are his achievements?
+- What technologies does he use?`;
 };
 
 /**
