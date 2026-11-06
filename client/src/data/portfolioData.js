@@ -291,6 +291,30 @@ export const portfolioData = {
 
     list: [
       {
+        fileName: 'ragforge',
+        title: 'RAGForge',
+        period: '2026',
+        icon: 'brain',
+        color: 'emerald',
+
+        bullets: [
+          'Engineered a production-style Retrieval-Augmented Generation application to answer questions across custom documents with high factual grounding and minimized hallucination.',
+          'Implemented a hybrid search pipeline combining dense semantic embeddings (sentence-transformers) and sparse keyword matching (BM25).',
+          'Integrated a cross-encoder BGE re-ranker model to re-score context chunks and forward only the highest-quality retrieved passages to the LLM (Groq).',
+          'Designed session-specific isolated document stores and query tracking so concurrent users stay isolated without requiring login.',
+          'Built comprehensive document ingestion (PDF, Word, TXT, Markdown, URLs) and evaluation benchmark tracking (MRR, Recall@k, NDCG, faithfulness).',
+        ],
+
+        techStack:
+          'FastAPI, Python, LangChain, ChromaDB, React, Vite, Groq LLM, BGE Reranker, BM25, Pytest',
+
+        image: '/images/ragforge.png',
+        liveUrl: 'https://ragforge.rithish.site',
+        repoUrl: 'https://github.com/rithishcodespace/RAGForge',
+        isHighlighted: true,
+      },
+
+      {
         fileName: 'humming-tone',
         title: 'Humming Tone',
         period: '2026',
@@ -515,16 +539,35 @@ export const portfolioData = {
 
     list: [
       {
-        fileName: 'leetcode_metrics.log',
+        fileName: 'odoo_hackathon_winner.json',
         step: '01',
+        icon: 'trophy',
+        value: 'WINNER',
+        label: 'Odoo x NMIT Bangalore Hackathon 2026',
+        tag: 'HACKATHON WINNER / 1ST RUNNER-UP',
+        category: 'NATIONAL HACKATHON',
+        badge: 'ODOO x NMIT 2026',
+        color: 'emerald',
+        details:
+          'Winner / 1st Runner-Up with ₹35,000 cash prize at Odoo x NMIT Bangalore Hackathon 2026, building enterprise-grade intelligent systems judged by industry experts from Odoo and NMIT.',
+        image: '/images/odoo_hackathon.jpg',
+        url: 'https://hackathon.odoo.com/event/odoo-x-nmit-bangalore-hackathon-2026-38/register',
+        urlLabel: 'VIEW EVENT ON ODOO',
+        urlDisplay: 'hackathon.odoo.com/event/odoo-x-nmit-bangalore-hackathon-2026-38',
+      },
+
+      {
+        fileName: 'leetcode_metrics.log',
+        step: '02',
         icon: 'code',
-        value: '1000+',
+        value: '1250+',
         label: 'DSA problems solved on LeetCode',
         tag: 'PROBLEM SOLVING MILESTONE',
         category: 'ALGORITHMS & DATA STRUCTURES',
         badge: 'LEETCODE PROFILE',
-        color: 'emerald',
-        details: 'Optimized time & space complexities across arrays, trees, graphs, dynamic programming, and system design algorithms.',
+        color: 'amber',
+        details:
+          'Solved 1,250+ problems (532 Easy, 629 Medium, 89 Hard) with a Contest Rating of 1,618 (Top 22%), 500 Days Badge, and 365 days max streak.',
         image: '/images/leetcode.png',
         url: 'https://leetcode.com/u/rithishcodespace',
         urlLabel: 'VIEW LEETCODE PROFILE',
@@ -533,7 +576,7 @@ export const portfolioData = {
 
       {
         fileName: 'eslint_underflow_fix.json',
-        step: '02',
+        step: '03',
         icon: 'git-pull-request',
         value: 'OPEN SOURCE',
         label: 'ESLint Core Contributor',
@@ -551,7 +594,7 @@ export const portfolioData = {
 
       {
         fileName: 'ieee_devspark_result.conf',
-        step: '03',
+        step: '04',
         icon: 'award',
         value: '1st PLACE',
         label: 'Place at IEEE DevSpark Hackathon',
@@ -565,7 +608,7 @@ export const portfolioData = {
 
       {
         fileName: 'bit_hackathon_award.log',
-        step: '04',
+        step: '05',
         icon: 'trophy',
         value: '1st PLACE',
         label: 'Place at BIT Hackathon',
@@ -579,7 +622,7 @@ export const portfolioData = {
 
       {
         fileName: 'sns_ideathon_runnerup.json',
-        step: '05',
+        step: '06',
         icon: 'medal',
         value: 'RUNNER-UP',
         label: 'SNS Ideathon',
@@ -593,7 +636,7 @@ export const portfolioData = {
 
       {
         fileName: 'code_with_curious_first_place.json',
-        step: '06',
+        step: '07',
         icon: 'trophy',
         value: '1ST PLACE',
         label: 'Code With Curious',

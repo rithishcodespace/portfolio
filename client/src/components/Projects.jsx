@@ -14,6 +14,8 @@ import {
   Terminal,
   Code,
   Image as ImageIcon,
+  Brain,
+  ExternalLink,
 } from 'lucide-react';
 import { GithubIcon } from './Icons';
 
@@ -65,6 +67,8 @@ const Projects = () => {
         return <Users className="w-6 h-6 text-[#00e5ff]" />;
       case 'tv':
         return <Tv className="w-6 h-6 text-purple-400" />;
+      case 'brain':
+        return <Brain className="w-6 h-6 text-[#00ff9d]" />;
       default:
         return <Code className="w-6 h-6 text-[#00ff9d]" />;
     }
@@ -321,20 +325,38 @@ const ProjectCardContent = ({ proj, isPeeking, renderProjectIcon, getTitleColor 
 
       {/* Bottom Action Button */}
       {!isPeeking && (
-        <div className="pt-2.5 sm:pt-3 border-t border-slate-800/80 mt-auto flex items-center justify-between shrink-0">
-          <a
-            href={proj.repoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className={`font-mono text-xs sm:text-sm font-bold px-3.5 sm:px-4.5 py-2 sm:py-2.5 rounded-lg flex items-center gap-2 border transition-all duration-200 ${isHighlighted
-                ? 'bg-[#00ff9d] text-black border-[#00ff9d] hover:bg-[#00ff9d]/90 shadow-[0_0_15px_rgba(0,255,157,0.4)]'
-                : 'bg-[#081518] border-[#00ff9d]/40 text-[#00ff9d] hover:bg-[#00ff9d] hover:text-black hover:border-[#00ff9d]'
-              }`}
-          >
-            <GithubIcon className="w-4 h-4" />
-            <span>EXPLORE REPOSITORY</span>
-          </a>
+        <div className="pt-2.5 sm:pt-3 border-t border-slate-800/80 mt-auto flex items-center justify-between flex-wrap gap-2 shrink-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            {proj.liveUrl && (
+              <a
+                href={proj.liveUrl.startsWith('http') ? proj.liveUrl : `https://${proj.liveUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="font-mono text-xs sm:text-sm font-bold px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg flex items-center gap-2 border bg-[#00ff9d] text-black border-[#00ff9d] hover:bg-[#00ff9d]/90 shadow-[0_0_15px_rgba(0,255,157,0.4)] transition-all duration-200 cursor-pointer"
+              >
+                <ExternalLink className="w-4 h-4" />
+                <span>LIVE DEMO</span>
+              </a>
+            )}
+
+            {proj.repoUrl && proj.repoUrl !== '#' && (
+              <a
+                href={proj.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className={`font-mono text-xs sm:text-sm font-bold px-3.5 sm:px-4.5 py-2 sm:py-2.5 rounded-lg flex items-center gap-2 border transition-all duration-200 cursor-pointer ${
+                  !proj.liveUrl && isHighlighted
+                    ? 'bg-[#00ff9d] text-black border-[#00ff9d] hover:bg-[#00ff9d]/90 shadow-[0_0_15px_rgba(0,255,157,0.4)]'
+                    : 'bg-[#081518] border-[#00ff9d]/40 text-[#00ff9d] hover:bg-[#00ff9d] hover:text-black hover:border-[#00ff9d]'
+                }`}
+              >
+                <GithubIcon className="w-4 h-4" />
+                <span>EXPLORE REPOSITORY</span>
+              </a>
+            )}
+          </div>
 
           <span className="text-[10px] text-slate-500 font-mono hidden sm:inline">
             [REVISION: MAIN]

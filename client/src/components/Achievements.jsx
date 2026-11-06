@@ -141,7 +141,7 @@ const Achievements = () => {
   };
 
   return (
-    <section ref={targetRef} id="achievements" className="relative h-[280vh] sm:h-[320vh] font-mono">
+    <section ref={targetRef} id="achievements" className="relative h-[340vh] sm:h-[380vh] font-mono">
       {/* Sticky Viewport pinned while scrolling vertically */}
       <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-between py-6 sm:py-10 px-4 sm:px-8 max-w-7xl mx-auto z-10 select-none">
         

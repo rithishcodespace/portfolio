@@ -80,9 +80,34 @@ Distributed Systems & Databases:
 Cloud & DevOps:
   AWS EC2/S3, Docker, Kubernetes, Helm, GitHub Actions, Prometheus`;
   }
+  if (q.includes('ragforge') || q.includes('rag')) {
+    return `RAGForge
+--------
+Production-style full-stack Retrieval-Augmented Generation application.
+
+Key features:
+  - Hybrid search: BM25 sparse keyword matching + sentence-transformers dense search
+  - Cross-encoder BGE re-ranking for maximum context precision
+  - Session-isolated document stores and query tracking without login
+  - Citation-aware answers with benchmark evaluation (MRR, Recall@k, NDCG)
+
+Tech stack:
+  FastAPI      Python       LangChain
+  ChromaDB     Groq LLM     React + Vite
+  Pytest       BM25         BGE Reranker
+
+Live Demo: https://ragforge.rithish.site
+Repo:      https://github.com/rithishcodespace/RAGForge`;
+  }
   if (q.includes('project') || q.includes('built')) {
     return `Featured Projects
 -----------------
+RAGForge (2026)
+  Production-style full-stack RAG app with hybrid search & BGE reranker.
+  Tech: FastAPI, Python, LangChain, ChromaDB, React, Groq LLM
+  Live: https://ragforge.rithish.site
+  Repo: https://github.com/rithishcodespace/RAGForge
+
 DB Backup CLI (2026)
   Cross-platform CLI tool for automated multi-database backups.
   Tech: TypeScript, Redis, BullMQ, AWS S3, Docker
@@ -92,9 +117,10 @@ Humming Tone (2026)
   Production e-commerce platform with RBAC & Redis caching.
   Tech: Node.js, TypeScript, PostgreSQL, Redis, Docker, AWS
 
-PatentIQ (2026)
-  AI patent prior-art semantic search with vector embeddings.
-  Tech: Python, FastAPI, PostgreSQL, Vector DB, LLMs`;
+AskDB (2026)
+  AI natural-language database assistant via MCP and LangGraph.
+  Tech: Python, LangGraph, MCP, SQLAlchemy
+  Repo: https://github.com/rithishcodespace/AskDB`;
   }
   if (q.includes('contact') || q.includes('email') || q.includes('hire') || q.includes('reach')) {
     return `Contact Information
@@ -119,10 +145,20 @@ PR: https://github.com/eslint/eslint/pull/21218`;
 - Implemented secure RESTful APIs for authentication and user workflows.
 - Mentored 50+ students in backend development and software engineering.`;
   }
-  if (q.includes('achievement') || q.includes('award') || q.includes('hackathon')) {
+  if (q.includes('odoo')) {
+    return `Odoo x NMIT Bangalore Hackathon 2026
+-----------------------------------
+Award:       Winner / 1st Runner-Up (₹35,000 cash prize)
+Event:       National Level Enterprise Hackathon
+Organizers:  Odoo in partnership with NMIT Bangalore & DataWiz
+Team:        Deepak, Thirumurugam, Rithish, Hemanth
+Event Link:  https://hackathon.odoo.com/event/odoo-x-nmit-bangalore-hackathon-2026-38/register`;
+  }
+  if (q.includes('achievement') || q.includes('award') || q.includes('hackathon') || q.includes('leetcode')) {
     return `Achievements & Honors
 ---------------------
-- 1000+ DSA problems solved on LeetCode
+- Winner / 1st Runner-Up: Odoo x NMIT Bangalore Hackathon 2026 (₹35,000 cash prize)
+- 1250+ DSA problems solved on LeetCode (Rating 1618, 500 Days Badge, 365-day streak)
 - ESLint Core Contributor (Merged PR #21218)
 - 1st Place: IEEE DevSpark National Hackathon (₹10,000 cash prize)
 - 1st Place: BIT Hackathon (₹3,000 cash prize)

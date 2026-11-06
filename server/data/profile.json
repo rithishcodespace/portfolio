@@ -98,6 +98,9 @@
       "OpenAI API",
       "Semantic Search",
       "LangChain",
+      "ChromaDB",
+      "BM25",
+      "BGE Reranker",
       "LangGraph",
       "Model Context Protocol (MCP)",
       "AI Agents",
@@ -136,6 +139,33 @@
     }
   ],
   "projects": [
+    {
+      "name": "RAGForge",
+      "year": "2026",
+      "description": "Full-stack Retrieval-Augmented Generation application that turns custom documents into an accurate, grounded, citation-backed AI assistant with hybrid search, cross-encoder BGE reranking, and session isolation.",
+      "tech_stack": [
+        "FastAPI",
+        "Python",
+        "LangChain",
+        "ChromaDB",
+        "sentence-transformers",
+        "BGE Reranker",
+        "BM25",
+        "Groq LLM",
+        "React",
+        "Vite",
+        "Pytest"
+      ],
+      "highlights": [
+        "Ingests documents from PDFs, Word files, text files, markdown, and web URLs.",
+        "Implements hybrid search combining dense semantic similarity (sentence-transformers) and sparse BM25 keyword matching.",
+        "Re-ranks retrieved chunks using a cross-encoder model (BGE reranker) before sending the best passages to the Groq LLM.",
+        "Provides session-isolated document knowledge bases and conversations without requiring user login.",
+        "Includes built-in evaluation metrics for retrieval and generation (MRR, Recall@k, NDCG, faithfulness) with pytest suite."
+      ],
+      "live_url": "https://ragforge.rithish.site",
+      "repository": "https://github.com/rithishcodespace/RAGForge"
+    },
     {
       "name": "AskDB",
       "year": "2026",
@@ -287,17 +317,18 @@
   ],
   "achievements": [
     {
-      "title": "1000+ LeetCode DSA Problems Solved",
-      "details": "Solved more than 1000 Data Structures and Algorithms problems covering arrays, trees, graphs, dynamic programming, and other algorithmic topics.",
+      "title": "Winner / 1st Runner-Up - Odoo x NMIT Bangalore Hackathon 2026",
+      "details": "Winner / 1st Runner-Up with ₹35,000 cash prize in the national-level enterprise hackathon organized by Odoo and NMIT Bangalore (team: Deepak, Thirumurugam, Rithish, Hemanth). Event: https://hackathon.odoo.com/event/odoo-x-nmit-bangalore-hackathon-2026-38/register",
+      "link": "https://hackathon.odoo.com/event/odoo-x-nmit-bangalore-hackathon-2026-38/register"
+    },
+    {
+      "title": "1250+ LeetCode DSA Problems Solved",
+      "details": "Solved 1,250+ Data Structures and Algorithms problems (532 Easy, 629 Medium, 89 Hard) with a Contest Rating of 1,618 (Top 22.22%), 500 Days Badge, and 365 days max streak.",
       "link": "https://leetcode.com/u/rithishcodespace"
     },
     {
       "title": "ESLint Core Contributor (PR #21218)",
       "details": "Fixed false negatives in ESLint's core no-loss-of-precision rule by properly handling IEEE 754 float64 underflow to 0 and -0 for subnormal numeric literals."
-    },
-    {
-      "title": "First Runner-Up - Odoo × NMIT Hackathon 2026",
-      "details": "Secured second place in the hackathon, competing among 250+ finalist teams after a registration pool of 7,000+ participants."
     },
     {
       "title": "1st Place - IEEE DevSpark Hackathon",
