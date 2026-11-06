@@ -409,13 +409,13 @@ const Hero = () => {
           <div className="pointer-events-none absolute bottom-[5%] right-[-5%] h-[65%] w-full rounded-full bg-[#00ff9d]/15 blur-[100px]" />
 
           {/* Keep a normal portrait on mobile; enlarge and position it on desktop */}
-          <picture className="relative z-10 flex w-full max-w-[360px] items-end justify-center sm:max-w-[440px] md:max-w-[520px] lg:absolute lg:bottom-0 lg:right-[-5rem] lg:w-[min(55vw,760px)] lg:max-w-none xl:right-[-6rem] xl:w-[min(58vw,850px)]">
+          <picture className="relative z-10 flex w-full max-w-[370px] items-end justify-center sm:max-w-[450px] md:max-w-[530px] lg:absolute lg:bottom-0 lg:right-[-5.5rem] lg:w-[min(56vw,780px)] lg:max-w-none xl:right-[-6.5rem] xl:w-[min(59vw,870px)]">
             <source srcSet={portraitWebp} type="image/webp" />
 
             <img
               src={portraitPng}
               alt="Rithish S — engraved digital portrait"
-              className="block h-auto w-full max-h-[55vh] object-contain object-bottom sm:max-h-[65vh] md:max-h-[72vh] lg:max-h-none lg:w-full select-none pointer-events-none"
+              className="block h-auto w-full max-h-[56vh] object-contain object-bottom sm:max-h-[66vh] md:max-h-[73vh] lg:max-h-none lg:w-full select-none pointer-events-none"
               loading="eager"
               decoding="async"
               draggable="false"

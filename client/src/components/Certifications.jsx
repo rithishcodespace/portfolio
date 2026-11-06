@@ -47,10 +47,23 @@ const Certifications = () => {
     handleScrubberMove(e.clientX);
   };
 
+  const handleTouchStartScrubber = (e) => {
+    if (e.touches && e.touches[0]) {
+      setIsDraggingScrubber(true);
+      handleScrubberMove(e.touches[0].clientX);
+    }
+  };
+
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (isDraggingScrubber) {
         handleScrubberMove(e.clientX);
+      }
+    };
+
+    const handleTouchMove = (e) => {
+      if (isDraggingScrubber && e.touches && e.touches[0]) {
+        handleScrubberMove(e.touches[0].clientX);
       }
     };
 
@@ -63,10 +76,14 @@ const Certifications = () => {
     if (isDraggingScrubber) {
       window.addEventListener('mousemove', handleMouseMove);
       window.addEventListener('mouseup', handleMouseUp);
+      window.addEventListener('touchmove', handleTouchMove, { passive: true });
+      window.addEventListener('touchend', handleMouseUp);
     }
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleMouseUp);
     };
   }, [isDraggingScrubber]);
 
@@ -163,6 +180,7 @@ const Certifications = () => {
         <div
           ref={trackRailRef}
           onMouseDown={handleMouseDownScrubber}
+          onTouchStart={handleTouchStartScrubber}
           className="relative h-3 bg-[#081518] rounded-full border border-slate-800 cursor-pointer overflow-visible group"
         >
           {/* Active Fill Track */}
@@ -186,7 +204,7 @@ const Certifications = () => {
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className="flex items-stretch gap-6 overflow-x-auto py-4 px-1 scroll-smooth no-scrollbar snap-x snap-mandatory"
+          className="flex items-stretch gap-4 sm:gap-6 overflow-x-auto py-4 px-1 scroll-smooth no-scrollbar snap-x snap-mandatory"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {list.map((item, idx) => {
@@ -197,7 +215,7 @@ const Certifications = () => {
                 key={item.id}
                 whileHover={{ y: -6, scale: 1.01 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                className={`snap-start w-[320px] min-[400px]:w-[360px] sm:w-[420px] shrink-0 rounded-2xl p-5 sm:p-6 backdrop-blur-md flex flex-col justify-between shadow-2xl transition-all duration-300 ${theme.cardBg} ${theme.border} ${theme.glow}`}
+                className={`snap-start w-[84vw] max-w-[340px] sm:w-[420px] shrink-0 rounded-2xl p-4 sm:p-6 backdrop-blur-md flex flex-col justify-between shadow-2xl transition-all duration-300 ${theme.cardBg} ${theme.border} ${theme.glow}`}
               >
                 <div>
                   {/* Card Window Bar */}
@@ -286,7 +304,7 @@ const Certifications = () => {
                 <span className="w-3 h-3 rounded-full bg-[#ff5f56] inline-block"></span>
                 <span className="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block"></span>
                 <span className="w-3 h-3 rounded-full bg-[#27c93f] inline-block"></span>
-                <span className="ml-2 font-bold text-slate-200">
+                <span className="ml-2 font-bold text-slate-200 truncate max-w-[190px] min-[400px]:max-w-[260px] sm:max-w-none">
                   CERTIFICATE_INSPECTION // {selectedImage.fileName}
                 </span>
               </div>

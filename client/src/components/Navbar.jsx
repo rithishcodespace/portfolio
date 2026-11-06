@@ -162,7 +162,7 @@ const Navbar = () => {
                   <button
                     key={link.id}
                     onClick={() => handleNavClick(link.id)}
-                    className={`inline-flex items-center justify-center font-mono text-xs px-3 py-1.5 rounded-full border transition-all duration-200 cursor-pointer active:scale-95 ${
+                    className={`inline-flex items-center justify-center font-mono text-xs px-3.5 py-2 rounded-full border transition-all duration-200 cursor-pointer active:scale-95 ${
                       isActive
                         ? 'text-[#00ff9d] font-semibold bg-[#00ff9d]/15 border-[#00ff9d]/35 shadow-[0_0_10px_rgba(0,255,157,0.15)]'
                         : 'text-slate-300 bg-[#071113] border-slate-800 hover:text-white hover:bg-slate-800'

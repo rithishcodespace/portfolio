@@ -430,8 +430,8 @@ Try asking:
         )}
 
         {/* Active Shell Prompt Line with blinking cursor and placeholder */}
-        <div className="flex items-baseline flex-wrap pt-1.5">
-          <span className="font-bold select-none shrink-0 font-mono">
+        <div className="flex items-baseline flex-wrap pt-1.5 gap-y-1">
+          <span className="font-bold select-none shrink-0 font-mono text-xs sm:text-[13px]">
             <span className="text-[#00FF9C]">rithish@portfolio</span>
             <span className="text-slate-500">:</span>
             <span className="text-[#00e5ff]">~</span>
@@ -439,7 +439,7 @@ Try asking:
             <span className="text-slate-400">&nbsp;</span>
           </span>
 
-          <form onSubmit={handleSubmit} className="flex-1 min-w-[200px] inline-flex items-baseline">
+          <form onSubmit={handleSubmit} className="flex-1 min-w-[120px] inline-flex items-baseline">
             <input
               ref={inputRef}
               type="text"

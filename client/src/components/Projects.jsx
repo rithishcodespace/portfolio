@@ -150,23 +150,23 @@ const Projects = () => {
       </div>
 
       {/* Interactive Project Viewer Container */}
-      <div className="relative flex items-center justify-center h-[590px] min-[400px]:h-[620px] sm:h-[650px] my-4 select-none">
+      <div className="relative flex items-center justify-center h-[610px] min-[400px]:h-[630px] sm:h-[660px] my-4 select-none">
         {/* Left Navigation Arrow */}
         <button
           onClick={handlePrev}
           aria-label="Previous Project"
-          className="absolute left-1 sm:left-4 z-30 bg-[#081518]/90 hover:bg-[#00ff9d] text-[#00ff9d] hover:text-black border border-[#00ff9d]/40 p-2.5 sm:p-4 rounded-full shadow-[0_0_20px_rgba(0,255,157,0.25)] transition-all duration-200 cursor-pointer group"
+          className="absolute left-0 sm:left-2 lg:left-4 z-30 bg-[#081518]/90 hover:bg-[#00ff9d] text-[#00ff9d] hover:text-black border border-[#00ff9d]/40 p-2 sm:p-3.5 rounded-full shadow-[0_0_20px_rgba(0,255,157,0.25)] transition-all duration-200 cursor-pointer group"
         >
-          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-0.5 transition-transform" />
+          <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 group-hover:-translate-x-0.5 transition-transform" />
         </button>
 
         {/* Right Navigation Arrow */}
         <button
           onClick={handleNext}
           aria-label="Next Project"
-          className="absolute right-1 sm:right-4 z-30 bg-[#081518]/90 hover:bg-[#00ff9d] text-[#00ff9d] hover:text-black border border-[#00ff9d]/40 p-2.5 sm:p-4 rounded-full shadow-[0_0_20px_rgba(0,255,157,0.25)] transition-all duration-200 cursor-pointer group"
+          className="absolute right-0 sm:right-2 lg:right-4 z-30 bg-[#081518]/90 hover:bg-[#00ff9d] text-[#00ff9d] hover:text-black border border-[#00ff9d]/40 p-2 sm:p-3.5 rounded-full shadow-[0_0_20px_rgba(0,255,157,0.25)] transition-all duration-200 cursor-pointer group"
         >
-          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform" />
+          <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform" />
         </button>
 
         {/* Previous Card Peek (Desktop / Tablet) */}
@@ -178,7 +178,7 @@ const Projects = () => {
         </div>
 
         {/* Active Centered Project Card with Framer Motion popLayout */}
-        <div className="w-full max-w-2xl sm:max-w-3xl z-20 px-8 sm:px-6 relative h-[560px] min-[400px]:h-[580px] sm:h-[610px]">
+        <div className="w-full max-w-2xl sm:max-w-3xl z-20 px-2 min-[400px]:px-4 sm:px-6 relative h-[580px] min-[400px]:h-[600px] sm:h-[620px]">
           <AnimatePresence initial={false} custom={direction} mode="popLayout">
             <motion.div
               key={currentIndex}
@@ -326,16 +326,16 @@ const ProjectCardContent = ({ proj, isPeeking, renderProjectIcon, getTitleColor 
       {/* Bottom Action Button */}
       {!isPeeking && (
         <div className="pt-2.5 sm:pt-3 border-t border-slate-800/80 mt-auto flex items-center justify-between flex-wrap gap-2 shrink-0">
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap w-full sm:w-auto">
             {proj.liveUrl && (
               <a
                 href={proj.liveUrl.startsWith('http') ? proj.liveUrl : `https://${proj.liveUrl}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="font-mono text-xs sm:text-sm font-bold px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg flex items-center gap-2 border bg-[#00ff9d] text-black border-[#00ff9d] hover:bg-[#00ff9d]/90 shadow-[0_0_15px_rgba(0,255,157,0.4)] transition-all duration-200 cursor-pointer"
+                className="font-mono text-xs sm:text-sm font-bold px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg flex items-center justify-center gap-2 border bg-[#00ff9d] text-black border-[#00ff9d] hover:bg-[#00ff9d]/90 shadow-[0_0_15px_rgba(0,255,157,0.4)] transition-all duration-200 cursor-pointer flex-1 sm:flex-initial"
               >
-                <ExternalLink className="w-4 h-4" />
+                <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 <span>LIVE DEMO</span>
               </a>
             )}
@@ -346,14 +346,14 @@ const ProjectCardContent = ({ proj, isPeeking, renderProjectIcon, getTitleColor 
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className={`font-mono text-xs sm:text-sm font-bold px-3.5 sm:px-4.5 py-2 sm:py-2.5 rounded-lg flex items-center gap-2 border transition-all duration-200 cursor-pointer ${
+                className={`font-mono text-xs sm:text-sm font-bold px-3 py-2 sm:px-4.5 sm:py-2.5 rounded-lg flex items-center justify-center gap-2 border transition-all duration-200 cursor-pointer flex-1 sm:flex-initial truncate ${
                   !proj.liveUrl && isHighlighted
                     ? 'bg-[#00ff9d] text-black border-[#00ff9d] hover:bg-[#00ff9d]/90 shadow-[0_0_15px_rgba(0,255,157,0.4)]'
                     : 'bg-[#081518] border-[#00ff9d]/40 text-[#00ff9d] hover:bg-[#00ff9d] hover:text-black hover:border-[#00ff9d]'
                 }`}
               >
-                <GithubIcon className="w-4 h-4" />
-                <span>EXPLORE REPOSITORY</span>
+                <GithubIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+                <span className="truncate">EXPLORE REPOSITORY</span>
               </a>
             )}
           </div>

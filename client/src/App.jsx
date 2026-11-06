@@ -87,7 +87,7 @@ const PublicPortfolio = () => {
       {/* Terminal Footer */}
       <footer className="relative z-10 border-t border-[#00ff9d]/15 py-8 text-center text-sm text-slate-300 font-mono bg-[#070e10]">
         <div className="max-w-6xl mx-auto px-4 flex flex-col items-center gap-3">
-          <p className="flex items-center gap-2 text-slate-300">
+          <p className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm text-slate-300 text-center">
             <span>© 2025 Rithish S</span>
             <span className="text-[#00ff9d] font-bold">|</span>
             <span className="text-[#00ff9d]">
