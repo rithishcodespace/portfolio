@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import SectionHeader from './SectionHeader';
 import { portfolioData } from '../data/portfolioData';
+import InteractiveTerminal from './InteractiveTerminal';
 import {
   MapPin,
   Mail,
@@ -31,7 +32,7 @@ const About = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
         {/* ========================================================================= */}
-        {/* Left Column: Avatar Profile Card (Flip 3D) */}
+        {/* Left Column: Interactive Terminal Profile Card (Flip 3D to human.txt) */}
         {/* ========================================================================= */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -41,89 +42,18 @@ const About = () => {
           className="lg:col-span-5 perspective-1000 min-h-[520px] min-[400px]:min-h-[560px] sm:min-h-[620px] group"
         >
           <div
-            className={`w-full h-full relative transform-style-3d transition-transform duration-700 ease-in-out cursor-pointer ${
+            className={`w-full h-full relative transform-style-3d transition-transform duration-700 ease-in-out ${
               isLeftFlipped ? 'rotate-y-180' : ''
             }`}
-            onClick={() => setIsLeftFlipped(!isLeftFlipped)}
           >
-            {/* FRONT SIDE: Profile Card */}
-            <div className="absolute inset-0 w-full h-full backface-hidden bg-[#0c1618] border border-[#00ff9d]/25 hover:border-[#00ff9d] rounded-xl p-5 sm:p-7 shadow-xl hover:shadow-[0_0_30px_rgba(0,255,157,0.3)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between select-none">
-              <div>
-                {/* Header controls */}
-                <div className="flex items-center justify-between pb-3 sm:pb-4 mb-4 sm:mb-5 border-b border-slate-800/70 font-mono text-xs sm:text-sm text-slate-400">
-                  <div className="flex items-center gap-1.5 sm:gap-2">
-                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff5f56] inline-block"></span>
-                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ffbd2e] inline-block"></span>
-                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#27c93f] inline-block"></span>
-                    <span className="ml-1 sm:ml-2 text-slate-300 font-medium text-xs sm:text-sm">{profile.fileName}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] sm:text-xs text-[#00ff9d] font-mono flex items-center gap-1 bg-[#00ff9d]/10 px-2 py-0.5 rounded border border-[#00ff9d]/20">
-                      <RotateCw className="w-3 h-3 animate-spin" style={{ animationDuration: '4s' }} />
-                      <span>TAP TO FLIP</span>
-                    </span>
-                  </div>
-                </div>
-
-                {/* Avatar Image */}
-                <div className="relative mb-4 sm:mb-5 mx-auto max-w-[200px] min-[400px]:max-w-[240px] sm:max-w-[260px] rounded-lg overflow-hidden border border-[#00ff9d]/30 shadow-[0_0_20px_rgba(0,255,157,0.15)] group-hover:scale-[1.02] transition-transform">
-                  <img
-                    src={profile.avatarUrl}
-                    alt={profile.name}
-                    className="w-full h-auto object-cover rounded-lg"
-                  />
-                </div>
-
-                {/* Profile Information */}
-                <div className="space-y-2 font-mono">
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#00ff9d] tracking-wide text-center">
-                    {profile.name}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 font-medium text-center mb-2 sm:mb-3">
-                    {profile.role}
-                  </p>
-
-                  <div className="space-y-1.5 sm:space-y-2 pt-1 text-xs sm:text-sm text-slate-300">
-                    <div className="flex items-center gap-2.5 justify-center sm:justify-start">
-                      <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#00e5ff] shrink-0" />
-                      <span className="text-slate-300">{profile.location}</span>
-                    </div>
-                    <div className="flex items-center gap-2.5 justify-center sm:justify-start">
-                      <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#00e5ff] shrink-0" />
-                      <a
-                        href={`mailto:${profile.email}`}
-                        onClick={(e) => e.stopPropagation()}
-                        className="hover:text-[#00ff9d] transition-colors truncate"
-                      >
-                        {profile.email}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Social Link Pills */}
-              <div className="flex flex-wrap items-center justify-center gap-2 pt-3 sm:pt-4 mt-3 sm:mt-4 border-t border-slate-800/70">
-                {profile.socials.map((soc, idx) => (
-                  <a
-                    key={idx}
-                    href={soc.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="bg-[#071113] border border-[#00ff9d]/30 text-[#00ff9d] text-xs px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-md flex items-center gap-1.5 hover:bg-[#00ff9d]/15 hover:border-[#00ff9d] hover:text-white transition-all duration-200"
-                  >
-                    {soc.icon === 'github' && <GithubIcon className="w-3.5 h-3.5 text-[#00ff9d]" />}
-                    {soc.icon === 'linkedin' && <LinkedinIcon className="w-3.5 h-3.5 text-[#00ff9d]" />}
-                    {soc.icon === 'code' && <Code2 className="w-3.5 h-3.5 text-[#00ff9d]" />}
-                    <span>{soc.label}</span>
-                  </a>
-                ))}
-              </div>
-            </div>
+            {/* FRONT SIDE: Interactive AI Terminal */}
+            <InteractiveTerminal onFlip={() => setIsLeftFlipped(true)} />
 
             {/* BACK SIDE: human.txt Formatted UI */}
-            <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-[#0e1a1d] border border-[#00ff9d] rounded-xl p-5 sm:p-7 shadow-[0_0_25px_rgba(0,255,157,0.2)] flex flex-col justify-between select-none">
+            <div
+              className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-[#0e1a1d] border border-[#00ff9d] rounded-xl p-5 sm:p-7 shadow-[0_0_25px_rgba(0,255,157,0.2)] flex flex-col justify-between select-none cursor-pointer"
+              onClick={() => setIsLeftFlipped(false)}
+            >
               <div>
                 {/* Header controls */}
                 <div className="flex items-center justify-between pb-3 mb-3 sm:mb-4 border-b border-slate-800/70 font-mono text-xs sm:text-sm text-slate-400">
@@ -135,9 +65,15 @@ const About = () => {
                       {human.fileName || 'human.txt'}
                     </span>
                   </div>
-                  <span className="text-[10px] sm:text-xs text-[#00e5ff] font-mono flex items-center gap-1">
+                  <span
+                    className="text-[10px] sm:text-xs text-[#00e5ff] font-mono flex items-center gap-1 hover:text-[#00ff9d] transition-colors"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsLeftFlipped(false);
+                    }}
+                  >
                     <RotateCw className="w-3 h-3" />
-                    <span>FRONT</span>
+                    <span>TERMINAL</span>
                   </span>
                 </div>
 
@@ -208,7 +144,7 @@ const About = () => {
 
               {/* Bottom return prompt */}
               <div className="pt-2 sm:pt-3 border-t border-slate-800/70 text-center font-mono text-[11px] sm:text-xs text-[#00ff9d]">
-                [TAP TO FLIP BACK TO PROFILE]
+                [TAP TO FLIP BACK TO TERMINAL]
               </div>
             </div>
           </div>

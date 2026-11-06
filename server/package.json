@@ -19,7 +19,7 @@
   "main": "server.js",
   "scripts": {
     "test": "npm test",
-    "start": "nodemon server.js"
+    "start": "nodemon src/server.js"
   },
   "dependencies": {
     "cookie-parser": "^1.4.7",

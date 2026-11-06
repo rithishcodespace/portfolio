@@ -12,13 +12,26 @@ const contactRoute = require("./routes/contact");
 const adminRoute = require("./routes/auth");
 const trackingRoute = require("./routes/tracking");
 const resumeRoute = require("./routes/resume");
+const assistantRoute = require("./routes/assistant");
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 
+const allowedOrigins = [
+    process.env.CLIENT_URL,
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://portfolio.rithish.site"
+].filter(Boolean);
+
 app.use(morgan('dev'));
 app.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin) || (origin && origin.startsWith("http://localhost:"))) {
+            return callback(null, true);
+        }
+        return callback(null, true);
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"]
@@ -30,6 +43,7 @@ app.use('/api/contact', contactRoute);
 app.use('/api/admin', adminRoute);
 app.use('/api/track', trackingRoute);
 app.use('/api/resume', resumeRoute);
+app.use('/api/assistant', assistantRoute);
 
 // health api
 app.get('/api/health', (req, res) => {

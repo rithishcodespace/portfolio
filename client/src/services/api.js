@@ -157,4 +157,13 @@ export const resumeApi = {
   },
 };
 
+export const assistantApi = {
+  chat: async (message, history = []) => {
+    return await request('/assistant/chat', {
+      method: 'POST',
+      body: JSON.stringify({ message, history }),
+    });
+  },
+};
+
 

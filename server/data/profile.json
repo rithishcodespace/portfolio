@@ -1,0 +1,387 @@
+
+{
+  "name": "Rithish S",
+  "title": "Backend Engineer | Distributed Systems | Cloud & DevOps",
+  "role": "Computer Science & Engineering Student",
+  "tagline": "Building scalable backend systems, distributed services, and production-ready developer tools",
+  "summary": "Backend-focused software engineer and Computer Science student specializing in Node.js, TypeScript, Python, REST APIs, distributed systems, databases, and cloud-native development. Experienced in building backend services, developer tools, AI-powered applications, and full-stack systems. Interested in system design, distributed architectures, database internals, developer infrastructure, and building reliable production software.",
+  "location": "Tamil Nadu, India",
+  "email": "rithishcodespace@gmail.com",
+  "links": {
+    "github": "https://github.com/rithishcodespace",
+    "linkedin": "https://www.linkedin.com/in/rithish-saravanan-32a39431a/",
+    "leetcode": "https://leetcode.com/u/rithishcodespace",
+    "resume": "/resumes/Rithish_CV.pdf"
+  },
+  "technical_skills": {
+    "languages": [
+      "JavaScript",
+      "TypeScript",
+      "Python",
+      "Java",
+      "C",
+      "C++",
+      "SQL"
+    ],
+    "backend": [
+      "Node.js",
+      "Express.js",
+      "FastAPI",
+      "REST APIs",
+      "Microservices",
+      "Authentication",
+      "JWT",
+      "Role-Based Access Control",
+      "API Design"
+    ],
+    "frontend": [
+      "React",
+      "Redux Toolkit",
+      "Vite",
+      "Tailwind CSS",
+      "HTML5",
+      "CSS3"
+    ],
+    "databases": [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "SQLite",
+      "Redis",
+      "SQLAlchemy",
+      "Prisma ORM"
+    ],
+    "cloud_and_devops": [
+      "AWS EC2",
+      "AWS S3",
+      "Docker",
+      "Docker Compose",
+      "Kubernetes",
+      "Helm",
+      "GitHub Actions",
+      "Prometheus",
+      "Grafana",
+      "Linux",
+      "CI/CD"
+    ],
+    "distributed_systems": [
+      "BullMQ",
+      "Redis Caching",
+      "Redis Pub/Sub",
+      "Event-Driven Architecture",
+      "Job Queues",
+      "Concurrency Control",
+      "Distributed Locks",
+      "Resource Limiting",
+      "Microservices Patterns"
+    ],
+    "system_design": [
+      "High-Level Design (HLD)",
+      "Low-Level Design (LLD)",
+      "API Design",
+      "Scalability",
+      "Caching Strategies",
+      "Load Balancing",
+      "Database Sharding",
+      "Database Replication"
+    ],
+    "ai_and_machine_learning": [
+      "Machine Learning",
+      "Deep Learning",
+      "Generative AI",
+      "Large Language Models",
+      "Retrieval-Augmented Generation (RAG)",
+      "Vector Search",
+      "Embeddings",
+      "LLM APIs",
+      "Groq",
+      "OpenAI API",
+      "Semantic Search",
+      "LangChain",
+      "LangGraph",
+      "Model Context Protocol (MCP)",
+      "AI Agents",
+      "Tool Calling"
+    ],
+    "developer_tools": [
+      "Git",
+      "GitHub",
+      "Linux",
+      "Postman",
+      "VS Code",
+      "PM2",
+      "Prisma ORM",
+      "Docker Compose"
+    ],
+    "core_cs": [
+      "Data Structures & Algorithms",
+      "Object-Oriented Programming",
+      "Database Management Systems",
+      "Operating Systems",
+      "Computer Networks"
+    ]
+  },
+  "experience": [
+    {
+      "role": "Web Developer",
+      "company": "Students Special Group",
+      "period": "Feb 2025 - Dec 2025",
+      "highlights": [
+        "Developed backend services using Node.js and MySQL to support core academic platform functionalities.",
+        "Designed normalized relational database schemas to improve data integrity, scalability, and maintainability.",
+        "Designed and implemented RESTful APIs for user management, authentication, and academic workflows.",
+        "Collaborated with cross-functional teams to translate functional requirements into scalable backend solutions.",
+        "Mentored 50+ students in JavaScript, backend development, and software engineering best practices."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "AskDB",
+      "year": "2026",
+      "description": "AI-powered natural-language database assistant that allows users to interact with connected databases through conversational queries. Uses an agent workflow to understand questions, retrieve database schema context, select tools, and execute database operations through a Model Context Protocol integration.",
+      "tech_stack": [
+        "Python",
+        "LangGraph",
+        "LangChain",
+        "Model Context Protocol (MCP)",
+        "SQLAlchemy",
+        "SQL",
+        "LLM APIs",
+        "Streamable HTTP"
+      ],
+      "highlights": [
+        "Implemented an MCP client and server using the Streamable HTTP transport.",
+        "Built database connectivity using SQLAlchemy.",
+        "Designed an agent workflow that reasons about user questions and selects relevant tools.",
+        "Integrated schema retrieval and tool execution into the database question-answering workflow."
+      ],
+      "repository": "https://github.com/rithishcodespace/AskDB"
+    },
+    {
+      "name": "Humming Tone",
+      "year": "2026",
+      "description": "Production-ready e-commerce platform for a freelance client featuring secure authentication, RBAC, admin management dashboard, secure payments, and order workflows.",
+      "tech_stack": [
+        "TypeScript",
+        "Node.js",
+        "Express.js",
+        "PostgreSQL",
+        "Redis",
+        "Docker",
+        "AWS"
+      ],
+      "repository": "https://github.com/GowthamCD6/Humming-Tone"
+    },
+    {
+      "name": "DB Backup CLI",
+      "year": "2026",
+      "description": "Cross-platform CLI utility for automated backup and restore operations across PostgreSQL, MySQL, MongoDB, and SQLite with automated scheduling, compression, checksum verification, AWS S3 integration, Redis-backed BullMQ job queues, and distributed locking.",
+      "tech_stack": [
+        "TypeScript",
+        "Node.js",
+        "PostgreSQL",
+        "MySQL",
+        "MongoDB",
+        "SQLite",
+        "Redis",
+        "BullMQ",
+        "AWS S3",
+        "Docker"
+      ],
+      "repository": "https://github.com/rithishcodespace/db-backup-cli"
+    },
+    {
+      "name": "PatentIQ",
+      "year": "2026",
+      "description": "AI-powered patent prior-art search platform using vector similarity and embeddings to discover existing patents and assess novelty with supporting claim evidence.",
+      "tech_stack": [
+        "React",
+        "Node.js",
+        "Python",
+        "FastAPI",
+        "PostgreSQL",
+        "Vector Database",
+        "Embeddings",
+        "LLMs"
+      ],
+      "repository": "https://github.com/rithishcodespace/PatentIQ"
+    },
+    {
+      "name": "Plantera",
+      "year": "2025",
+      "description": "Real-time environmental monitoring platform for deforestation detection using satellite imagery and machine learning with interactive Mapbox geospatial mapping.",
+      "tech_stack": [
+        "React",
+        "Node.js",
+        "Express.js",
+        "Python",
+        "Mapbox",
+        "Tailwind CSS",
+        "Machine Learning"
+      ],
+      "repository": "https://github.com/The-Plantera/Plantera-Web"
+    },
+    {
+      "name": "DevTinder",
+      "year": "2025",
+      "description": "Developer networking platform enabling developers to discover profiles, send connection requests, and network with JWT authentication and secure session management.",
+      "tech_stack": [
+        "React",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "JWT",
+        "Tailwind CSS"
+      ],
+      "repository": "https://github.com/rithishcodespace/DevTinder.git"
+    },
+    {
+      "name": "NetflixGPT",
+      "year": "2025",
+      "description": "Movie streaming interface with dynamic TMDB browsing and AI-powered natural-language movie recommendations using GPT.",
+      "tech_stack": [
+        "React",
+        "JavaScript",
+        "Redux Toolkit",
+        "Tailwind CSS",
+        "TMDB API",
+        "OpenAI API",
+        "Firebase"
+      ],
+      "repository": "https://github.com/rithishcodespace"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Oracle Cloud Infrastructure 2025 Certified Foundations Associate",
+      "issuer": "Oracle University",
+      "date": "Oct 30, 2025"
+    },
+    {
+      "name": "AWS Cloud Practitioner Essentials",
+      "issuer": "AWS Training & Certification",
+      "date": "July 20, 2026"
+    },
+    {
+      "name": "The Joy of Computing using Python",
+      "issuer": "NPTEL (IIT Madras / MoE Govt. of India)",
+      "date": "Jan-Apr 2026",
+      "distinction": "Elite + Topper (Top 5%), 95% consolidated score"
+    },
+    {
+      "name": "Linux Unhatched",
+      "issuer": "Cisco Networking Academy | NDG",
+      "date": "21 Feb 2026"
+    },
+    {
+      "name": "Operating Systems Basics",
+      "issuer": "Cisco Networking Academy",
+      "date": "13 Feb 2026"
+    },
+    {
+      "name": "JavaScript Essentials 1",
+      "issuer": "Cisco Networking Academy | JS Institute",
+      "date": "21 Feb 2026"
+    }
+  ],
+  "achievements": [
+    {
+      "title": "1000+ LeetCode DSA Problems Solved",
+      "details": "Solved more than 1000 Data Structures and Algorithms problems covering arrays, trees, graphs, dynamic programming, and other algorithmic topics.",
+      "link": "https://leetcode.com/u/rithishcodespace"
+    },
+    {
+      "title": "ESLint Core Contributor (PR #21218)",
+      "details": "Fixed false negatives in ESLint's core no-loss-of-precision rule by properly handling IEEE 754 float64 underflow to 0 and -0 for subnormal numeric literals."
+    },
+    {
+      "title": "First Runner-Up - Odoo × NMIT Hackathon 2026",
+      "details": "Secured second place in the hackathon, competing among 250+ finalist teams after a registration pool of 7,000+ participants."
+    },
+    {
+      "title": "1st Place - IEEE DevSpark Hackathon",
+      "details": "Awarded first place with a ₹10,000 cash prize in the National Level Hackathon organized by IEEE."
+    },
+    {
+      "title": "1st Place - BIT Hackathon",
+      "details": "Awarded first place with a ₹3,000 cash prize at the BIT Hackathon for building an intuitive prototype with real-time features."
+    },
+    {
+      "title": "Runner-Up - SNS Ideathon",
+      "details": "Awarded ₹10,000 cash prize along with official tech goodies for presenting innovative software solutions at SNS Ideathon."
+    },
+    {
+      "title": "1st Place - Code With Curious",
+      "details": "Secured first place in the competitive programming event organized by BIT Code Circle Club."
+    }
+  ],
+  "education": {
+    "college": {
+      "institution": "Bannari Amman Institute of Technology",
+      "degree": "B.E. Computer Science and Engineering",
+      "period": "Aug 2024 - Present",
+      "cgpa": "8.29 / 10",
+      "location": "Sathyamangalam, Tamil Nadu, India"
+    },
+    "school": {
+      "institution": "SSM Lakshmi Ammal Matriculation Higher Secondary School",
+      "metric": "12th Grade: 91%",
+      "location": "Komarapalayam, Tamil Nadu, India"
+    }
+  },
+  "personality_and_preferences": {
+    "likes": [
+      "clean APIs",
+      "system design",
+      "late-night debugging",
+      "building prototypes",
+      "understanding system internals",
+      "distributed systems",
+      "backend architecture",
+      "open-source engineering"
+    ],
+    "dislikes": [
+      "unnecessary abstractions",
+      "copy-paste engineering",
+      "code that just works without understanding",
+      "things I do not understand"
+    ],
+    "default_mode": [
+      "BUILD",
+      "BREAK",
+      "DEBUG",
+      "LEARN"
+    ],
+    "engineering_philosophy": "Understand the internals, build practical solutions, and prioritize maintainable systems over unnecessary complexity."
+  },
+  "career_goals": {
+    "looking_for": [
+      "Software Engineering Internships",
+      "Backend Engineering Opportunities",
+      "Software Development Roles"
+    ],
+    "focus": "Building resilient systems that work reliably with real production users, distributed systems, backend-heavy architectures, and developer infrastructure."
+  },
+  "visitor_assistant": {
+    "purpose": "Answer visitors' natural-language questions about Rithish, his background, skills, projects, experience, and achievements.",
+    "personality": "Friendly, technically knowledgeable, concise, confident, and approachable.",
+    "response_style": [
+      "Use natural conversational language.",
+      "Prefer clear explanations over buzzwords.",
+      "Give concrete technical details when discussing projects.",
+      "Explain Rithish's actual contribution instead of simply listing technologies.",
+      "Keep simple answers short and expand when visitors ask for details."
+    ],
+    "rules": [
+      "Only state personal facts supported by this profile.",
+      "Do not invent projects, skills, work experience, awards, or technical achievements.",
+      "Do not claim that a project is deployed or production-used unless explicitly stated.",
+      "Distinguish between technologies Rithish has used and technologies he is currently learning.",
+      "If information is unavailable, say that the profile does not specify it.",
+      "Do not reveal private information, secrets, API keys, or credentials.",
+      "Do not pretend to be Rithish. Identify yourself as his portfolio assistant when relevant.",
+      "For questions outside Rithish's profile, politely explain that you are designed to answer questions about him."
+    ]
+  }
+}
