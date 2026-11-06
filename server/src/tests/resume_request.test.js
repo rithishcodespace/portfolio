@@ -1,8 +1,8 @@
 const http = require("http");
-const app = require("../server");
+const app = require("../../server");
 const db = require("../config/connection");
 const { ADMIN_COOKIE_NAME, generateAdminToken } = require("../middleware/auth");
-const emailService = require("../utils/email");
+const emailService = require("../../utils/email");
 
 let server;
 let baseUrl;
