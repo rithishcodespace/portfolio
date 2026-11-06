@@ -151,8 +151,7 @@ PR: https://github.com/eslint/eslint/pull/21218`;
 Award:       Winner / 1st Runner-Up (₹35,000 cash prize)
 Event:       National Level Enterprise Hackathon
 Organizers:  Odoo in partnership with NMIT Bangalore & DataWiz
-Team:        Deepak, Thirumurugam, Rithish, Hemanth
-Event Link:  https://hackathon.odoo.com/event/odoo-x-nmit-bangalore-hackathon-2026-38/register`;
+Team:        Deepak, Thirumurugam, Rithish, Hemanth`;
   }
   if (q.includes('achievement') || q.includes('award') || q.includes('hackathon') || q.includes('leetcode')) {
     return `Achievements & Honors

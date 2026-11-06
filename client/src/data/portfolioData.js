@@ -551,9 +551,6 @@ export const portfolioData = {
         details:
           'Winner / 1st Runner-Up with ₹35,000 cash prize at Odoo x NMIT Bangalore Hackathon 2026, building enterprise-grade intelligent systems judged by industry experts from Odoo and NMIT.',
         image: '/images/odoo_hackathon.jpg',
-        url: 'https://hackathon.odoo.com/event/odoo-x-nmit-bangalore-hackathon-2026-38/register',
-        urlLabel: 'VIEW EVENT ON ODOO',
-        urlDisplay: 'hackathon.odoo.com/event/odoo-x-nmit-bangalore-hackathon-2026-38',
       },
 
       {
