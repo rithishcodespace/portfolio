@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import SectionHeader from './SectionHeader';
 import { portfolioData } from '../data/portfolioData';
 import { Mail, Phone, MapPin, Send, AlertCircle } from 'lucide-react';
@@ -42,7 +43,13 @@ const Contact = () => {
     <section id="contact" className="py-16 sm:py-24 px-4 max-w-6xl mx-auto relative z-10">
       <SectionHeader command={headingCommand} />
 
-      <div className="max-w-2xl mx-auto bg-[#0c1618] border border-[#00ff9d]/30 rounded-xl p-6 sm:p-9 font-mono shadow-[0_0_25px_rgba(0,255,157,0.15)]">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="max-w-2xl mx-auto bg-[#0c1618] border border-[#00ff9d]/30 rounded-xl p-6 sm:p-9 font-mono shadow-[0_0_25px_rgba(0,255,157,0.15)] hover:shadow-[0_0_35px_rgba(0,255,157,0.22)] transition-shadow duration-300"
+      >
         {/* Header dots */}
         <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-800/70 text-xs sm:text-sm text-slate-400">
           <div className="flex items-center gap-2">
@@ -176,7 +183,7 @@ const Contact = () => {
             </div>
           )}
         </form>
-      </div>
+      </motion.div>
     </section>
   );
 };

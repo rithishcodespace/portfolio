@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import SectionHeader from './SectionHeader';
 import { portfolioData } from '../data/portfolioData';
 
@@ -10,7 +11,13 @@ const Experience = () => {
     <section id="exp" className="py-16 sm:py-24 px-4 max-w-6xl mx-auto relative z-10">
       <SectionHeader command={headingCommand} />
 
-      <div className="bg-[#0c1618] border border-[#00ff9d]/20 hover:border-[#00ff9d]/40 rounded-xl p-6 sm:p-9 font-mono shadow-xl transition-all duration-300">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="bg-[#0c1618] border border-[#00ff9d]/20 hover:border-[#00ff9d]/40 rounded-xl p-6 sm:p-9 font-mono shadow-xl transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,255,157,0.12)]"
+      >
         {/* Card Header dots */}
         <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-800/70 text-xs sm:text-sm text-slate-400">
           <div className="flex items-center gap-2">
@@ -32,7 +39,7 @@ const Experience = () => {
               {company}
             </p>
           </div>
-          <div className="bg-[#00ff9d]/10 border border-[#00ff9d]/30 text-[#00ff9d] text-xs sm:text-sm font-semibold px-4 py-2 rounded-md w-fit">
+          <div className="bg-[#00ff9d]/10 border border-[#00ff9d]/30 text-[#00ff9d] text-xs sm:text-sm font-semibold px-4 py-2 rounded-md w-fit transition-transform duration-200 hover:scale-105">
             {period}
           </div>
         </div>
@@ -40,15 +47,22 @@ const Experience = () => {
         {/* Bullet Logs */}
         <ul className="space-y-4">
           {bullets.map((bullet, idx) => (
-            <li key={idx} className="flex items-start gap-3.5 text-sm sm:text-base text-slate-300 leading-relaxed">
-              <span className="text-[#00ff9d] font-extrabold text-sm mt-0.5 shrink-0 select-none">
+            <motion.li
+              key={idx}
+              initial={{ opacity: 0, x: -8 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35, delay: 0.1 + idx * 0.08 }}
+              className="flex items-start gap-3.5 text-sm sm:text-base text-slate-300 leading-relaxed group hover:text-slate-100 transition-colors"
+            >
+              <span className="text-[#00ff9d] font-extrabold text-sm mt-0.5 shrink-0 select-none group-hover:translate-x-1 transition-transform duration-200">
                 ▶
               </span>
               <span>{bullet}</span>
-            </li>
+            </motion.li>
           ))}
         </ul>
-      </div>
+      </motion.div>
     </section>
   );
 };

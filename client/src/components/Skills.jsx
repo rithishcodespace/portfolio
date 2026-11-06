@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import SectionHeader from './SectionHeader';
 import { portfolioData } from '../data/portfolioData';
 import DistributedSystemCard from './DistributedSystemCard';
@@ -57,19 +58,31 @@ const Skills = () => {
           // If this is the Distributed Systems card prototype, render the card shell with onClick handler
           if (cat.fileName === 'distributed.proto' || cat.title === 'Distributed Systems') {
             return (
-              <DistributedSystemCard
+              <motion.div
                 key={idx}
-                cat={cat}
-                onClick={() => setActiveSkill(cat)}
-              />
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.4, delay: (idx % 5) * 0.05 }}
+                className="h-full"
+              >
+                <DistributedSystemCard
+                  cat={cat}
+                  onClick={() => setActiveSkill(cat)}
+                />
+              </motion.div>
             );
           }
 
           const isHighlighted = cat.isHighlighted;
 
           return (
-            <div
+            <motion.div
               key={idx}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.4, delay: (idx % 5) * 0.05 }}
               onClick={() => setActiveSkill(cat)}
               className={`h-[300px] min-[400px]:h-[320px] sm:h-[340px] bg-[#0c1618] rounded-xl p-4 sm:p-5 font-mono flex flex-col justify-between transition-all duration-300 relative cursor-pointer group hover:-translate-y-1.5 active:scale-[0.98] select-none ${
                 isHighlighted
@@ -115,7 +128,7 @@ const Skills = () => {
                 <span>[READY]</span>
                 <span className="text-[#00ff9d] font-semibold">v1.0</span>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>

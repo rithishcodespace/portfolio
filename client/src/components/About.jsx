@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import SectionHeader from './SectionHeader';
 import { portfolioData } from '../data/portfolioData';
 import {
@@ -32,7 +33,13 @@ const About = () => {
         {/* ========================================================================= */}
         {/* Left Column: Avatar Profile Card (Flip 3D) */}
         {/* ========================================================================= */}
-        <div className="lg:col-span-5 perspective-1000 min-h-[520px] min-[400px]:min-h-[560px] sm:min-h-[620px] group">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          className="lg:col-span-5 perspective-1000 min-h-[520px] min-[400px]:min-h-[560px] sm:min-h-[620px] group"
+        >
           <div
             className={`w-full h-full relative transform-style-3d transition-transform duration-700 ease-in-out cursor-pointer ${
               isLeftFlipped ? 'rotate-y-180' : ''
@@ -205,12 +212,18 @@ const About = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* ========================================================================= */}
         {/* Right Column: Summary Log Card (Flip 3D) */}
         {/* ========================================================================= */}
-        <div className="lg:col-span-7 perspective-1000 min-h-[520px] min-[400px]:min-h-[560px] sm:min-h-[620px] group">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
+          className="lg:col-span-7 perspective-1000 min-h-[520px] min-[400px]:min-h-[560px] sm:min-h-[620px] group"
+        >
           <div
             className={`w-full h-full relative transform-style-3d transition-transform duration-700 ease-in-out cursor-pointer ${
               isRightFlipped ? 'rotate-y-180' : ''
@@ -357,7 +370,7 @@ const About = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

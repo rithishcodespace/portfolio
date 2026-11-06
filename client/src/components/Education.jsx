@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import SectionHeader from './SectionHeader';
 import { portfolioData } from '../data/portfolioData';
 import {
@@ -33,13 +34,19 @@ const Education = () => {
         {/* ========================================================================= */}
         {/* STAGE 01: SCHOOL (FOUNDATION) */}
         {/* ========================================================================= */}
-        <div className="relative z-10 pl-4 min-[400px]:pl-6 sm:pl-8">
+        <motion.div
+          initial={{ opacity: 0, x: -16 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.45 }}
+          className="relative z-10 pl-4 min-[400px]:pl-6 sm:pl-8"
+        >
           {/* Node Icon on Timeline (Centered on stem line) */}
           <div className="absolute left-[-16px] min-[400px]:left-[-24px] sm:left-[-32px] top-5 -translate-x-1/2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#081518] border-2 border-slate-600 flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-slate-400 shadow-md">
             01
           </div>
 
-          <div className="bg-[#0c1618] border border-slate-800 hover:border-slate-700 rounded-xl p-5 sm:p-6 transition-all duration-300 shadow-lg">
+          <div className="bg-[#0c1618] border border-slate-800 hover:border-slate-700 rounded-xl p-5 sm:p-6 transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(0,0,0,0.5)] hover:-translate-y-0.5">
             {/* Header dots */}
             <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-800/80 text-xs text-slate-400">
               <div className="flex items-center gap-2">
@@ -68,18 +75,24 @@ const Education = () => {
             </h3>
             <p className="text-xs text-slate-400 mt-1">{school.location}</p>
           </div>
-        </div>
+        </motion.div>
 
         {/* ========================================================================= */}
         {/* STAGE 02: COLLEGE (CURRENT) — PROMINENTLY HIGHLIGHTED */}
         {/* ========================================================================= */}
-        <div className="relative z-10 pl-4 min-[400px]:pl-6 sm:pl-8">
+        <motion.div
+          initial={{ opacity: 0, x: -16 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.45, delay: 0.1 }}
+          className="relative z-10 pl-4 min-[400px]:pl-6 sm:pl-8"
+        >
           {/* Node Icon on Timeline (Centered on stem line) */}
           <div className="absolute left-[-16px] min-[400px]:left-[-24px] sm:left-[-32px] top-6 -translate-x-1/2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#081518] border-2 border-[#00ff9d] flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-[#00ff9d] shadow-[0_0_12px_rgba(0,255,157,0.5)]">
             02
           </div>
 
-          <div className="bg-[#0e1a1d] border border-[#00ff9d] shadow-[0_0_25px_rgba(0,255,157,0.18)] rounded-xl p-4 sm:p-7 transition-all duration-300 relative group">
+          <div className="bg-[#0e1a1d] border border-[#00ff9d] shadow-[0_0_25px_rgba(0,255,157,0.18)] rounded-xl p-4 sm:p-7 transition-all duration-300 relative group hover:shadow-[0_0_35px_rgba(0,255,157,0.3)] hover:-translate-y-0.5">
             {/* Header dots */}
             <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-slate-800/80 text-xs text-slate-400">
               <div className="flex items-center gap-2">
@@ -116,18 +129,24 @@ const Education = () => {
               <span className="text-slate-400">{college.location}</span>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* ========================================================================= */}
         {/* STAGE 03: CAREER / FUTURE (NEXT) */}
         {/* ========================================================================= */}
-        <div className="relative z-10 pl-4 min-[400px]:pl-6 sm:pl-8">
+        <motion.div
+          initial={{ opacity: 0, x: -16 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.45, delay: 0.2 }}
+          className="relative z-10 pl-4 min-[400px]:pl-6 sm:pl-8"
+        >
           {/* Node Icon on Timeline */}
           <div className="absolute left-[-16px] min-[400px]:left-[-24px] sm:left-[-32px] top-6 -translate-x-1/2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#081518] border-2 border-[#00e5ff] flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-[#00e5ff] shadow-[0_0_12px_rgba(0,229,255,0.5)]">
             03
           </div>
 
-          <div className="bg-[#0a1619] border border-[#00e5ff]/50 hover:border-[#00e5ff] shadow-[0_0_22px_rgba(0,229,255,0.15)] rounded-xl p-6 sm:p-7 transition-all duration-300 space-y-4">
+          <div className="bg-[#0a1619] border border-[#00e5ff]/50 hover:border-[#00e5ff] shadow-[0_0_22px_rgba(0,229,255,0.15)] rounded-xl p-6 sm:p-7 transition-all duration-300 space-y-4 hover:shadow-[0_0_35px_rgba(0,229,255,0.25)] hover:-translate-y-0.5">
             {/* Header dots & Status */}
             <div className="flex items-center justify-between pb-3.5 border-b border-slate-800/80 text-xs text-slate-400">
               <div className="flex items-center gap-2">
@@ -234,7 +253,7 @@ const Education = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
