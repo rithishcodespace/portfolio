@@ -28,6 +28,24 @@ const PageViewTracker = () => {
 };
 
 const PublicPortfolio = () => {
+  useEffect(() => {
+    // Ensure user always starts at ~/ on initial load or refresh
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+    const handleBeforeUnload = () => {
+      window.scrollTo(0, 0);
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-[#070e10] text-slate-200 overflow-x-clip selection:bg-[#00ff9d] selection:text-black font-mono">
       {/* Animated Live Dot Particle Background */}

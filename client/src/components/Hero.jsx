@@ -373,6 +373,15 @@ const Hero = () => {
                 <a
                   key={idx}
                   href={btn.href}
+                  onClick={(e) => {
+                    if (btn.href.startsWith('#')) {
+                      e.preventDefault();
+                      const target = document.querySelector(btn.href);
+                      if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }
+                  }}
                   target={
                     btn.href.startsWith('http') ? '_blank' : '_self'
                   }

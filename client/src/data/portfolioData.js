@@ -1,6 +1,6 @@
 export const portfolioData = {
   header: {
-    logo: ' Rithish.dev',
+    logo: 'Rithish.dev',
     navLinks: [
       { id: 'home', label: '~/' },
       { id: 'about', label: 'about' },

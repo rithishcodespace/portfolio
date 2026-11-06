@@ -13,6 +13,17 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300..800;1,300..800&display=swap"
     rel="stylesheet">
+
+  <script>
+    // Force reload/refresh to start at root (~/)
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+    window.scrollTo(0, 0);
+  </script>
 </head>
 
 <body
