@@ -66,9 +66,66 @@ const cleanModelResponse = (text) => {
  * Offline keyword fallback when Groq is unreachable or fails
  */
 const getFallbackResponse = (query, profile) => {
-  const q = query.toLowerCase();
+  const q = query.toLowerCase().trim();
 
-  if (q.includes('skill') || q.includes('stack') || q.includes('tech')) {
+  // About / Bio / Summary / Who is Rithish
+  if (
+    q.includes('who') ||
+    q.includes('about') ||
+    q.includes('bio') ||
+    q.includes('intro') ||
+    q.includes('summary') ||
+    q.includes('rithish') ||
+    q.includes('background')
+  ) {
+    return `Rithish S
+---------
+Title:    Backend Engineer | Distributed Systems | Cloud & DevOps
+Role:     Computer Science & Engineering Student
+Location: Tamil Nadu, India
+
+Summary:
+  Backend-focused software engineer specializing in Node.js, TypeScript,
+  Python, REST APIs, distributed systems, and cloud architecture.
+  Experienced in building production backend services, developer tools,
+  and AI-powered applications with high reliability and performance.
+
+Education:
+  B.E. Computer Science & Engineering
+  Bannari Amman Institute of Technology (2023 - 2027) | CGPA: 8.29/10
+
+Links:
+  GitHub:   https://github.com/rithishcodespace
+  LinkedIn: https://www.linkedin.com/in/rithish-saravanan-32a39431a/
+  LeetCode: https://leetcode.com/u/rithishcodespace`;
+  }
+
+  // Education / College / Degree
+  if (
+    q.includes('education') ||
+    q.includes('college') ||
+    q.includes('degree') ||
+    q.includes('university') ||
+    q.includes('bannari') ||
+    q.includes('cgpa') ||
+    q.includes('gpa')
+  ) {
+    return `Education
+---------
+Degree:      Bachelor of Engineering in Computer Science and Engineering
+Institution: Bannari Amman Institute of Technology (Sathyamangalam, Tamil Nadu)
+Duration:    2023 - 2027
+CGPA:        8.29 / 10.0
+
+Coursework:
+  - Data Structures & Algorithms
+  - Object-Oriented Programming (Java / C++)
+  - Database Management Systems (SQL)
+  - Operating Systems & Linux Architecture
+  - Computer Networks & Distributed Systems`;
+  }
+
+  if (q.includes('skill') || q.includes('stack') || q.includes('tech') || q.includes('language') || q.includes('database')) {
     return `Technical Stack
 ---------------
 Backend & Core:
@@ -80,6 +137,7 @@ Distributed Systems & Databases:
 Cloud & DevOps:
   AWS EC2/S3, Docker, Kubernetes, Helm, GitHub Actions, Prometheus`;
   }
+
   if (q.includes('ragforge') || q.includes('rag')) {
     return `RAGForge
 --------
@@ -99,6 +157,41 @@ Tech stack:
 Live Demo: https://ragforge.rithish.site
 Repo:      https://github.com/rithishcodespace/RAGForge`;
   }
+
+  if (q.includes('askdb')) {
+    return `AskDB
+-----
+AI-powered natural-language database assistant via MCP and LangGraph.
+
+Key features:
+  - Natural-language database interaction
+  - Schema-aware agent workflow
+  - MCP tool integration
+
+Tech stack:
+  Python       LangGraph
+  MCP          SQLAlchemy
+
+Repo: https://github.com/rithishcodespace/AskDB`;
+  }
+
+  if (q.includes('backup') || q.includes('db backup')) {
+    return `DB Backup CLI
+-------------
+Cross-platform developer CLI tool for automated database backup and S3 upload.
+
+Key features:
+  - Automated backups for MySQL, PostgreSQL, MongoDB, and Redis
+  - Compressed exports with retention rotation
+  - Direct AWS S3 cloud sync
+
+Tech stack:
+  TypeScript   Node.js
+  Redis        BullMQ       AWS S3
+
+Repo: https://github.com/rithishcodespace/db-backup-cli`;
+  }
+
   if (q.includes('project') || q.includes('built')) {
     return `Featured Projects
 -----------------
@@ -122,14 +215,17 @@ AskDB (2026)
   Tech: Python, LangGraph, MCP, SQLAlchemy
   Repo: https://github.com/rithishcodespace/AskDB`;
   }
-  if (q.includes('contact') || q.includes('email') || q.includes('hire') || q.includes('reach')) {
+
+  if (q.includes('contact') || q.includes('email') || q.includes('hire') || q.includes('reach') || q.includes('phone')) {
     return `Contact Information
 -------------------
 Email:    ${profile?.email || 'rithishcodespace@gmail.com'}
+Phone:    ${profile?.phone || '+91 9952252304'}
 GitHub:   ${profile?.links?.github || 'https://github.com/rithishcodespace'}
 LinkedIn: ${profile?.links?.linkedin || 'https://www.linkedin.com/in/rithish-saravanan-32a39431a/'}
 LeetCode: ${profile?.links?.leetcode || 'https://leetcode.com/u/rithishcodespace'}`;
   }
+
   if (q.includes('eslint') || q.includes('open source') || q.includes('oss')) {
     return `ESLint Core Contribution (PR #21218)
 ------------------------------------
@@ -137,7 +233,8 @@ Fixed false negatives in ESLint's 'no-loss-of-precision' rule
 by handling IEEE 754 float64 underflow to 0/-0 for subnormal numeric literals.
 PR: https://github.com/eslint/eslint/pull/21218`;
   }
-  if (q.includes('experience') || q.includes('work') || q.includes('job')) {
+
+  if (q.includes('experience') || q.includes('work') || q.includes('job') || q.includes('intern')) {
     return `Web Developer | Students Special Group (Feb 2025 - Dec 2025)
 -----------------------------------------------------------
 - Developed backend services using Node.js and MySQL for core platform.
@@ -145,6 +242,7 @@ PR: https://github.com/eslint/eslint/pull/21218`;
 - Implemented secure RESTful APIs for authentication and user workflows.
 - Mentored 50+ students in backend development and software engineering.`;
   }
+
   if (q.includes('odoo')) {
     return `Odoo x NMIT Bangalore Hackathon 2026
 -----------------------------------
@@ -153,6 +251,7 @@ Event:       National Level Enterprise Hackathon
 Organizers:  Odoo in partnership with NMIT Bangalore & DataWiz
 Team:        Deepak, Thirumurugam, Rithish, Hemanth`;
   }
+
   if (q.includes('achievement') || q.includes('award') || q.includes('hackathon') || q.includes('leetcode')) {
     return `Achievements & Honors
 ---------------------
@@ -192,7 +291,7 @@ const askAssistant = async (message, history = []) => {
 
   // If no Groq API key is configured, fallback smoothly
   if (!apiKey) {
-    console.warn('GROQ_API_KEY is not set. Using local profile fallback.');
+    console.warn('[AssistantService] GROQ_API_KEY environment variable is not defined. In production (Render), please set GROQ_API_KEY in the Render Dashboard environment settings.');
     return {
       answer: getFallbackResponse(query, profile),
       source: 'offline_fallback',

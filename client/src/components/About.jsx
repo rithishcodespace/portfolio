@@ -65,16 +65,17 @@ const About = () => {
                       {human.fileName || 'human.txt'}
                     </span>
                   </div>
-                  <span
-                    className="text-[10px] sm:text-xs text-[#00e5ff] font-mono flex items-center gap-1 hover:text-[#00ff9d] transition-colors"
+                  <button
+                    type="button"
+                    className="text-[11px] sm:text-xs text-[#00e5ff] hover:text-black hover:bg-[#00e5ff] font-mono font-bold flex items-center gap-1.5 bg-[#00e5ff]/15 px-2.5 py-1 rounded border border-[#00e5ff]/40 shadow-[0_0_12px_rgba(0,229,255,0.25)] transition-all cursor-pointer group"
                     onClick={(e) => {
                       e.stopPropagation();
                       setIsLeftFlipped(false);
                     }}
                   >
-                    <RotateCw className="w-3 h-3" />
-                    <span>TERMINAL</span>
-                  </span>
+                    <RotateCw className="w-3 h-3 text-[#00e5ff] group-hover:rotate-180 transition-transform duration-500" />
+                    <span>FLIP TO TERMINAL</span>
+                  </button>
                 </div>
 
                 {/* LIKES Section */}
@@ -143,8 +144,9 @@ const About = () => {
               </div>
 
               {/* Bottom return prompt */}
-              <div className="pt-2 sm:pt-3 border-t border-slate-800/70 text-center font-mono text-[11px] sm:text-xs text-[#00ff9d]">
-                [TAP TO FLIP BACK TO TERMINAL]
+              <div className="pt-2 sm:pt-3 border-t border-slate-800/70 text-center font-mono text-xs text-[#00ff9d] hover:text-white transition-colors cursor-pointer flex items-center justify-center gap-1.5">
+                <RotateCw className="w-3 h-3 text-[#00ff9d]" />
+                <span>[ CLICK ANYWHERE TO FLIP BACK TO TERMINAL ]</span>
               </div>
             </div>
           </div>

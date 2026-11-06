@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { RotateCw } from 'lucide-react';
 import { assistantApi } from '../services/api';
 
 const getTimestamp = () => {
@@ -324,7 +325,7 @@ Try asking:
           </span>
         </div>
 
-        {/* Minimal terminal-style flip trigger */}
+        {/* Prominent terminal-style flip trigger */}
         <div className="flex items-center gap-2">
           <button
             type="button"
@@ -332,10 +333,14 @@ Try asking:
               e.stopPropagation();
               if (onFlip) onFlip();
             }}
-            className="text-[10px] font-mono text-slate-400 hover:text-[#00FF9C] bg-[#0c1614] hover:bg-[#00FF9C]/10 border border-slate-800 hover:border-[#00FF9C]/30 px-2 py-0.5 rounded transition-all cursor-pointer"
-            title="Inspect human.txt"
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-bold text-[#00FF9C] bg-[#00FF9C]/15 hover:bg-[#00FF9C]/25 border border-[#00FF9C]/40 hover:border-[#00FF9C] shadow-[0_0_12px_rgba(0,255,156,0.25)] transition-all cursor-pointer group active:scale-95"
+            title="Flip 3D card to view human.txt profile"
           >
-            [ cat human.txt ]
+            <RotateCw className="w-3 h-3 text-[#00FF9C] group-hover:rotate-180 transition-transform duration-500" />
+            <span>VIEW HUMAN.TXT</span>
+            <span className="text-[9px] text-black bg-[#00FF9C] px-1 py-0.5 rounded font-extrabold font-mono tracking-wider ml-0.5">
+              FLIP
+            </span>
           </button>
         </div>
       </div>
@@ -370,13 +375,28 @@ Try asking:
             Ask questions in natural language to explore his background, projects, skills, and experience.
           </div>
 
-          {/* Plain-text discoverable examples */}
-          <div className="space-y-0.5 pt-0.5 text-slate-400">
+          {/* Plain-text discoverable examples + Flip action */}
+          <div className="space-y-1 pt-0.5 text-slate-400">
             <div className="text-slate-200 font-medium">Try asking:</div>
             <div className="pl-2">- What projects has Rithish built?</div>
             <div className="pl-2">- What is his backend experience?</div>
             <div className="pl-2">- What are his achievements?</div>
             <div className="pl-2">- What technologies does he use?</div>
+            <div className="pt-1.5 text-slate-400 text-xs flex items-center gap-1.5 flex-wrap">
+              <span>Or toggle profile card:</span>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (onFlip) onFlip();
+                }}
+                className="inline-flex items-center gap-1 text-[#00FF9C] font-bold bg-[#00FF9C]/10 hover:bg-[#00FF9C]/25 border border-[#00FF9C]/40 px-2 py-0.5 rounded text-[11px] transition-colors cursor-pointer"
+              >
+                <RotateCw className="w-2.5 h-2.5" />
+                <span>FLIP TO HUMAN.TXT</span>
+              </button>
+              <span className="text-slate-500">(or type &apos;flip&apos;)</span>
+            </div>
           </div>
         </div>
 
@@ -457,15 +477,28 @@ Try asking:
         </div>
       </div>
 
-      {/* Terminal Status Bar (Minimal Fixed Footer) */}
-      <div className="px-3.5 py-1.5 bg-[#080d0c] border-t border-[#00FF9C]/10 flex items-center justify-between text-[10px] text-slate-400 select-none rounded-b-xl shrink-0">
+      {/* Terminal Status Bar (Minimal Fixed Footer with Clickable Flip Action) */}
+      <div className="px-3.5 py-1.5 bg-[#080d0c] border-t border-[#00FF9C]/10 flex items-center justify-between text-[11px] text-slate-400 select-none rounded-b-xl shrink-0">
         <span className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-[#00FF9C] inline-block animate-pulse" />
-          <span>PORTFOLIO_TTY</span>
+          <span className="text-slate-300 font-mono text-[10px] sm:text-[11px]">PORTFOLIO_TTY</span>
         </span>
-        <span className="hidden min-[380px]:inline text-slate-400">
-          ENTER: submit &bull; &uarr;&darr;: history &bull; natural language
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="hidden sm:inline text-[10px] text-slate-500">
+            ENTER: submit &bull; &uarr;&darr;: history
+          </span>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (onFlip) onFlip();
+            }}
+            className="flex items-center gap-1 text-[10px] sm:text-[11px] font-mono font-bold text-[#00FF9C] hover:text-black hover:bg-[#00FF9C] bg-[#00FF9C]/10 border border-[#00FF9C]/40 px-2 py-0.5 rounded transition-all cursor-pointer shadow-[0_0_8px_rgba(0,255,156,0.15)]"
+          >
+            <RotateCw className="w-2.5 h-2.5" />
+            <span>[ ↻ FLIP CARD ]</span>
+          </button>
+        </div>
       </div>
     </div>
   );
