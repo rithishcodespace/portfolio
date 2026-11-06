@@ -294,7 +294,7 @@ const Hero = () => {
           </div>
 
           {/* Name */}
-          <h1 className="inline-flex max-w-full flex-nowrap items-center whitespace-nowrap font-mono text-2xl font-extrabold leading-none tracking-tight sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
+          <h1 className="inline-flex max-w-full flex-nowrap items-center whitespace-nowrap font-mono text-2xl font-extrabold leading-none tracking-tight sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
             <span
               ref={tagOpenRef}
               className="mr-0.5 inline-block shrink-0 font-extrabold text-white opacity-95"
@@ -409,7 +409,7 @@ const Hero = () => {
           <div className="pointer-events-none absolute bottom-[5%] right-[-5%] h-[65%] w-full rounded-full bg-[#00ff9d]/15 blur-[100px]" />
 
           {/* Keep a normal portrait on mobile; enlarge and position it on desktop */}
-          <picture className="relative z-10 flex w-full max-w-[370px] items-end justify-center sm:max-w-[450px] md:max-w-[530px] lg:absolute lg:bottom-0 lg:right-[-5.5rem] lg:w-[min(56vw,780px)] lg:max-w-none xl:right-[-6.5rem] xl:w-[min(59vw,870px)]">
+          <picture className="relative z-10 flex w-full max-w-[370px] items-end justify-center sm:max-w-[450px] md:max-w-[530px] lg:absolute lg:bottom-0 lg:right-[-4.5rem] lg:w-[min(57vw,760px)] lg:max-w-none xl:right-[-6.5rem] xl:w-[min(60vw,860px)] 2xl:right-[-11rem] 2xl:w-[min(60vw,920px)]">
             <source srcSet={portraitWebp} type="image/webp" />
 
             <img
