@@ -409,7 +409,7 @@ const Hero = () => {
           <div className="pointer-events-none absolute bottom-[5%] right-[-5%] h-[65%] w-full rounded-full bg-[#00ff9d]/15 blur-[100px]" />
 
           {/* Keep a normal portrait on mobile; enlarge and position it on desktop */}
-          <picture className="relative z-10 flex w-full max-w-[370px] items-end justify-center sm:max-w-[450px] md:max-w-[530px] lg:absolute lg:bottom-0 lg:right-[-4.5rem] lg:w-[min(57vw,760px)] lg:max-w-none xl:right-[-6.5rem] xl:w-[min(60vw,860px)] 2xl:right-[-11rem] 2xl:w-[min(60vw,920px)]">
+          <picture className="relative z-10 flex w-full max-w-[370px] items-end justify-center sm:max-w-[450px] md:max-w-[530px] lg:absolute lg:bottom-0 lg:right-[-5rem] lg:w-[min(62vw,820px)] lg:max-w-none xl:right-[-7rem] xl:w-[min(65vw,950px)] 2xl:right-[-12rem] 2xl:w-[min(65vw,1000px)]">
             <source srcSet={portraitWebp} type="image/webp" />
 
             <img
