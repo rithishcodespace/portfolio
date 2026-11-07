@@ -40,6 +40,9 @@ const renderStdout = (text) => {
     // Section headers ending with a colon (e.g. "Tech stack:", "Key features:")
     const isSectionHeader = /^[A-Za-z0-9\s/&]+:$/.test(trimmed);
 
+    // Title line (e.g. "RAGForge", "AskDB", "Contact Information")
+    const isMainTitle = lIdx === 0 && !isBullet && !isSectionHeader && trimmed.length > 0;
+
     // Parse inline bold markers
     const parts = lineContent.split(/(\*\*.*?\*\*)/g);
 
@@ -47,7 +50,11 @@ const renderStdout = (text) => {
       <div
         key={lIdx}
         className={`min-h-[1.35em] ${
-          isSectionHeader ? 'text-slate-200 font-semibold pt-1' : 'text-slate-300'
+          isMainTitle
+            ? 'text-[#00FF9C] font-bold'
+            : isSectionHeader
+            ? 'text-slate-200 font-semibold pt-1'
+            : 'text-slate-100'
         }`}
       >
         {parts.map((part, pIdx) => {
@@ -55,6 +62,31 @@ const renderStdout = (text) => {
             return (
               <span key={pIdx} className="text-[#00FF9C] font-semibold">
                 {part.slice(2, -2)}
+              </span>
+            );
+          }
+          // Highlight URLs
+          if (part.includes('http://') || part.includes('https://')) {
+            const urlTokens = part.split(/(https?:\/\/[^\s]+)/g);
+            return (
+              <span key={pIdx}>
+                {urlTokens.map((tok, tIdx) => {
+                  if (tok.startsWith('http://') || tok.startsWith('https://')) {
+                    return (
+                      <a
+                        key={tIdx}
+                        href={tok}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#00e5ff] hover:underline cursor-pointer"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {tok}
+                      </a>
+                    );
+                  }
+                  return tok;
+                })}
               </span>
             );
           }
@@ -311,38 +343,33 @@ Try asking:
 
   return (
     <div
-      className="absolute inset-0 w-full h-full backface-hidden bg-[#0B1110] border border-[#00FF9C]/20 hover:border-[#00FF9C]/40 rounded-xl shadow-2xl flex flex-col font-mono text-slate-300 select-text cursor-text transition-all duration-300"
+      className="absolute inset-0 w-full h-full backface-hidden bg-[#0c1412] border border-[#00FF9C]/25 hover:border-[#00FF9C]/40 rounded-xl shadow-2xl flex flex-col font-mono text-slate-100 select-text cursor-text transition-all duration-300"
       onClick={handleTerminalClick}
     >
-      {/* Shell Window Titlebar */}
-      <div className="flex items-center justify-between px-3.5 py-2.5 bg-[#080d0c] border-b border-[#00FF9C]/10 select-none shrink-0 rounded-t-xl">
+      {/* Shell Window Titlebar (Ubuntu Style) */}
+      <div className="flex items-center justify-between px-3.5 py-2 bg-[#080d0c] border-b border-[#00FF9C]/15 select-none shrink-0 rounded-t-xl">
         <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]/90 inline-block" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]/90 inline-block" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]/90 inline-block" />
-          <span className="ml-1.5 text-slate-400 font-mono text-[11px] sm:text-xs tracking-tight">
-            portfolio-sh &mdash; rithish@portfolio:~
+          <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] inline-block" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] inline-block" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f] inline-block" />
+          <span className="ml-2 text-slate-300 font-mono text-[11px] sm:text-xs tracking-tight">
+            rithish@portfolio: ~
           </span>
         </div>
 
-        {/* Prominent terminal-style flip trigger */}
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              if (onFlip) onFlip();
-            }}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-bold text-[#00FF9C] bg-[#00FF9C]/15 hover:bg-[#00FF9C]/25 border border-[#00FF9C]/40 hover:border-[#00FF9C] shadow-[0_0_12px_rgba(0,255,156,0.25)] transition-all cursor-pointer group active:scale-95"
-            title="Flip 3D card to view human.txt profile"
-          >
-            <RotateCw className="w-3 h-3 text-[#00FF9C] group-hover:rotate-180 transition-transform duration-500" />
-            <span>VIEW HUMAN.TXT</span>
-            <span className="text-[9px] text-black bg-[#00FF9C] px-1 py-0.5 rounded font-extrabold font-mono tracking-wider ml-0.5">
-              FLIP
-            </span>
-          </button>
-        </div>
+        {/* Single clean top-right flip button matching user image */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (onFlip) onFlip();
+          }}
+          className="text-[10px] sm:text-xs text-[#00ff9d] font-mono flex items-center gap-1.5 bg-[#00ff9d]/10 hover:bg-[#00ff9d]/20 px-2.5 py-1 rounded border border-[#00ff9d]/30 hover:border-[#00ff9d] transition-colors cursor-pointer"
+          title="Flip card"
+        >
+          <RotateCw className="w-3 h-3 text-[#00ff9d]" />
+          <span>TAP TO FLIP</span>
+        </button>
       </div>
 
       {/* Terminal Screen / STDOUT Buffer */}
@@ -350,53 +377,13 @@ Try asking:
         ref={terminalScrollRef}
         className="flex-1 p-3.5 sm:p-4 overflow-y-auto overflow-x-hidden space-y-3 text-xs sm:text-[13px] leading-relaxed custom-terminal-scroll"
       >
-        {/* Startup Output */}
-        <div className="space-y-2.5 text-slate-300 text-xs sm:text-[13px] font-mono pb-2.5 border-b border-slate-800/60 leading-relaxed select-none">
-          {/* Portfolio environment initialization status */}
-          <div className="space-y-0.5 text-xs">
-            <div>
-              <span className="text-[#00FF9C] font-semibold">[ OK ]</span>{' '}
-              <span className="text-slate-300">Portfolio environment initialized</span>
-            </div>
-            <div>
-              <span className="text-[#00FF9C] font-semibold">[ OK ]</span>{' '}
-              <span className="text-slate-300">Profile records loaded</span>
-            </div>
-            <div>
-              <span className="text-[#00FF9C] font-semibold">[ OK ]</span>{' '}
-              <span className="text-slate-300">Assistant engine ready</span>
-            </div>
+        {/* Ubuntu Terminal MOTD (Minimal & Authentic) */}
+        <div className="text-xs sm:text-[13px] font-mono text-slate-300 pb-2 border-b border-slate-800/60 leading-relaxed select-none space-y-0.5">
+          <div className="text-slate-200">
+            Welcome to Ubuntu 24.04 LTS (GNU/Linux 6.8.0-generic x86_64)
           </div>
-
-          {/* Welcome message */}
-          <div className="text-slate-300 pt-0.5">
-            Welcome to Rithish&apos;s portfolio terminal.
-            <br />
-            Ask questions in natural language to explore his background, projects, skills, and experience.
-          </div>
-
-          {/* Plain-text discoverable examples + Flip action */}
-          <div className="space-y-1 pt-0.5 text-slate-400">
-            <div className="text-slate-200 font-medium">Try asking:</div>
-            <div className="pl-2">- What projects has Rithish built?</div>
-            <div className="pl-2">- What is his backend experience?</div>
-            <div className="pl-2">- What are his achievements?</div>
-            <div className="pl-2">- What technologies does he use?</div>
-            <div className="pt-1.5 text-slate-400 text-xs flex items-center gap-1.5 flex-wrap">
-              <span>Or toggle profile card:</span>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (onFlip) onFlip();
-                }}
-                className="inline-flex items-center gap-1 text-[#00FF9C] font-bold bg-[#00FF9C]/10 hover:bg-[#00FF9C]/25 border border-[#00FF9C]/40 px-2 py-0.5 rounded text-[11px] transition-colors cursor-pointer"
-              >
-                <RotateCw className="w-2.5 h-2.5" />
-                <span>FLIP TO HUMAN.TXT</span>
-              </button>
-              <span className="text-slate-500">(or type &apos;flip&apos;)</span>
-            </div>
+          <div className="text-slate-400 text-xs">
+            Ask questions in natural language to explore background, projects, &amp; skills.
           </div>
         </div>
 
@@ -405,61 +392,45 @@ Try asking:
           <div key={item.id} className="space-y-1 pt-1 break-words">
             {/* Shell Prompt + Executed Query */}
             <div className="flex items-baseline flex-wrap">
-              <span className="font-bold select-none shrink-0 font-mono">
+              <span className="font-bold select-none shrink-0 font-mono text-xs sm:text-[13px]">
                 <span className="text-[#00FF9C]">rithish@portfolio</span>
-                <span className="text-slate-500">:</span>
-                <span className="text-[#00e5ff]">~</span>
-                <span className="text-[#00FF9C]">$</span>
-                <span className="text-slate-400">&nbsp;</span>
+                <span className="text-white">:</span>
+                <span className="text-[#38bdf8]">~</span>
+                <span className="text-white">$</span>
+                <span className="text-white">&nbsp;</span>
               </span>
-              <span className="text-white font-mono break-all font-medium">
+              <span className="text-white font-mono break-all font-medium text-xs sm:text-[13px]">
                 {item.command}
               </span>
             </div>
 
-            {/* Execution status & stdout */}
-            {item.command !== '' && (
-              <div className="space-y-1 pl-2 sm:pl-3 pt-0.5">
-                {item.status && (
-                  <div className="text-[10px] text-slate-500 select-none">
-                    [{item.status} &bull; {item.timestamp}]
-                  </div>
-                )}
-                {item.output && (
-                  <div
-                    className={`font-mono leading-relaxed pl-2.5 border-l ${
-                      item.isError
-                        ? 'text-rose-400 border-rose-500/40'
-                        : 'border-[#00FF9C]/25'
-                    }`}
-                  >
-                    {renderStdout(item.output)}
-                  </div>
-                )}
+            {/* Command stdout output (True Ubuntu Terminal Output) */}
+            {item.command !== '' && item.output && (
+              <div className="space-y-0.5 pt-0.5 pl-1 text-xs sm:text-[13px]">
+                {renderStdout(item.output)}
               </div>
             )}
           </div>
         ))}
 
-        {/* Active Command Execution Loading State */}
+        {/* Short loading text node (Natural query) */}
         {isLoading && (
-          <div className="flex items-center gap-2 pl-2 sm:pl-3 pt-1 text-xs font-mono">
-            <span className="text-[#00FF9C] font-semibold animate-pulse">[ RUNNING ]</span>
-            <span className="text-slate-400">querying assistant engine...</span>
+          <div className="py-0.5 text-xs font-mono text-[#00FF9C] flex items-center gap-1.5 select-none">
+            <span className="animate-pulse">[thinking...]</span>
           </div>
         )}
 
         {/* Active Shell Prompt Line with blinking cursor and placeholder */}
-        <div className="flex items-baseline flex-wrap pt-1.5 gap-y-1">
+        <div className="flex items-baseline flex-wrap pt-1 gap-y-1">
           <span className="font-bold select-none shrink-0 font-mono text-xs sm:text-[13px]">
             <span className="text-[#00FF9C]">rithish@portfolio</span>
-            <span className="text-slate-500">:</span>
-            <span className="text-[#00e5ff]">~</span>
-            <span className="text-[#00FF9C]">$</span>
-            <span className="text-slate-400">&nbsp;</span>
+            <span className="text-white">:</span>
+            <span className="text-[#38bdf8]">~</span>
+            <span className="text-white">$</span>
+            <span className="text-white">&nbsp;</span>
           </span>
 
-          <form onSubmit={handleSubmit} className="flex-1 min-w-[120px] inline-flex items-baseline">
+          <form onSubmit={handleSubmit} className="flex-1 min-w-[140px] inline-flex items-baseline">
             <input
               ref={inputRef}
               type="text"
@@ -470,35 +441,22 @@ Try asking:
               spellCheck={false}
               autoComplete="off"
               autoFocus
-              placeholder="Type a question about Rithish..."
+              placeholder="Ask anything about Rithish..."
               className="w-full bg-transparent text-white font-mono text-xs sm:text-[13px] focus:outline-none border-none p-0 m-0 caret-[#00FF9C] placeholder:text-slate-600 placeholder:font-mono placeholder:text-xs sm:placeholder:text-[13px]"
             />
           </form>
         </div>
       </div>
 
-      {/* Terminal Status Bar (Minimal Fixed Footer with Clickable Flip Action) */}
-      <div className="px-3.5 py-1.5 bg-[#080d0c] border-t border-[#00FF9C]/10 flex items-center justify-between text-[11px] text-slate-400 select-none rounded-b-xl shrink-0">
-        <span className="flex items-center gap-1.5">
+      {/* Terminal Status Bar (Minimal Ubuntu Shell Footer - No duplicate button) */}
+      <div className="px-3.5 py-1.5 bg-[#080d0c] border-t border-[#00FF9C]/10 flex items-center justify-between text-[11px] text-slate-400 select-none rounded-b-xl shrink-0 font-mono">
+        <span className="flex items-center gap-1.5 text-slate-400 text-[10px] sm:text-[11px]">
           <span className="w-1.5 h-1.5 rounded-full bg-[#00FF9C] inline-block animate-pulse" />
-          <span className="text-slate-300 font-mono text-[10px] sm:text-[11px]">PORTFOLIO_TTY</span>
+          <span>bash</span>
         </span>
-        <div className="flex items-center gap-2">
-          <span className="hidden sm:inline text-[10px] text-slate-500">
-            ENTER: submit &bull; &uarr;&darr;: history
-          </span>
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              if (onFlip) onFlip();
-            }}
-            className="flex items-center gap-1 text-[10px] sm:text-[11px] font-mono font-bold text-[#00FF9C] hover:text-black hover:bg-[#00FF9C] bg-[#00FF9C]/10 border border-[#00FF9C]/40 px-2 py-0.5 rounded transition-all cursor-pointer shadow-[0_0_8px_rgba(0,255,156,0.15)]"
-          >
-            <RotateCw className="w-2.5 h-2.5" />
-            <span>[ ↻ FLIP CARD ]</span>
-          </button>
-        </div>
+        <span className="text-[10px] sm:text-[11px] text-slate-500">
+          ENTER: submit &bull; &uarr;&darr;: history &bull; &apos;help&apos; for commands
+        </span>
       </div>
     </div>
   );

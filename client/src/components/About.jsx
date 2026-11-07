@@ -67,14 +67,15 @@ const About = () => {
                   </div>
                   <button
                     type="button"
-                    className="text-[11px] sm:text-xs text-[#00e5ff] hover:text-black hover:bg-[#00e5ff] font-mono font-bold flex items-center gap-1.5 bg-[#00e5ff]/15 px-2.5 py-1 rounded border border-[#00e5ff]/40 shadow-[0_0_12px_rgba(0,229,255,0.25)] transition-all cursor-pointer group"
+                    className="text-[10px] sm:text-xs text-[#00ff9d] font-mono flex items-center gap-1.5 bg-[#00ff9d]/10 hover:bg-[#00ff9d]/20 px-2.5 py-1 rounded border border-[#00ff9d]/30 hover:border-[#00ff9d] transition-colors cursor-pointer"
                     onClick={(e) => {
                       e.stopPropagation();
                       setIsLeftFlipped(false);
                     }}
+                    title="Flip back to terminal"
                   >
-                    <RotateCw className="w-3 h-3 text-[#00e5ff] group-hover:rotate-180 transition-transform duration-500" />
-                    <span>FLIP TO TERMINAL</span>
+                    <RotateCw className="w-3 h-3 text-[#00ff9d]" />
+                    <span>TAP TO FLIP</span>
                   </button>
                 </div>
 
