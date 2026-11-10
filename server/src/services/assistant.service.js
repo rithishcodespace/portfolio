@@ -161,18 +161,22 @@ Repo:      https://github.com/rithishcodespace/RAGForge`;
   if (q.includes('askdb')) {
     return `AskDB
 -----
-AI-powered natural-language database assistant via MCP and LangGraph.
+Agentic, self-healing AI database platform via MCP and LangGraph.
 
 Key features:
-  - Natural-language database interaction
-  - Schema-aware agent workflow
-  - MCP tool integration
+  - Natural language to validated SQL execution
+  - Autonomous self-healing ReAct agent loop
+  - Model Context Protocol (MCP) database tools
+  - Hybrid RAG over schemas & constraints
+  - PostgreSQL, MySQL, and SQLite support
 
 Tech stack:
-  Python       LangGraph
-  MCP          SQLAlchemy
+  React 19     Tailwind v4  LangGraph
+  Python       MCP          Express.js
+  PostgreSQL   MySQL        SQLite
 
-Repo: https://github.com/rithishcodespace/AskDB`;
+Live Demo: https://askdb.rithish.site
+Repo:      https://github.com/rithishcodespace/AskDB`;
   }
 
   if (q.includes('backup') || q.includes('db backup')) {
@@ -211,8 +215,9 @@ Humming Tone (2026)
   Tech: Node.js, TypeScript, PostgreSQL, Redis, Docker, AWS
 
 AskDB (2026)
-  AI natural-language database assistant via MCP and LangGraph.
-  Tech: Python, LangGraph, MCP, SQLAlchemy
+  Agentic self-healing AI database platform via MCP & LangGraph.
+  Tech: React 19, LangGraph, MCP, Python, PostgreSQL, MySQL, SQLite
+  Live: https://askdb.rithish.site
   Repo: https://github.com/rithishcodespace/AskDB`;
   }
 

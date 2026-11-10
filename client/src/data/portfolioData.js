@@ -315,6 +315,30 @@ export const portfolioData = {
       },
 
       {
+        fileName: 'askdb',
+        title: 'AskDB',
+        period: '2026',
+        icon: 'database',
+        color: 'sky',
+
+        bullets: [
+          'Architected an agentic, self-healing AI database platform translating natural language questions into validated SQL queries with real-time execution and structured tabular results.',
+          'Engineered a LangGraph ReAct agent workflow with autonomous self-correction, capturing schema validation and execution errors to automatically heal and retry queries.',
+          'Implemented high-dimensional Hybrid RAG over database schemas, metadata, and constraints to ensure accurate column mapping with zero hallucination.',
+          'Integrated Model Context Protocol (MCP) compliant database tools for standardized schema inspection and safe read-only SQL execution across PostgreSQL, MySQL, and SQLite.',
+          'Built an interactive database vault featuring connection pooling, masked credentials, a real-time schema explorer, paginated audit query history, and in-place SQL/result view swapping.',
+        ],
+
+        techStack:
+          'React 19, Vite, Tailwind CSS v4, LangGraph, Model Context Protocol (MCP), Python, Express.js, PostgreSQL, MySQL, SQLite, Hybrid RAG',
+
+        image: '/images/askdb.jpg',
+        liveUrl: 'https://askdb.rithish.site',
+        repoUrl: 'https://github.com/rithishcodespace/AskDB',
+        isHighlighted: true,
+      },
+
+      {
         fileName: 'humming-tone',
         title: 'Humming Tone',
         period: '2026',

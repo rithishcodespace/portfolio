@@ -18,7 +18,7 @@
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
-    "test": "npm test",
+    "test": "echo \"No test specified\" && exit 0",
     "start": "nodemon src/server.js"
   },
   "dependencies": {

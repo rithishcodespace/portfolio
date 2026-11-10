@@ -169,23 +169,27 @@
     {
       "name": "AskDB",
       "year": "2026",
-      "description": "AI-powered natural-language database assistant that allows users to interact with connected databases through conversational queries. Uses an agent workflow to understand questions, retrieve database schema context, select tools, and execute database operations through a Model Context Protocol integration.",
+      "description": "Agentic, self-healing AI database platform translating natural language questions into validated SQL queries with real-time execution, schema exploration, and audit history.",
       "tech_stack": [
-        "Python",
+        "React 19",
+        "Vite",
+        "Tailwind CSS v4",
         "LangGraph",
-        "LangChain",
         "Model Context Protocol (MCP)",
-        "SQLAlchemy",
-        "SQL",
-        "LLM APIs",
-        "Streamable HTTP"
+        "Python",
+        "Express.js",
+        "PostgreSQL",
+        "MySQL",
+        "SQLite",
+        "Hybrid RAG"
       ],
       "highlights": [
-        "Implemented an MCP client and server using the Streamable HTTP transport.",
-        "Built database connectivity using SQLAlchemy.",
-        "Designed an agent workflow that reasons about user questions and selects relevant tools.",
-        "Integrated schema retrieval and tool execution into the database question-answering workflow."
+        "LangGraph ReAct agent workflow with autonomous self-correction for syntax and execution errors.",
+        "Model Context Protocol (MCP) compliant database tools for standardized schema inspection and safe SQL execution.",
+        "Schema-aware Hybrid RAG ensuring accurate column mapping with zero hallucination.",
+        "Interactive database vault with connection pooling, real-time schema explorer, and paginated query audit history."
       ],
+      "live_url": "https://askdb.rithish.site",
       "repository": "https://github.com/rithishcodespace/AskDB"
     },
     {
